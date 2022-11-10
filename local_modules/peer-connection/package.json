@@ -1,0 +1,46 @@
+{
+  "name": "peer-connection",
+  "version": "1.0.0",
+  "description": "Peer connection library",
+  "main": "dist/peer-connection.js",
+  "types": "dist/peer-connection.d.ts",
+  "scripts": {
+    "lint": "eslint src/**/*.{js,ts} tests/**/*.{js,ts}",
+    "test": "jest",
+    "test:unit": "npm run lint && npm run test",
+    "build": "webpack --mode=production --node-env=production --config webpack.config.js",
+    "build:dev": "webpack --mode=development --config webpack.config.js",
+    "build:prod": "webpack --mode=production --node-env=production --config webpack.config.js",
+    "watch": "webpack --watch",
+    "serve": "webpack serve",
+    "doc": "typedoc --out docs src/*.ts src/types/*"
+  },
+  "author": "",
+  "license": "ISC",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-typescript": "^7.15.0",
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/parser": "^4.31.1",
+    "babel-loader": "^8.2.2",
+    "dts-bundle-generator": "^5.9.0",
+    "eslint": "^7.18.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-tsdoc": "^0.2.14",
+    "jest": "^27.1.0",
+    "ts-loader": "^9.2.5",
+    "typedoc": "^0.22.3",
+    "typedoc-plugin-not-exported": "^0.1.6",
+    "types-webpack-bundler": "^1.0.2",
+    "typescript": "^4.3.5",
+    "webpack": "^5.51.1",
+    "webpack-cli": "^4.8.0"
+  }
+}

@@ -1,0 +1,245 @@
+{
+  "settings": {
+    "snackbar": {
+      "applied": "Impostazioni applicate"
+    },
+    "apply": "Applicare",
+    "general": "Generale",
+    "notifications": {
+      "title": "Notifiche",
+      "description": "Avvisami sulle nuove funzionalità"
+    },
+    "sound": {
+      "title": "Suono",
+      "description": "Riproduci suonerie per le chiamate in entrata e in uscita"
+    },
+    "title": "è l'app SPA con funzionalità WebRTC.",
+    "Notifications": "Notifiche",
+    "Notification enable": "Avvisami sulle nuove funzionalità",
+    "Sound enable": "Riproduci suonerie per le chiamate in entrata e in uscita",
+    "Language": "Lingua dell'interfaccia",
+    "English": "English",
+    "Italian": "Italiana",
+    "system": "Sistema",
+    "systemInfo": {
+      "porta": "PortaSwitch",
+      "janus": "WebTrit Janus",
+      "postgres": "Postgres",
+      "core": "WebTrit Core"
+    }
+  },
+  "status": {
+    "registration": {
+      "unknown": "ignoto",
+      "registering": "registrazione",
+      "registration_failed": "registrazione fallita",
+      "registered": "registrato",
+      "unregistering": "annullamento della registrazione",
+      "unregistered": "non registrato"
+    }
+  },
+  "errors": {
+    "account_session_issue": "La tua sessione non è valida",
+    "not_found": "Il tuo account non è stato trovato",
+    "account.call_history.parameters_invalid": "I filtri forniti non possono essere elaborati",
+    "account.update_info.parameters_invalid": "I dati forniti non sono validi",
+    "phone_not_found": "Il telefono non è stato trovato",
+    "empty_email": "L'email non è stata fornita",
+    "otp_id_not_found": "Nessun OTP fornito per la verifica",
+    "otp_id_verified": "Verifica OTP non riuscita",
+    "code_incorrect": "Verifica del codice non riuscita",
+    "account_not_found": "Il tuo account non è stato trovato",
+    "external_api_issue": "Errore del server",
+    "not_allowed_data": "Al momento non hai accesso a questi dati",
+    "contact_not_found": "Contatto non trovato",
+    "call_history_empty": "La cronologia delle chiamate è vuota",
+    "contacts_empty": "I contatti sono vuoti",
+    "not_allowed_page": {
+      "description": "Al momento non hai accesso a questa pagina.",
+      "hint": "Contatta il tuo amministratore per risolvere il problema."
+    },
+    "record_not_found": "Il record della chiamata non è stato trovato",
+    "logout": "Disconnessione non riuscita, la sessione deve essere scaduta",
+    "date": "La data da deve essere inferiore alla Data a",
+    "webrtc": "Errore WebRTC ...",
+    "parameters_validate_issue": {
+      "page": {
+        "minimum": "Il numero di pagina non può essere inferiore a 1",
+        "invalid_type": "Il numero di pagina deve essere un numero intero"
+      },
+      "itemsPerPage": {
+        "minimum": "Il numero di elementi per pagina non può essere inferiore a 1",
+        "invalid_type": "Gli elementi per numero di pagina devono essere un numero intero "
+      },
+      "type": {
+        "invalid_enum": "Errore interno, contattare l'assistenza"
+      },
+      "firstname": {
+        "max_length": "Il nome non deve superare i 120 caratteri"
+      },
+      "lastname": {
+        "max_length": "Il cognome non deve superare i 120 caratteri"
+      },
+      "email": {
+        "max_length": "L'e-mail non deve superare i 128 caratteri"
+      },
+      "mobile": {
+        "max_length": "Il numero di cellulare non deve superare i 21 caratteri"
+      },
+      "company_name": {
+        "max_length": "Il nome dell'azienda non deve superare i 100 caratteri"
+      }
+    },
+    "parameters_apply_issue": "I dati inseriti non possono essere elaborati",
+    "not_authorized": "La tua sessione è scaduta, effettua il login",
+    "ice_slowlink": {
+      "weak": "La connessione è debole",
+      "poor": "La connessione è scarsa"
+    }
+  },
+  "menu": {
+    "Account": "Utenza",
+    "Info": "Info",
+    "Contacts": "Contatti",
+    "Recent Calls": "Chiamate Recenti",
+    "Settings": "Impostazioni",
+    "Home": "Pagina Iniziale",
+    "Call History": "Registro chiamate",
+    "Call Record": "Record di Chiamata",
+    "All": "Tutte",
+    "Missed": "Perse",
+    "Favorites": "Preferite",
+    "Logout": "Disconnettersi"
+  },
+  "user": {
+    "Status": "Stato",
+    "Registration": "Registrazione",
+    "Extension": "Interno",
+    "Number": "Numero",
+    "Balance": "Saldo",
+    "About": "Riguardo",
+    "Ext": "Interno",
+    "Email": "E-Mail",
+    "Mobile": "Numero di Cellulare",
+    "Company": "Azienda",
+    "Name": "Nome",
+    "Actions": "Azioni",
+    "First Name": "Nome",
+    "Last Name": "Cognome",
+    "Registration Status": "Stato di registrazione",
+    "Unknown": "Sconosciuto"
+  },
+  "call": {
+    "Name": "Nome",
+    "Connect Time": "Connetti il tempo",
+    "Duration": "Durata",
+    "Actions": "Azioni",
+    "Today": "Oggi",
+    "Yesterday": "Ieri",
+    "Last": "Ultime 10 chiamate effettuate",
+    "Missed": "Hai perso una chiamata",
+    "Unanswered": "La tua chiamata non ha ricevuto risposta",
+    "Not Succeed": "La chiamata non è andata a buon fine"
+  },
+  "button": {
+    "Call back": "Richiama",
+    "Refresh": "Ricaricare",
+    "OK": "Ok",
+    "Cancel": "Annulla",
+    "Proceed": "Procedere",
+    "Verify": "Verificare",
+    "Try": "Provare",
+    "Resend": "Reinvia codice",
+    "Copy": "Copia negli appunti",
+    "Apply": "Applicare",
+    "Return": "Ritornare",
+    "Transfer": "Trasferimento"
+  },
+  "data": {
+    "Loading": "Caricamento in corso",
+    "No results": "Nessun risultato corrispondente trovato"
+  },
+  "placeholder": {
+    "Name or number": "Digita un nome o un numero per trovare il contatto"
+  },
+  "label": {
+    "Sort": "Ordinare",
+    "Date from": "Dalla data",
+    "Date to": "Fino alla data",
+    "Phone": "Inserisci il tuo numero di telefono",
+    "Verification": "Inserisci il codice di verifica",
+    "Email": "Inserisci il tuo indirizzo email",
+    "Online": "In linea",
+    "Offline": "Disconnesso"
+  },
+  "login": {
+    "Sign in": "Registrati",
+    "Demo": "Demo",
+    "Phone required": "E' richiesto il numero di telefono",
+    "Phone": "Il tuo numero di telefono",
+    "Verification": "Codice di verifica",
+    "Verification required": "Il codice di verifica è obbligatorio",
+    "Get started": "Inizia con",
+    "Email": "La tua E-mail",
+    "Verification message": "Un codice di verifica è stato inviato a questo numero",
+    "Email required": "E-mail richiesta",
+    "E-mail valid": "L'E-Mail deve essere valida"
+  },
+  "slides": {
+    "How to call": "Come eseguire una chiamata:",
+    "Select contact": "Seleziona una persona dall'elenco dei contatti",
+    "Video call": "Fare clic per accedere al menu Informazioni e fare clic su Videochiamata",
+    "Quick call": "Chiamata rapida con un clic",
+    "Call record": "Come ottenere un record di chiamata:",
+    "Info menu": "1 - Dal menu Info",
+    "Call history": "2 - Dalla cronologia delle chiamate",
+    "Missed call": "Come scoprire chi ti ha chiamato mentre eri via:",
+    "Recent Calls": "Nel riquadro di destra troverai 'Chiamate recenti' un/'icona rossa indica una chiamata persa"
+  },
+  "modal": {
+    "Balance": "Il tuo saldo",
+    "Phone": "Numero di telefono",
+    "Video Call": "Videochiamata con",
+    "Incoming": "In arrivo ...",
+    "Calling": "Stò Chiamando ...",
+    "Unknown": "Sconosciuto...",
+    "Accepted": "Accettata",
+    "Hangup": "Riattaccare",
+    "Audio Call": "Chiamata audio con",
+    "keypad": "tastiera",
+    "attended": "assistito",
+    "transfer": "trasferimento",
+    "hold": "in attesa",
+    "resume call": "riprendere chiamata",
+    "mute": "muto",
+    "unmute": "riattiva l'audio",
+    "stop video": "stop",
+    "start video": "start",
+    "recording": "registrazione",
+    "time": "tempo",
+    "end call": "fine chiamata",
+    "On hold": "In attesa",
+    "accept": "accettare",
+    "decline": "rifiutata"
+  },
+  "account": {
+    "updated": "I tuoi dati sono stati aggiornati con successo"
+  },
+  "call_errors": {
+    "400": "Fallito a causa di un errore di protocollo",
+    "401": "Richiesta non autorizzata",
+    "480": "Il chiamato non è al momento disponibile",
+    "486": "Il chiamato è occupato",
+    "603": "Errore di trasferimento",
+    "4000": "Connessione persa a causa di un problema di segnalazione",
+    "1011": "Connessione persa a causa di un problema di segnalazione ",
+    "open_err": "Errore durante la connessione a un server di segnalazione ",
+    "media": "Errore durante l'accesso ai dispositivi multimediali",
+    "remote_desc": "Errore durante l'impostazione della descrizione remota"
+  },
+  "call_msgs": {
+    "200": "Trasferimento riuscito",
+    "100": "Esecuzione del trasferimento",
+    "486": "La persona chiamata ha rifiutato la chiamata"
+  }
+}

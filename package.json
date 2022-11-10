@@ -1,0 +1,76 @@
+{
+  "name": "webtrit_dialer",
+  "version": "0.4.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "build:dev": "vue-cli-service build --mode development",
+    "test:unit": "vue-cli-service test:unit",
+    "test:e2e": "vue-cli-service test:e2e",
+    "lint": "vue-cli-service lint",
+    "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
+  },
+  "dependencies": {
+    "@mdi/font": "^5.9.55",
+    "@vue/composition-api": "^1.0.0-beta.26",
+    "@webtrit/webtrit-signaling": "^0.4.0",
+    "axios": "^0.21.1",
+    "core-js": "^3.8.2",
+    "date-fns": "^2.23.0",
+    "date-fns-tz": "^1.1.6",
+    "peer-connection": "file:local_modules/peer-connection",
+    "roboto-fontface": "*",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
+    "vue": "^2.6.12",
+    "vue-gravatar": "^1.3.1",
+    "vue-gtm": "3.1.1-vue2",
+    "vue-i18n": "^8.22.4",
+    "vue-router": "^3.4.9",
+    "vuetify": "^2.4.2",
+    "vuex": "^3.6.0",
+    "vuex-persist": "^3.1.3"
+  },
+  "devDependencies": {
+    "@intlify/vue-i18n-loader": "^1.0.0",
+    "@tailwindcss/postcss7-compat": "^2.0.2",
+    "@vue/cli-plugin-babel": "^4.5.10",
+    "@vue/cli-plugin-e2e-cypress": "^4.5.10",
+    "@vue/cli-plugin-eslint": "^4.5.10",
+    "@vue/cli-plugin-router": "^4.5.10",
+    "@vue/cli-plugin-unit-jest": "^4.5.10",
+    "@vue/cli-plugin-vuex": "^4.5.10",
+    "@vue/cli-service": "^4.5.10",
+    "@vue/test-utils": "^1.1.2",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.18.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-vue": "^7.4.1",
+    "exports-loader": "^1.1.1",
+    "husky": "^4.3.8",
+    "lint-staged": "^10.5.3",
+    "postcss": "^7.0.35",
+    "postcss-preset-env": "^6.7.0",
+    "sass": "^1.32.4",
+    "sass-loader": "^10.1.1",
+    "stylelint": "^13.8.0",
+    "stylelint-config-standard": "^20.0.0",
+    "vue-cli-plugin-i18n": "~1.0.1",
+    "vue-cli-plugin-vuetify": "^2.0.9",
+    "vue-template-compiler": "^2.6.12",
+    "vuetify-loader": "^1.6.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,vue}": [
+      "vue-cli-service lint",
+      "git add"
+    ]
+  }
+}

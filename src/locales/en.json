@@ -1,0 +1,266 @@
+{
+  "settings": {
+    "snackbar": {
+      "applied": "Settings applied"
+    },
+    "apply": "Apply",
+    "general": "General",
+    "notifications": {
+      "title": "Notifications",
+      "description": "Notify me about new features"
+    },
+    "sound": {
+      "title": "Sound",
+      "description": "Play ringtones on incoming and outgoing calls"
+    },
+    "title": "is the SPA app with WebRTC functionality.",
+    "Notifications": "Notifications",
+    "Notification enable": "Notify me about new features",
+    "Sound enable": "Play ringtones on incoming and outgoing calls",
+    "Language": "Interface language",
+    "English": "English",
+    "Italian": "Italian",
+    "system": "System",
+    "systemInfo": {
+      "porta": "PortaSwitch",
+      "janus": "WebTrit Janus",
+      "postgres": "Postgres",
+      "core": "WebTrit Core"
+    }
+  },
+  "status": {
+    "registration": {
+      "unknown": "unknown",
+      "registering": "registering",
+      "registration_failed": "registration failed",
+      "registered": "registered",
+      "unregistering": "unregistering",
+      "unregistered": "unregistered"
+    }
+  },
+  "errors": {
+    "account_session_issue": "Your session is invalid",
+    "not_found": "Your account has not been found",
+    "account.call_history.parameters_invalid": "Provided filters cannot be processed",
+    "account.update_info.parameters_invalid": "Provided data is invalid",
+    "phone_not_found": "Phone has not been found",
+    "empty_email": "Email has not been provided",
+    "otp_id_not_found": "OTP has not been provided for verification",
+    "otp_id_verified": "OTP verification failed",
+    "code_incorrect": "Code verification failed",
+    "account_not_found": "Your account has not been found",
+    "external_api_issue": "Server error",
+    "not_allowed_data": "Currently you don’t have access to this data",
+    "contact_not_found": "Contact not found",
+    "call_history_empty": "Call history is empty",
+    "contacts_empty": "Contacts are empty",
+    "not_allowed_page": {
+      "description": "You don't have access to this page at the moment.",
+      "hint": "Please contact your administrator to solve the issue."
+    },
+    "record_not_found": "Call record has not been found",
+    "logout": "Logging out failed, your session must have expired",
+    "date": "Date from must be less than Date to",
+    "webrtc": "WebRTC error...",
+    "parameters_validate_issue": {
+      "page": {
+        "minimum": "The page number cannot be less than 1",
+        "invalid_type": "The page number must be an integer"
+      },
+      "itemsPerPage": {
+        "minimum": "The number of items per page cannot be less than 1",
+        "invalid_type": "The items per page number must be an integer"
+      },
+      "type": {
+        "invalid_enum": "Internal error, please contact support"
+      },
+      "firstname": {
+        "max_length": "The first name must not exceed 120 characters"
+      },
+      "lastname": {
+        "max_length": "The last name must not exceed 120 characters"
+      },
+      "email": {
+        "max_length": "The e-mail must not exceed 128 characters"
+      },
+      "mobile": {
+        "max_length": "The mobile number must not exceed 21 characters"
+      },
+      "company_name": {
+        "max_length": "The company name must not exceed 100 characters"
+      }
+    },
+    "parameters_apply_issue": "Input data can't be processed",
+    "not_authorized": "Your session expired, please log in",
+    "otp_id_verify_attempts_exceeded": "Attempts exceeded, please press 'Resend code' below",
+    "ice_slowlink": {
+      "weak": "Connection is weak",
+      "poor": "Connection is poor"
+    }
+  },
+  "menu": {
+    "Account": "Account",
+    "Info": "Info",
+    "Contacts": "Contacts",
+    "Recent Calls": "Recent Calls",
+    "Settings": "Settings",
+    "Home": "Home",
+    "Call History": "Call History",
+    "Call Record": "Call Record",
+    "All": "All",
+    "Missed": "Missed",
+    "Favorites": "Favorites",
+    "Logout": "Logout"
+  },
+  "user": {
+    "Status": "Status",
+    "Registration": "Registration",
+    "Extension": "Extension",
+    "Number": "Number",
+    "Balance": "Balance",
+    "About": "About",
+    "Ext": "Ext",
+    "Email": "Email",
+    "Mobile": "Mobile",
+    "Company": "Company",
+    "Name": "Name",
+    "Actions": "Actions",
+    "First Name": "First Name",
+    "Last Name": "Last Name",
+    "Registration Status": "Registration status",
+    "Unknown": "Unknown"
+  },
+  "call": {
+    "Name": "Name",
+    "Connect Time": "Connect Time",
+    "Duration": "Duration",
+    "Actions": "Actions",
+    "Today": "Today",
+    "Yesterday": "Yesterday",
+    "Last": "Last 10 calls made",
+    "Missed": "You missed a call",
+    "Unanswered": "Your call wasn't answered",
+    "Not Succeed": "The call didn't succeed"
+  },
+  "button": {
+    "Call back": "Call back",
+    "Refresh": "Refresh",
+    "OK": "OK",
+    "Cancel": "Cancel",
+    "Proceed": "Proceed",
+    "Verify": "Verify",
+    "Try": "Try",
+    "Resend": "resend code",
+    "Copy": "Copy to clipboard",
+    "Apply": "Apply",
+    "Return": "Return",
+    "Transfer": "Transfer"
+  },
+  "data": {
+    "Loading": "Loading",
+    "No results": "No matching results found"
+  },
+  "placeholder": {
+    "Name or number": "Type a name or number to find the contact"
+  },
+  "label": {
+    "Sort": "Sort",
+    "Date from": "Date from",
+    "Date to": "Date to",
+    "Phone": "Enter your phone number",
+    "Verification": "Enter the verification code",
+    "Email": "Enter your email",
+    "Online": "Online",
+    "Offline": "Offline"
+  },
+  "login": {
+    "Sign in": "Sign in",
+    "Demo": "Sign up for demo",
+    "Phone required": "The phone number is required",
+    "Phone": "Please provide your phone number",
+    "Free account request note in html": "Signing with your phone number requires an existing account. You can request a free account by contacting <span class=\"font-bold\">PortaOne</span> at <a href = \"mailto:sales@porta.one  \">sales@porta.one</a>.",
+    "Demo account note in html": "As an alternative to registration, you may also simply click <span class=\"font-bold\">DEMO</span> where you can get access right away simply by using your email address.",
+    "If exist account": "If you have an account.",
+    "If no account": "If you do not have an account yet, it will be automatically created for you.",
+    "OTP will be sent signup": "A verification code will be sent to the email you provided.",
+    "OTP will be sent sign in": "A verification code will be sent to an email address, associated with your phone number.",
+    "Check spam or": "If you do not see an email from support@portaone.com in your inbox - check your spam folder or",
+    "Verification": "Verification code",
+    "Verification required": "The verification code is required",
+    "Get started": "Get started with",
+    "Email": "Please provide your Email",
+    "Verification message": "A verification code has been sent to this number",
+    "Email required": "E-mail is required",
+    "E-mail valid": "E-mail must be valid",
+    "New code": "New code has been sent"
+  },
+  "edit": {
+    "Tel Invalid": "Mobile number cannot exceed 21 characters",
+    "Name Invalid": "Name cannot exceed 120 characters",
+    "Email Invalid": "Email is invalid",
+    "Email Length": "Email cannot exceed 128 characters",
+    "Company Invalid": "Company name cannot exceed 100 characters",
+    "Form Invalid": "Provided data is not valid"
+  },
+  "slides": {
+    "How to call": "How to make a call:",
+    "Select contact": "Select a person from the contact list",
+    "Video call": "Click to enter the Info menu and click Video call",
+    "Quick call": "Quick call in one click",
+    "Call record": "How to get a call record:",
+    "Info menu": "1 - From the Info menu",
+    "Call history": "2 - From the Call history",
+    "Missed call": "How to find out who called you while you were away:",
+    "Recent Calls": "In the right pane you will find 'Recent calls', and a red icon indicates a missed call"
+  },
+  "modal": {
+    "Balance": "Your balance",
+    "Phone": "Phone number",
+    "Video Call": "Video Call with",
+    "Incoming": "Incoming...",
+    "Calling": "Calling...",
+    "Unknown": "Unknown...",
+    "Accepted": "Accepted",
+    "Hangup": "Hangup",
+    "Audio Call": "Audio call with",
+    "keypad": "keypad",
+    "attended": "attended",
+    "transfer": "transfer",
+    "hold": "hold",
+    "resume call": "resume",
+    "mute": "mute",
+    "unmute": "unmute",
+    "stop video": "stop",
+    "start video": "start",
+    "recording": "recording",
+    "time": "time",
+    "end call": "end call",
+    "On hold": "On hold",
+    "accept": "accept",
+    "decline": "decline"
+  },
+  "account": {
+    "updated": "Your data has been successfully updated"
+  },
+  "connection": {
+    "lost": "Connection with server is lost",
+    "restored": "Connection with server is restored"
+  },
+  "call_errors": {
+    "400": "Failed due to a protocol error",
+    "401": "Unauthorized request",
+    "480": "The callee is currently unavailable",
+    "486": "The callee is busy",
+    "603": "Transfer error",
+    "4000": "Lost connection due to a signalling problem",
+    "1011": "Lost connection due to a signalling problem",
+    "open_err": "Error connecting to a signalling server",
+    "media": "Error accessing media devices",
+    "remote_desc": "Error setting the remote description"
+  },
+  "call_msgs": {
+    "200": "Transfer succeeded",
+    "100": "Performing transfer",
+    "486": "Callee declined the call"
+  }
+}
