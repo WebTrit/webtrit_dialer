@@ -23,14 +23,6 @@
       @updateUserData="updateUserData($event)"
       @show-errors="setServerErrors($event)"
     />
-    <ActionBtns
-      :action-btns-disabled="actionBtnsDisabled"
-      :user="user"
-      :form-valid="formValid"
-      @prefillInfo="prefillUserInfo()"
-      @disableActionBtns="disableActionBtns()"
-      @show-errors="setServerErrors($event)"
-    />
   </div>
   <v-container
     class="user-account--mobile"
@@ -57,14 +49,6 @@
       @enableActionBtns="enableActionBtns()"
       @show-errors="setServerErrors($event)"
     />
-    <ActionBtns
-      :action-btns-disabled="actionBtnsDisabled"
-      :user="user"
-      :form-valid="formValid"
-      @prefillInfo="prefillUserInfo()"
-      @disableActionBtns="disableActionBtns()"
-      @show-errors="setServerErrors($event)"
-    />
   </v-container>
 </template>
 
@@ -72,7 +56,6 @@
 import { mapGetters } from 'vuex'
 import { breakpoints } from '@/mixins'
 import PanelAppBar from '@/components/Layout/PanelAppBar.vue'
-import ActionBtns from '@/components/Edit-Account/ActionBtns.vue'
 import Avatar from '@/components/Shared/Avatar.vue'
 import InfoList from '@/components/Edit-Account/InfoList.vue'
 import InfoInputs from '@/components/Edit-Account/InfoInputs.vue'
@@ -81,7 +64,6 @@ export default {
   components: {
     PanelAppBar,
     Avatar,
-    ActionBtns,
     InfoList,
     InfoInputs,
   },
