@@ -72,7 +72,9 @@ async function initPeerConnection({ commit, dispatch, call_id }) {
         handleCleanEvent({ commit }, call_id)
         commit('setSessionError', `${error.code} - ${error.message}`)
       } else {
-        snackbarShow(dispatch, `${error.code} - ${error.message}`)
+        if (![701].includes(error.code)) {
+          snackbarShow(dispatch, `${error.code} - ${error.message}`)
+        }
       }
     },
     addStreamCallback: (stream, isRemote) => {
