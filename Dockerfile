@@ -1,5 +1,5 @@
 # build stage
-FROM node:lts-alpine AS build-stage
+FROM node:lts-alpine3.15 AS build-stage
 
 RUN apk add --no-cache \
     git \
