@@ -90,13 +90,15 @@ Currently, it supports the following values:
 ### Run
 
 ```bash
+docker build --tag webtrit-dialer .
+
 docker run --detach --restart always \
 --name webtrit-dialer \
 --env VUE_APP_WEBTRIT_COMPANY_NAME="WebTrit" \
 --env VUE_APP_WEBTRIT_CORE_URL="https://core.webtrit.com" \
 -p 127.0.0.1:4001:80 \
 --mount type=bind,source=<directory with overwrited and added files>,target=/usr/share/nginx/html_overwrite \
-.
+webtrit-dialer
 ```
 
 ### Image
