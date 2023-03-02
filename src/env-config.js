@@ -10,7 +10,7 @@ const envConfig = {
 
   isSigninBehaviourEnabled: (
     !process.env.VUE_APP_DEMO_BEHAVIOUR
-      || ['false', 'disable', 'mix', 'both'].includes(process.env.VUE_APP_DEMO_BEHAVIOUR.toLowerCase())
+      || ['', 'false', 'disable', 'mix', 'both'].includes(process.env.VUE_APP_DEMO_BEHAVIOUR.toLowerCase())
   ) || false,
 
   webtritAppName: process.env.VUE_APP_WEBTRIT_APP_NAME,
