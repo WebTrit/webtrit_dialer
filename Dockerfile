@@ -20,13 +20,6 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
-
-RUN cd ./local_modules/peer-connection \
-    && npm install \
-    && npm run build \
-    && npm link \
-    && cd ../../ \
-    && npm link peer-connection
 RUN npm run build
 
 

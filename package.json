@@ -19,7 +19,6 @@
     "core-js": "^3.8.2",
     "date-fns": "^2.23.0",
     "date-fns-tz": "^1.1.6",
-    "peer-connection": "file:local_modules/peer-connection",
     "roboto-fontface": "*",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
     "vue": "^2.6.12",
