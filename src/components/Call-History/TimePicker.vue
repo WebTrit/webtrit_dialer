@@ -59,7 +59,7 @@ export default {
     },
   },
   data: () => ({
-    date: new Date().toISOString().substr(0, 10),
+    date: new Date().toISOString().substring(0, 10),
     modal: false,
     savedDate: '',
   }),
@@ -92,7 +92,7 @@ export default {
       return date.match(/(.*)T/)[1]
     },
     clear() {
-      this.date = new Date().toISOString().substr(0, 10)
+      this.date = new Date().toISOString().substring(0, 10)
       this.savedDate = undefined
       this.$refs.dialog.save(this.date)
       this.$emit('update-date', this.savedDate)

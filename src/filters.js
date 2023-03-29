@@ -32,7 +32,7 @@ function getDateTime(item) {
 Vue.filter('prettySeconds', (item) => {
   const sec = item.duration
   function pad(num, size) {
-    return num.toString().padStart(size, 0)
+    return num.toString().padStart(size, '0')
   }
 
   const hoursPart = Math.floor(sec / 60 / 60)
@@ -79,10 +79,10 @@ Vue.filter('getDateTime', (item) => {
 })
 
 Vue.filter('convertToDay', (item) => {
-  const today = new Date().toISOString().substr(0, 10)
+  const today = new Date().toISOString().substring(0, 10)
   let yesterday = new Date()
   yesterday.setDate(yesterday.getDate() - 1)
-  yesterday = yesterday.toISOString().substr(0, 10)
+  yesterday = yesterday.toISOString().substring(0, 10)
   if (item.date === today) {
     return i18n.t('call.Today')
   } else if (item.date === yesterday) {
@@ -136,7 +136,7 @@ Vue.filter('getIconColor', (item) => {
 
 Vue.filter('formatTime', (seconds) => {
   function pad(num, size) {
-    return num.toString().padStart(size, 0)
+    return num.toString().padStart(size, '0')
   }
 
   const hoursPart = Math.floor(seconds / 60 / 60)

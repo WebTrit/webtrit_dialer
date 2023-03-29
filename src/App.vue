@@ -111,7 +111,7 @@ export default {
   },
 
   async mounted() {
-    this.isLogin && this.$_contacts_getContacts()
+    this.isLogin && await this.$_contacts_getContacts()
   },
 
   methods: {
@@ -138,7 +138,7 @@ export default {
       this.userNavigationVisible = false
     },
     setLanguage() {
-      const defaultLang = String(navigator.language).substr(0, 2)
+      const defaultLang = String(navigator.language).substring(0, 2)
       const supportedLangs = ['en', 'it']
       const selectedLang = supportedLangs.includes(defaultLang) ? defaultLang : this.$i18n.fallbackLocale
       this.$root.$i18n.locale = selectedLang

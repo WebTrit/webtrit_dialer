@@ -2,10 +2,10 @@
 import Vue from 'vue'
 import { envConfig } from '@/env-config'
 import WebtritSignaling from '@webtrit/webtrit-signaling'
-import PeerConnection from 'peer-connection'
 import i18n from '@/plugins/i18n'
 import { getErrorCode } from '@/store/helpers'
 import axios from 'axios'
+import PeerConnection from './webrtc_pc'
 
 let webtritSignalingClient = null
 let peerConnection = null
@@ -53,11 +53,11 @@ function handleCleanEvent({ commit }, call_id) {
   }
 }
 
-async function initPeerConnection({ commit, dispatch, call_id }) {
-  return new PeerConnection({
-    iceCandidateCallback: (candidate) => {
+function initPeerConnection({ commit, dispatch, call_id }) {
+  const pc = new PeerConnection({
+    iceCandidateCallback: async (candidate) => {
       try {
-        webtritSignalingClient.execute('ice_trickle', {
+        await webtritSignalingClient.execute('ice_trickle', {
           line: 0,
           candidate,
         })
@@ -77,7 +77,7 @@ async function initPeerConnection({ commit, dispatch, call_id }) {
         }
       }
     },
-    addStreamCallback: (stream, isRemote) => {
+    addTrackCallback: (stream, isRemote) => {
       if (isRemote) {
         commit('setRemoteStream', stream)
         console.info('Set remote stream', stream)
@@ -87,13 +87,15 @@ async function initPeerConnection({ commit, dispatch, call_id }) {
       }
     },
   })
+  pc.create()
+  return pc
 }
 
-function handleIncomingCall({ commit, dispatch, event }, isCallActive) {
+async function handleIncomingCall({ commit, dispatch, event }, isCallActive) {
   console.log(event)
   console.log('Active call: ', isCallActive)
   if (isCallActive) {
-    webtritSignalingClient.execute('hangup', {
+    await webtritSignalingClient.execute('hangup', {
       line: event.line,
       call_id: event.call_id,
     })
@@ -185,19 +187,19 @@ function handleIceEvent({ dispatch, event }) {
 }
 
 // eslint-disable-next-line no-unused-vars
-function handleChangeCall({ commit, dispatch, event }) {
+function handleChangeCall({ event }) {
   console.log('handleChangeCall', event)
 }
 
 // eslint-disable-next-line no-unused-vars
-function handleNotifyEvent({ commit, dispatch, event }) {
+function handleNotifyEvent({ dispatch, event }) {
   console.log('handleNotifyEvent', event)
   const [, code] = event.content.split(' ')
   let message
   if (i18n.getLocaleMessage(i18n.locale)?.call_msgs
       && i18n.getLocaleMessage(i18n.locale).call_msgs[code]) {
     message = i18n.getLocaleMessage(i18n.locale).call_msgs[code]
-  } else if (i18n.getLocaleMessage(i18n.fallbackLocale).call_msgs[code]) {
+  } else if (typeof i18n.fallbackLocale === 'string' && i18n.getLocaleMessage(i18n.fallbackLocale).call_msgs[code]) {
     message = i18n.getLocaleMessage(i18n.fallbackLocale).call_msgs[code]
   } else {
     message = i18n.t(`call_errors["${getErrorCode(+code)}"]`)
@@ -357,17 +359,17 @@ const actions = {
     })
     if (webtritSignalingClient === null) {
       webtritSignalingClient = new WebtritSignaling({
-        eventCallback: (event) => {
+        eventCallback: async (event) => {
           console.log('Event callback', event)
           switch (event.type) {
             case eventType.IncomingCall:
-              handleIncomingCall({ commit, dispatch, event }, getters.isCallActive)
+              await handleIncomingCall({ commit, dispatch, event }, getters.isCallActive)
               break
             case eventType.OutgoingCall:
               handleOutgoingCall({ dispatch, event })
               break
             case eventType.AcceptedCall:
-              handleAcceptedCall({ commit, dispatch, event })
+              await handleAcceptedCall({ commit, dispatch, event })
               break
             case eventType.HangupCall:
               handleHangupCall({ commit, dispatch, event })
@@ -444,12 +446,11 @@ const actions = {
       const media = { audio: true, video: !!video }
       const call_id = webtritSignalingClient.generateCallId()
       try {
-        peerConnection = await initPeerConnection({ commit, dispatch, call_id })
-        await peerConnection.create()
+        peerConnection = initPeerConnection({ commit, dispatch, call_id })
         await peerConnection.setLocalStreams(media)
         await peerConnection.createOffer()
         const sdp = peerConnection.getLocalDescription()
-        if (peerConnection.isNoErrors) {
+        if (peerConnection.noError()) {
           await webtritSignalingClient.execute('outgoing_call', {
             line: 0,
             call_id,
@@ -476,8 +477,7 @@ const actions = {
     const call_id = getters.getCallId
     const in_sdp = getters.getIncomingCallJsep
     try {
-      peerConnection = await initPeerConnection({ commit, dispatch, call_id })
-      await peerConnection.create()
+      peerConnection = initPeerConnection({ commit, dispatch, call_id })
       await peerConnection.setLocalStreams(media)
       if (in_sdp) {
         await peerConnection.setRemoteDescription(in_sdp)
@@ -485,8 +485,8 @@ const actions = {
       } else {
         await peerConnection.createOffer()
       }
-      const sdp = await peerConnection.getLocalDescription()
-      if (peerConnection.isNoErrors) {
+      const sdp = peerConnection.getLocalDescription()
+      if (peerConnection.noError()) {
         await webtritSignalingClient.execute('accept', {
           line: 0,
           call_id,
@@ -503,14 +503,14 @@ const actions = {
       console.error(e)
     }
   },
-  drop({ getters }) {
+  async drop({ getters }) {
     if (getters.isCallIncoming && !getters.isCallAccepted) {
-      webtritSignalingClient.execute('decline', {
+      await webtritSignalingClient.execute('decline', {
         line: 0,
         call_id: getters.getCallId,
       })
     } else {
-      webtritSignalingClient.execute('hangup', {
+      await webtritSignalingClient.execute('hangup', {
         line: 0,
         call_id: getters.getCallId,
       })
@@ -521,8 +521,8 @@ const actions = {
       peerConnection.sendDtmf(tones)
     }
   },
-  transfer({ getters }, number) {
-    webtritSignalingClient.execute('transfer', {
+  async transfer({ getters }, number) {
+    await webtritSignalingClient.execute('transfer', {
       line: 0,
       call_id: getters.getCallId,
       number,
@@ -531,23 +531,23 @@ const actions = {
   mute({ commit }, { enabled, video }) {
     if (peerConnection) {
       if (video) {
-        peerConnection.muteVideo(enabled)
+        peerConnection.mute('video', enabled)
         commit('setVideoEnabled', enabled)
       } else {
-        peerConnection.muteAudio(enabled)
+        peerConnection.mute('audio', enabled)
         commit('setAudioEnabled', enabled)
       }
     }
   },
-  hold({ getters }, { active }) {
+  async hold({ getters }, { active }) {
     if (active) {
-      webtritSignalingClient.execute('hold', {
+      await webtritSignalingClient.execute('hold', {
         line: 0,
         call_id: getters.getCallId,
         direction: 'inactive',
       })
     } else {
-      webtritSignalingClient.execute('unhold', {
+      await webtritSignalingClient.execute('unhold', {
         line: 0,
         call_id: getters.getCallId,
       })
