@@ -417,7 +417,9 @@ const actions = {
           handleCleanEvent({ commit }, getters.getCallId)
           if (code !== WS_CLOSE_CODE_UNREGISTER) {
             if (code === WS_CLOSE_CODE_ATTACH_ERROR) {
-              reason = 'active connection has already been made on another tab'
+              reason = 'It looks like the Dialer has already been opened in another tab.\n'
+                  + 'Please go to the previously open one. If you are sure that all tabs are closed please '
+                  + 'contact your administrator.'
             } else if (code === WS_CLOSE_CODE_MISSED_CREDENTIALS) {
               reason = 'billing account credentials missed <br> please contact your administrator to solve the issue'
             }
