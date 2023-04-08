@@ -26,22 +26,22 @@
             active-class="secondary--text"
             background-color="transparent"
             slider-color="secondary"
-            :hide-slider="!(demoEnabled && signinEnabled)"
+            :hide-slider="!(signupEnabled && otpSignInEnabled)"
           >
             <v-tab
-              v-if="demoEnabled"
+              v-if="signupEnabled"
               class="login-form__tab"
               :ripple="false"
-              :class="{ 'login-form__tab--no-hover': !demoEnabled }"
+              :class="{ 'login-form__tab--no-hover': !signupEnabled }"
             >
               {{ $t('login.Demo') }}
             </v-tab>
 
             <v-tab
-              v-if="signinEnabled"
+              v-if="otpSignInEnabled"
               class="login-form__tab"
               :ripple="false"
-              :class="{ 'login-form__tab--no-hover': !signinEnabled }"
+              :class="{ 'login-form__tab--no-hover': !otpSignInEnabled }"
             >
               {{ $t('login.Sign in') }}
             </v-tab>
@@ -49,10 +49,10 @@
             <v-tabs-items
               v-model="tab"
             >
-              <v-tab-item v-if="demoEnabled">
+              <v-tab-item v-if="signupEnabled">
                 <Demo v-bind="$props" />
               </v-tab-item>
-              <v-tab-item v-if="signinEnabled">
+              <v-tab-item v-if="otpSignInEnabled">
                 <SignIn v-bind="$props" />
               </v-tab-item>
             </v-tabs-items>
@@ -104,15 +104,15 @@ export default {
   },
   data() {
     return {
-      tab: (this.$envConfig.isDemoBehaviourEnabled && this.demoEmail !== null) ? 1 : 0,
+      tab: (this.$envConfig.isSignupEnabled && this.demoEmail !== null) ? 1 : 0,
     }
   },
   computed: {
-    demoEnabled() {
-      return this.$envConfig.isDemoBehaviourEnabled
+    signupEnabled() {
+      return this.$envConfig.isSignupEnabled
     },
-    signinEnabled() {
-      return this.$envConfig.isSigninBehaviourEnabled
+    otpSignInEnabled() {
+      return this.$envConfig.isOtpSignInEnabled
     },
     appName() {
       return this.$envConfig.webtritAppName
