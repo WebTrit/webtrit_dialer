@@ -3,14 +3,14 @@ const envConfig = {
     process.env.VUE_APP_GTM && process.env.VUE_APP_GTM.split(',').map((v) => v.trim()).filter((v) => v)
   ) || [],
 
-  isDemoBehaviourEnabled: (
+  isSignupEnabled: (
     process.env.VUE_APP_DEMO_BEHAVIOUR
-      && ['true', 'enable', 'mix', 'both'].includes(process.env.VUE_APP_DEMO_BEHAVIOUR.toLowerCase())
+      && ['true', 'enable', 'mix', 'both', 'all'].includes(process.env.VUE_APP_DEMO_BEHAVIOUR.toLowerCase())
   ) || false,
 
-  isSigninBehaviourEnabled: (
+  isOtpSignInEnabled: (
     !process.env.VUE_APP_DEMO_BEHAVIOUR
-      || ['', 'false', 'disable', 'mix', 'both'].includes(process.env.VUE_APP_DEMO_BEHAVIOUR.toLowerCase())
+      || ['', 'false', 'disable', 'mix', 'both', 'all'].includes(process.env.VUE_APP_DEMO_BEHAVIOUR.toLowerCase())
   ) || false,
 
   webtritAppName: process.env.VUE_APP_WEBTRIT_APP_NAME,

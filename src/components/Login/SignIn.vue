@@ -135,7 +135,7 @@ export default {
   },
   computed: {
     demoEnabled() {
-      return this.$envConfig.isDemoBehaviourEnabled
+      return this.$envConfig.isSignupEnabled
     },
   },
   methods: {
