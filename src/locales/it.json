@@ -170,12 +170,15 @@
     "Verification": "Inserisci il codice di verifica",
     "Email": "Inserisci il tuo indirizzo email",
     "Online": "In linea",
-    "Offline": "Disconnesso"
+    "Offline": "Disconnesso",
+    "Login": "Inserisci il login dell'utente",
+    "Password": "Immettere la password dell'utente"
   },
   "login": {
     "Sign in": "Registrati",
     "Demo": "Demo",
     "Phone required": "E' richiesto il numero di telefono",
+    "Login required": "E' richiesto il login",
     "Phone": "Il tuo numero di telefono",
     "Verification": "Codice di verifica",
     "Verification required": "Il codice di verifica è obbligatorio",
