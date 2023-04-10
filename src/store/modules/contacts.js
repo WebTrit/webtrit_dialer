@@ -43,8 +43,7 @@ const mutations = {
     state.fetchError = val
   },
   setFavoriteNumbers(state, { nums, login }) {
-    const tmpFavorites = { ...state.favorites, [login]: nums }
-    state.favorites = tmpFavorites
+    state.favorites = { ...state.favorites, [login]: nums }
     window.localStorage.setItem('favorites', JSON.stringify(state.favorites))
   },
 }
@@ -54,7 +53,8 @@ const actions = {
     const r = await axios.get('/account/contacts', {
       params,
     })
-    context.commit('setItems', r.data.data)
+    console.log('Contacts:', r.data)
+    context.commit('setItems', r.data)
   },
 }
 

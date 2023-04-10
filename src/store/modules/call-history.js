@@ -62,12 +62,12 @@ const actions = {
     const r = await axios.get('/account/call-history', {
       params,
     })
-    context.commit('setItems', r.data.data)
-    context.commit('setPagination', r.data.pagination)
+    context.commit('setItems', r.data)
+    context.commit('setPagination', r.pagination)
   },
   async getCallRecord(context, id) {
     const r = await axios.get(`/account/call-record/${id}`, { responseType: 'blob' })
-    return r.data
+    return r
   },
 }
 

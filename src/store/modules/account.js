@@ -60,17 +60,21 @@ const mutations = {
 const actions = {
   async requestDemoOtp(context, payload) {
     const r = await axios.post('/session/otp-request-demo', payload)
-    return r.data.otp_id
+    return r.otp_id
   },
   async requestOtp(context, payload) {
     const r = await axios.post('/session/otp-request', payload)
-    return r.data.otp_id
+    return r.otp_id
   },
   async verifyOtp(context, payload) {
     const r = await axios.post('/session/otp-verify', payload)
-    return r.data.token
+    return r.token
   },
-  async login(context, token) {
+  async requestLogin(context, payload) {
+    const r = await axios.post('/session', payload)
+    return r.token
+  },
+  async storeToken(context, token) {
     context.commit('updateToken', token)
   },
   async logout({ state, commit, dispatch }) {
@@ -91,25 +95,25 @@ const actions = {
   },
   async getInfo({ commit, dispatch }) {
     const r = await axios.get('/account/info')
-    commit('updateInfo', r.data.data)
+    commit('updateInfo', r.data)
     dispatch('updateBalanceData')
   },
   async updateBalanceData({ state, commit }) {
     if (!state.updateBalanceInterval) {
       const updateBalanceInterval = setInterval(async () => {
         const r = await axios.get('/account/info')
-        commit('updateBalance', r.data.data.balance)
+        commit('updateBalance', r.data.balance)
       }, 60000)
       commit('updateBalanceInterval', updateBalanceInterval)
     } else {
       const r = await axios.get('/account/info')
-      commit('updateBalance', r.data.data.balance)
+      commit('updateBalance', r.data.balance)
     }
   },
   async editInfo({ commit }, data) {
     await axios.patch('/account/info', data)
     const r = await axios.get('/account/info')
-    commit('updateInfo', r.data.data)
+    commit('updateInfo', r.data)
   },
 }
 
