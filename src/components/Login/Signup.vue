@@ -1,17 +1,17 @@
 <template>
   <v-container class="p-0">
     <v-form
-      ref="demo-form"
+      ref="signup-form"
       @submit.prevent
     >
       <p
-        class="demo-form__title mt-9 text-gray-600"
+        class="signup-form__title mt-9 text-gray-600"
         v-html="$t('login.If no account')"
       />
-      <v-row :class="{ 'demo-form__content--mobile' : $vuetify.breakpoint.xs }">
+      <v-row :class="{ 'signup-form__content--mobile' : $vuetify.breakpoint.xs }">
         <v-col>
           <v-text-field
-            class="demo-form__input"
+            class="signup-form__input"
             v-model="email"
             color="secondary"
             :rules="emailRules"
@@ -23,10 +23,10 @@
             @keyup.enter="provideEmail()"
           />
         </v-col>
-        <v-col class="demo-form__btn-container">
+        <v-col class="signup-form__btn-container">
           <v-btn
             v-if="!otpId"
-            class="demo-form__btn"
+            class="signup-form__btn"
             color="accent"
             :disabled="emailProcessing || email.length < 1"
             :loading="emailProcessing"
@@ -38,16 +38,16 @@
           </v-btn>
           <span
             v-else
-            class="demo-form__msg"
+            class="signup-form__msg"
           > {{ $t('login.Verification message') }} </span>
         </v-col>
       </v-row>
       <v-row
-        :class="{ 'demo-form__content--mobile' : $vuetify.breakpoint.xs }"
+        :class="{ 'signup-form__content--mobile' : $vuetify.breakpoint.xs }"
       >
         <v-col>
           <p
-            class="demo-form__msg"
+            class="signup-form__msg"
             v-html="$t('login.OTP will be sent signup')"
           />
         </v-col>
@@ -58,10 +58,10 @@
       ref="verification-form"
       @submit.prevent
     >
-      <v-row :class="{ 'demo-form__content--mobile' : $vuetify.breakpoint.xs }">
+      <v-row :class="{ 'signup-form__content--mobile' : $vuetify.breakpoint.xs }">
         <v-col>
           <v-text-field
-            class="demo-form__input"
+            class="signup-form__input"
             v-model="otp"
             color="secondary"
             :rules="otpRules"
@@ -73,9 +73,9 @@
             @keyup.enter="verifyReceivedOtp()"
           />
         </v-col>
-        <v-col class="demo-form__btn-container">
+        <v-col class="signup-form__btn-container">
           <v-btn
-            class="demo-form__btn"
+            class="signup-form__btn"
             color="accent"
             :disabled="otpProcessing || otp.length < 1"
             :loading="otpProcessing"
@@ -88,13 +88,13 @@
         </v-col>
       </v-row>
       <v-row
-        :class="{ 'demo-form__content--mobile' : $vuetify.breakpoint.xs }"
+        :class="{ 'signup-form__content--mobile' : $vuetify.breakpoint.xs }"
       >
         <v-col>
-          <p class="demo-form__msg">
+          <p class="signup-form__msg">
             {{ $t('login.Check spam or') }} <span
-              class="demo-form__resend"
-              :class="[ $vuetify.breakpoint.xs ? 'demo-form__resend--mobile' : 'demo-form__resend']"
+              class="signup-form__resend"
+              :class="[ $vuetify.breakpoint.xs ? 'signup-form__resend--mobile' : 'signup-form__resend']"
               @click="resendCode()"
             >
               {{ $t('button.Resend') }}
@@ -113,14 +113,14 @@ import { contacts, errors } from '@/mixins'
 export default {
   mixins: [contacts, errors],
   props: {
-    demoEmail: {
+    signupEmail: {
       type: String,
       default: null,
     },
   },
   data() {
     return {
-      email: this.demoEmail || '',
+      email: this.signupEmail || '',
       emailProcessing: false,
       emailErrorMessages: null,
       otp: '',
@@ -154,7 +154,7 @@ export default {
         return
       }
       this.emailErrorMessages = null
-      if (this.$refs['demo-form'].validate()) {
+      if (this.$refs['signup-form'].validate()) {
         this.emailProcessing = true
         try {
           const { identifier } = this.$store.state
@@ -182,7 +182,7 @@ export default {
             otp_id: this.otpId,
             code: this.otp,
           })
-          await this.$store.dispatch('account/login', token)
+          await this.$store.dispatch('account/storeToken', token)
           await this.$router.push({ name: 'Home' })
           await this.$_contacts_getContacts()
         } catch (e) {
@@ -197,7 +197,7 @@ export default {
         return
       }
       this.emailErrorMessages = null
-      if (this.$refs['demo-form'].validate()) {
+      if (this.$refs['signup-form'].validate()) {
         this.emailProcessing = true
         try {
           const { identifier } = this.$store.state
@@ -228,11 +228,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.demo-form__title {
+.signup-form__title {
   @apply text-sm font-medium;
 }
 
-.demo-form__btn {
+.signup-form__btn {
   min-width: 160px #{ !important };
 
   @apply shadow-none;
@@ -244,34 +244,34 @@ export default {
   @apply text-white #{!important};
 }
 
-.demo-form__input {
+.signup-form__input {
   min-width: 250px #{ !important };
 }
 
-.demo-form__msg {
+.signup-form__msg {
   min-width: 160px;
 
   @apply text-gray-500 text-sm block;
 }
 
-.demo-form__resend {
+.signup-form__resend {
   @apply m-0 text-gray-600 underline cursor-pointer inline;
 }
 
-.demo-form__btn-container {
+.signup-form__btn-container {
   @apply flex-grow-0;
 }
 
-.demo-form__content--mobile {
+.signup-form__content--mobile {
   @apply flex-col;
 
-  .demo-form__btn-container {
+  .signup-form__btn-container {
     @apply pt-0 -mt-4 #{!important};
   }
 }
 
 .login__row--mobile {
-  .demo-form__btn {
+  .signup-form__btn {
     @apply min-w-full #{!important};
   }
 }

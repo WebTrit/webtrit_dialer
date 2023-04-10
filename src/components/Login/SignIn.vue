@@ -1,17 +1,17 @@
 <template>
   <v-container class="p-0">
     <v-form
-      ref="signin-form"
+      ref="sign-in-form"
       @submit.prevent
     >
       <p
-        class="signin-form__title mt-9 text-gray-600"
+        class="sign-in-form__title mt-9 text-gray-600"
         v-html="$t('login.If exist account')"
       />
-      <v-row :class="{ 'signin-form__content--mobile' : $vuetify.breakpoint.xs }">
+      <v-row :class="{ 'sign-in-form__content--mobile' : $vuetify.breakpoint.xs }">
         <v-col>
           <v-text-field
-            class="signin-form__input"
+            class="sign-in-form__input"
             v-model="phoneNumber"
             color="secondary"
             :rules="phoneRules"
@@ -23,10 +23,10 @@
             @keyup.enter="providePhoneNumber()"
           />
         </v-col>
-        <v-col class="signin-form__btn-container">
+        <v-col class="sign-in-form__btn-container">
           <v-btn
             v-if="!otpId"
-            class="signin-form__btn"
+            class="sign-in-form__btn"
             color="accent"
             :disabled="phoneNumberProcessing || phoneNumber.length < 1"
             :loading="phoneNumberProcessing"
@@ -38,17 +38,17 @@
           </v-btn>
           <span
             v-else
-            class="signin-form__msg"
+            class="sign-in-form__msg"
           > {{ $t('login.Verification message') }} </span>
         </v-col>
       </v-row>
       <v-row
         v-if="demoEnabled"
-        :class="{ 'signin-form__content--mobile' : $vuetify.breakpoint.xs }"
+        :class="{ 'sign-in-form__content--mobile' : $vuetify.breakpoint.xs }"
       >
         <v-col>
           <p
-            class="signin-form__msg"
+            class="sign-in-form__msg"
             v-html="$t('login.OTP will be sent sign in')"
           />
         </v-col>
@@ -59,13 +59,13 @@
       ref="verification-form"
       @submit.prevent
     >
-      <p class="signin-form__title mt-3">
+      <p class="sign-in-form__title mt-3">
         {{ $t('login.Verification') }}
       </p>
-      <v-row :class="{ 'signin-form__content--mobile' : $vuetify.breakpoint.xs }">
+      <v-row :class="{ 'sign-in-form__content--mobile' : $vuetify.breakpoint.xs }">
         <v-col>
           <v-text-field
-            class="signin-form__input"
+            class="sign-in-form__input"
             v-model="otp"
             color="secondary"
             :rules="otpRules"
@@ -77,9 +77,9 @@
             @keyup.enter="verifyReceivedOtp()"
           />
         </v-col>
-        <v-col class="signin-form__btn-container">
+        <v-col class="sign-in-form__btn-container">
           <v-btn
-            class="signin-form__btn"
+            class="sign-in-form__btn"
             color="accent"
             :disabled="otpProcessing || otp.length < 1"
             :loading="otpProcessing"
@@ -92,13 +92,13 @@
         </v-col>
       </v-row>
       <v-row
-        :class="{ 'signin-form__content--mobile' : $vuetify.breakpoint.xs }"
+        :class="{ 'sign-in-form__content--mobile' : $vuetify.breakpoint.xs }"
       >
         <v-col>
-          <p class="signin-form__msg">
+          <p class="sign-in-form__msg">
             {{ $t('login.Check spam or') }} <span
-              class="signin-form__resend"
-              :class="[ $vuetify.breakpoint.xs ? 'signin-form__resend--mobile' : 'signin-form__resend']"
+              class="sign-in-form__resend"
+              :class="[ $vuetify.breakpoint.xs ? 'sign-in-form__resend--mobile' : 'sign-in-form__resend']"
               @click="resendCode()"
             >
               {{ $t('button.Resend') }}
@@ -145,7 +145,7 @@ export default {
         return
       }
       this.phoneNumberErrorMessages = null
-      if (this.$refs['signin-form'].validate()) {
+      if (this.$refs['sign-in-form'].validate()) {
         this.phoneNumberProcessing = true
         try {
           const { identifier } = this.$store.state
@@ -174,7 +174,7 @@ export default {
             otp_id: this.otpId,
             code: this.otp,
           })
-          await this.$store.dispatch('account/login', token)
+          await this.$store.dispatch('account/storeToken', token)
           await this.$router.push({ name: 'Home' })
           await this.$_contacts_getContacts()
         } catch (e) {
@@ -190,7 +190,7 @@ export default {
         return
       }
       this.phoneNumberErrorMessages = null
-      if (this.$refs['signin-form'].validate()) {
+      if (this.$refs['sign-in-form'].validate()) {
         this.phoneNumberProcessing = true
         try {
           const { identifier } = this.$store.state
@@ -222,11 +222,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.signin-form__title {
+.sign-in-form__title {
   @apply text-sm font-medium;
 }
 
-.signin-form__btn {
+.sign-in-form__btn {
   min-width: 160px #{ !important };
 
   @apply shadow-none;
@@ -238,37 +238,37 @@ export default {
   @apply text-white #{!important};
 }
 
-.signin-form__input {
+.sign-in-form__input {
   min-width: 250px #{ !important };
 }
 
-.signin-form__msg {
+.sign-in-form__msg {
   min-width: 160px;
 
   @apply text-gray-400 text-sm block;
 }
 
-.signin-form__resend {
+.sign-in-form__resend {
   @apply m-0 text-gray-600 underline cursor-pointer inline;
 }
 
-.signin-form__resend--mobile {
-  @apply signin-form__resend;
+.sign-in-form__resend--mobile {
+  @apply sign-in-form__resend;
   @apply mt-3;
 }
 
-.signin-form__btn-container {
+.sign-in-form__btn-container {
   @apply flex-grow-0;
 }
 
-.signin-form__content--mobile {
+.sign-in-form__content--mobile {
   @apply flex-col;
 
-  .signin-form__btn-container {
+  .sign-in-form__btn-container {
     @apply pt-0 -mt-4 #{!important};
   }
 
-  .signin-form__btn {
+  .sign-in-form__btn {
     @apply min-w-full #{!important};
   }
 }

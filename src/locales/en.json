@@ -171,12 +171,16 @@
     "Verification": "Enter the verification code",
     "Email": "Enter your email",
     "Online": "Online",
-    "Offline": "Offline"
+    "Offline": "Offline",
+    "Login": "Enter user login",
+    "Password": "Enter user password"
   },
   "login": {
     "Sign in": "Sign in",
+    "OTP Sign in": "Sign in using OTP",
     "Demo": "Sign up for demo",
     "Phone required": "The phone number is required",
+    "Login required": "The login is required",
     "Phone": "Please provide your phone number",
     "Free account request note in html": "Signing with your phone number requires an existing account. You can request a free account by contacting <span class=\"font-bold\">PortaOne</span> at <a href = \"mailto:sales@porta.one  \">sales@porta.one</a>.",
     "Demo account note in html": "As an alternative to registration, you may also simply click <span class=\"font-bold\">DEMO</span> where you can get access right away simply by using your email address.",

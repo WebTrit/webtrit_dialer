@@ -13,6 +13,11 @@ const envConfig = {
       || ['', 'false', 'disable', 'mix', 'both', 'all'].includes(process.env.VUE_APP_DEMO_BEHAVIOUR.toLowerCase())
   ) || false,
 
+  isPasswordSignInEnabled: (
+    process.env.VUE_APP_DEMO_BEHAVIOUR
+      && ['all'].includes(process.env.VUE_APP_DEMO_BEHAVIOUR.toLowerCase())
+  ) || false,
+
   webtritAppName: process.env.VUE_APP_WEBTRIT_APP_NAME,
   webtritAppSubname: process.env.VUE_APP_WEBTRIT_APP_SUBNAME,
   webtritAppVersion: process.env.VUE_APP_WEBTRIT_APP_VERSION,

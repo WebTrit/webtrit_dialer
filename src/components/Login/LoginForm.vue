@@ -43,6 +43,15 @@
               :ripple="false"
               :class="{ 'login-form__tab--no-hover': !otpSignInEnabled }"
             >
+              {{ $t('login.OTP Sign in') }}
+            </v-tab>
+
+            <v-tab
+              v-if="passwordSignInEnabled"
+              class="login-form__tab"
+              :ripple="false"
+              :class="{ 'login-form__tab--no-hover': !passwordSignInEnabled }"
+            >
               {{ $t('login.Sign in') }}
             </v-tab>
 
@@ -54,6 +63,9 @@
               </v-tab-item>
               <v-tab-item v-if="otpSignInEnabled">
                 <SignIn v-bind="$props" />
+              </v-tab-item>
+              <v-tab-item v-if="passwordSignInEnabled">
+                <LoginSignIn v-bind="$props" />
               </v-tab-item>
             </v-tabs-items>
           </v-tabs>
@@ -88,12 +100,14 @@
 <script>
 import { breakpoints } from '@/mixins'
 import SignIn from '@/components/Login/SignIn.vue'
-import Demo from '@/components/Login/Demo.vue'
+import Demo from '@/components/Login/Signup.vue'
+import LoginSignIn from '@/components/Login/LoginSignIn.vue'
 
 export default {
   components: {
     SignIn,
     Demo,
+    LoginSignIn,
   },
   mixins: [breakpoints],
   props: {
@@ -113,6 +127,9 @@ export default {
     },
     otpSignInEnabled() {
       return this.$envConfig.isOtpSignInEnabled
+    },
+    passwordSignInEnabled() {
+      return this.$envConfig.isPasswordSignInEnabled
     },
     appName() {
       return this.$envConfig.webtritAppName
