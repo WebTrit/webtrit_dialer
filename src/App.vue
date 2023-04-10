@@ -169,15 +169,11 @@ export default {
       {
         async handler() {
           if (this.isLogin && !this.info) {
-            await this.getInfo()
             try {
+              await this.getInfo()
               await this.connect()
             } catch (error) {
               console.error('Connection error:', error)
-              if (error.response.status !== 401) {
-                // 401 handled by error interceptor
-                await this.snackbarShow({ message: this.$t(`errors["${error.code}"]`) })
-              }
             }
           }
         },

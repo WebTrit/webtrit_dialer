@@ -52,63 +52,42 @@ const storePersist = new VuexPersistence({
   ),
 })
 
-function handle401Error({ error, store }) {
-  const router = require('@/router').default
-  if (router.currentRoute.name !== 'Login' && !store.state.got401error) {
-    store.commit('set401error', true)
-    router.push({ name: 'Login' })
-    error.code = 'not_authorized'
-    store.dispatch('snackbar/show',
-      { message: i18n.t(`errors["${error.code}"]`) },
-      { root: true })
-  }
-}
-
-export function axiosRejectedResponseInterceptor({ error, store }) {
-  function readAsText(blob) {
-    return new Promise((resolve, reject) => {
-      const fr = new FileReader()
-      fr.onload = () => {
-        resolve(fr.result)
-      }
-      fr.onerror = () => {
-        reject(fr.error)
-      }
-      fr.readAsText(blob)
-    })
-  }
-  if (error.message !== undefined) {
-    store.dispatch('snackbar/show',
-      { message: error.message },
-      { root: true })
-  }
-  if (error.response !== undefined) {
-    if (error.response.data instanceof Blob) {
-      return readAsText(error.response.data)
-        .then((data) => {
-          if (error.response.data.type === 'application/json') {
-            data = JSON.parse(data)
-          }
-          error.response.data = data
-          return Promise.reject(error)
-        })
-    } else if (error.response.status === 401) {
-      handle401Error({
-        error,
-        store,
-      })
-      return Promise.reject(error)
-    }
-  }
-  return Promise.reject(error)
-}
-
 const axiosInitPlugin = (store) => {
   axios.defaults.baseURL = envConfig.webtritCoreApiUrl
 
   axios.interceptors.response.use(
-    (response) => response,
-    (error) => axiosRejectedResponseInterceptor({ error, store }),
+    (response) => {
+      console.log('Get response:', response)
+      return response.data
+    },
+    (error) => {
+      console.log('Get error:', error)
+      console.log('Get error1:', error.message)
+      console.log('Get error2:', error.response)
+      const router = require('@/router').default
+      if (error.response !== undefined) {
+        switch (error.response.status) {
+          case 401:
+            if (router.currentRoute.name !== 'Login' && !store.state.got401error) {
+              store.commit('set401error', true)
+              router.push({ name: 'Login' })
+              store.dispatch('snackbar/show',
+                { message: i18n.t('errors["not_authorized"]') },
+                { root: true })
+            }
+            break
+          case 405:
+            break
+          case 422:
+            break
+          case 500:
+            break
+          default:
+            console.info('Error message:', error.message)
+        }
+      }
+      throw error
+    },
   )
 
   const { token } = store.state.account

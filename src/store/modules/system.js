@@ -21,7 +21,7 @@ const mutations = {
 const actions = {
   async getInfo({ commit }) {
     const r = await axios.get('/info')
-    commit('updateInfo', r.data)
+    commit('updateInfo', r)
   },
 }
 
