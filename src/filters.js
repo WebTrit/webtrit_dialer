@@ -84,9 +84,9 @@ Vue.filter('convertToDay', (item) => {
   yesterday.setDate(yesterday.getDate() - 1)
   yesterday = yesterday.toISOString().substring(0, 10)
   if (item.date === today) {
-    return i18n.t('call.Today')
+    return i18n.t('datetime.Today')
   } else if (item.date === yesterday) {
-    return i18n.t('call.Yesterday')
+    return i18n.t('datetime.Yesterday')
   } else {
     const pattern = store.state.account.info?.out_date_format
     if (pattern) {

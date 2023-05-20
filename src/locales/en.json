@@ -135,12 +135,14 @@
     "Connect Time": "Connect Time",
     "Duration": "Duration",
     "Actions": "Actions",
-    "Today": "Today",
-    "Yesterday": "Yesterday",
     "Last": "Last 10 calls made",
     "Missed": "You missed a call",
     "Unanswered": "Your call wasn't answered",
     "Not Succeed": "The call didn't succeed"
+  },
+  "datetime": {
+    "Today": "Today",
+    "Yesterday": "Yesterday"
   },
   "button": {
     "Call back": "Call back",

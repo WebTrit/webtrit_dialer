@@ -134,12 +134,14 @@
     "Connect Time": "Connetti il tempo",
     "Duration": "Durata",
     "Actions": "Azioni",
-    "Today": "Oggi",
-    "Yesterday": "Ieri",
     "Last": "Ultime 10 chiamate effettuate",
     "Missed": "Hai perso una chiamata",
     "Unanswered": "La tua chiamata non ha ricevuto risposta",
     "Not Succeed": "La chiamata non è andata a buon fine"
+  },
+  "datetime": {
+    "Today": "Oggi",
+    "Yesterday": "Ieri"
   },
   "button": {
     "Call back": "Richiama",
