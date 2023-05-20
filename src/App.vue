@@ -63,6 +63,7 @@ import SideNavigation from '@/components/Main/SideNavigation/SideNavigation.vue'
 import AppBar from '@/components/Main/AppBar.vue'
 import UserInfoNavigation from '@/components/Main/UserInfo/UserInfoNavigation.vue'
 import DialogNumber from '@/components/Home-Contacts/DialogNumber.vue'
+import { defaultLanguage, supportedLanguages } from '@/plugins/i18n'
 
 export default {
   name: 'App',
@@ -138,9 +139,9 @@ export default {
       this.userNavigationVisible = false
     },
     setLanguage() {
-      const defaultLang = String(navigator.language).substring(0, 2)
-      const supportedLangs = ['en', 'it']
-      const selectedLang = supportedLangs.includes(defaultLang) ? defaultLang : this.$i18n.fallbackLocale
+      const defaultLang = defaultLanguage()
+      const supportedLang = supportedLanguages()
+      const selectedLang = supportedLang.includes(defaultLang) ? defaultLang : this.$i18n.fallbackLocale
       this.$root.$i18n.locale = selectedLang
       this.$vuetify.lang.current = selectedLang
       document.documentElement.setAttribute('lang', selectedLang)
