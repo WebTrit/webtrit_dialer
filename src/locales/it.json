@@ -141,7 +141,13 @@
   },
   "datetime": {
     "Today": "Oggi",
-    "Yesterday": "Ieri"
+    "Yesterday": "Ieri",
+    "lastDay": "Ieri alle %LT%",
+    "sameDay": "Oggi alle %LT%",
+    "nextDay": "Domani alle %LT%",
+    "nextWeek": "%D% alle %LT%",
+    "lastWeek": "Ultimo %D% alle %LT%",
+    "oldDay": "%LT%, %L%"
   },
   "button": {
     "Call back": "Richiama",

@@ -65,7 +65,7 @@
           class="call-history__connect-time"
           :class="[!$vuetify.breakpoint.xs? 'ml-5': 'ml-0']"
         >
-          {{ item | getDateTime }}
+          {{ item.connect_time | getCalendar }}
         </span>
       </template>
 

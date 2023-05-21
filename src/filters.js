@@ -29,6 +29,31 @@ function getDateTime(item) {
   }
 }
 
+function getCalendarFormatter(date) {
+  const diff = Math.round(((new Date()).getTime() - date.getTime()) / (24 * 60 * 60 * 1000))
+  switch (true) {
+    case diff < -1:
+      return i18n.t('datetime.lastWeek')
+    case diff < 0:
+      return i18n.t('datetime.lastDay')
+    case diff < 1:
+      return i18n.t('datetime.sameDay')
+    case diff < 2:
+      return i18n.t('datetime.nextDay')
+    case diff < 7:
+      return i18n.t('datetime.nextWeek')
+    default:
+      return i18n.t('datetime.oldDay')
+  }
+}
+
+function replaceValues(str, replacements) {
+  Object.keys(replacements).forEach((key) => {
+    str = str.replace(new RegExp(key, 'g'), replacements[key])
+  })
+  return str
+}
+
 Vue.filter('prettySeconds', (item) => {
   const sec = item.duration
   function pad(num, size) {
@@ -144,4 +169,18 @@ Vue.filter('formatTime', (seconds) => {
   const secondsPart = Math.floor(seconds % 60)
 
   return `${pad(hoursPart, 2)}:${pad(minutesPart, 2)}:${pad(secondsPart, 2)}`
+})
+
+Vue.filter('getCalendar', (dateTime) => {
+  console.log(i18n.locale)
+  const date = new Date(dateTime)
+  const replacements = {
+    '%LT%': date.toLocaleTimeString(i18n.locale),
+    '%L%': date.toLocaleDateString(i18n.locale),
+    '%D%': date.toLocaleString(i18n.locale, { weekday: 'long' }),
+  }
+
+  const str = getCalendarFormatter(date)
+  console.log(str)
+  return replaceValues(str, replacements)
 })

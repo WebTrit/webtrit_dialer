@@ -142,7 +142,13 @@
   },
   "datetime": {
     "Today": "Today",
-    "Yesterday": "Yesterday"
+    "Yesterday": "Yesterday",
+    "lastDay": "Yesterday at %LT%",
+    "sameDay": "Today at %LT%",
+    "nextDay": "Tomorrow at %LT%",
+    "nextWeek": "%D% at %LT%",
+    "lastWeek": "Last %D% at %LT%",
+    "oldDay": "%LT%, %L%"
   },
   "button": {
     "Call back": "Call back",
