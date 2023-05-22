@@ -65,7 +65,7 @@
 
     <template #[`group.header`]="{ items }">
       <hr class="calls__divider">
-      <span class="calls__date secondary--text"> {{ items[0] | convertToDay }} </span>
+      <span class="calls__date secondary--text"> {{ items[0].date | convertToCalendarDay }} </span>
     </template>
 
     <template #item="{ item }">

@@ -7,10 +7,10 @@
       <v-card-text>
         <v-row>
           <v-col class="call-record__subtitle">
-            {{ ($options.filters.prettySeconds(call)) || '00 sec' }}
+            {{ ($options.filters.formatPrettySeconds(call.duration)) || '00 sec' }}
           </v-col>
           <v-col class="call-record__subtitle">
-            {{ call | getDateTime }}
+            {{ call | formatDateTime }}
           </v-col>
         </v-row>
         <v-row>

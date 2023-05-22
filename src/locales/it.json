@@ -147,7 +147,10 @@
     "nextDay": "Domani alle %LT%",
     "nextWeek": "%D% alle %LT%",
     "lastWeek": "Ultimo %D% alle %LT%",
-    "oldDay": "%LT%, %L%"
+    "oldDay": "%LT%, %L%",
+    "hour": "h",
+    "minute": "min",
+    "second": "sec"
   },
   "button": {
     "Call back": "Richiama",

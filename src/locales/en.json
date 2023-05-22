@@ -145,10 +145,11 @@
     "Yesterday": "Yesterday",
     "lastDay": "Yesterday at %LT%",
     "sameDay": "Today at %LT%",
-    "nextDay": "Tomorrow at %LT%",
-    "nextWeek": "%D% at %LT%",
     "lastWeek": "Last %D% at %LT%",
-    "oldDay": "%LT%, %L%"
+    "oldDay": "%LT%, %L%",
+    "hour": "h",
+    "minute": "min",
+    "second": "sec"
   },
   "button": {
     "Call back": "Call back",

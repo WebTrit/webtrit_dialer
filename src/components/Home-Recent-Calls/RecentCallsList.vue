@@ -21,10 +21,10 @@
         <v-row class="container__inner-row">
           <span
             class="container__item-sub-name"
-            v-if="$options.filters.prettySeconds(scopedSlots.contact)"
+            v-if="$options.filters.formatPrettySeconds(scopedSlots.contact.duration)"
           > {{ $t('call.Duration') }}:
             <span>
-              {{ scopedSlots.contact | prettySeconds }}
+              {{ scopedSlots.contact.duration | formatPrettySeconds }}
             </span>
           </span>
           <span
@@ -39,8 +39,8 @@
       <v-col class="recent-calls__col-last">
         <v-row class="container__inner-row">
           <span class="recent-calls__time">
-            {{ scopedSlots.contact | getDate }}
-            {{ scopedSlots.contact | getTime }}
+            {{ scopedSlots.contact.connect_time | formatDate }}
+            {{ scopedSlots.contact.connect_time | formatTime }}
           </span>
         </v-row>
         <v-row class="container__inner-row justify-end">

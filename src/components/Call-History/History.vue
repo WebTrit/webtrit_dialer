@@ -65,12 +65,14 @@
           class="call-history__connect-time"
           :class="[!$vuetify.breakpoint.xs? 'ml-5': 'ml-0']"
         >
-          {{ item.connect_time | getCalendar }}
+          {{ item.connect_time | convertToCalendar }}
         </span>
       </template>
 
       <template #[`item.duration`]="{ item }">
-        {{ item | prettySeconds }}
+        <span class="call-history__duration">
+          {{ item.duration | formatPrettySeconds }}
+        </span>
       </template>
 
       <template #[`item.actions`]="{ item }">
@@ -342,6 +344,10 @@ export default {
 
 .call-history__connect-time {
   @apply text-light-grey inline-block;
+}
+
+.call-history__duration {
+  @apply text-light-grey;
 }
 
 @media screen and (min-width: 600px) and (max-width: 959px) {

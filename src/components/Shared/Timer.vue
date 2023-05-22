@@ -3,7 +3,7 @@
     v-if="callDurationTimer && callDurationInSec"
     class="timer"
   >
-    {{ callDurationInSec | formatTime }}
+    {{ callDurationInSec | formatTimer }}
   </p>
   <p
     class="timer"

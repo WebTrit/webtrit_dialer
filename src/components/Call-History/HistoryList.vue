@@ -31,16 +31,16 @@
                   class="history-list__connect-time"
                   :class="[!$vuetify.breakpoint.xs? 'ml-5': 'ml-0']"
                 >
-                  {{ scopedSlots.contact | getDateTime }}
+                  {{ scopedSlots.contact.connect_time | formatDateTime }}
                 </span>
               </v-col>
             </v-row>
             <v-row class="container__inner-row">
               <v-col
-                v-if="$options.filters.prettySeconds(scopedSlots.contact)"
+                v-if="$options.filters.formatPrettySeconds(scopedSlots.contact.duration)"
                 class="text-xs"
               >
-                Duration: {{ scopedSlots.contact | prettySeconds }}
+                Duration: {{ scopedSlots.contact.duration | formatPrettySeconds }}
               </v-col>
             </v-row>
           </v-col>
