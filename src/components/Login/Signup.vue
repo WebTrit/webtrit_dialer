@@ -39,7 +39,7 @@
           <span
             v-else
             class="signup-form__msg"
-          > {{ $t('login.Verification message') }} </span>
+          > {{ $t('login.Verification message by email') }} </span>
         </v-col>
       </v-row>
       <v-row

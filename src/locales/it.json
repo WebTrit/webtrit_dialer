@@ -201,7 +201,8 @@
     "Verification required": "Il codice di verifica è obbligatorio",
     "Get started": "Inizia con",
     "Email": "La tua E-mail",
-    "Verification message": "Un codice di verifica è stato inviato a questo numero",
+    "Verification message by number": "Un codice di verifica è stato inviato a questo numero",
+    "Verification message by email": "Un codice di verifica è stato inviato a questo email",
     "Email required": "E-mail richiesta",
     "E-mail valid": "L'E-Mail deve essere valida"
   },
