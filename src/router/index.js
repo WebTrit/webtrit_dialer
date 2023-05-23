@@ -63,7 +63,7 @@ const routes = [
         },
       },
       {
-        path: 'calls/:number',
+        path: 'calls/:number?',
         name: 'CallDetails',
         components: {
           ContactDetails,
