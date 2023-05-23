@@ -61,6 +61,7 @@ export default new Vuetify({
       'call-history-incoming-failed': 'mdi-phone-missed',
       'call-history-outgoing': 'mdi-phone-outgoing',
       'call-history-outgoing-failed': 'mdi-phone-alert',
+      'call-history-forward': 'mdi-phone-forward',
       'call-history-unknown': 'mdi-help',
       'call-history-download': 'mdi-download',
       'call-history-play': 'mdi-play',

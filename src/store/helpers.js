@@ -29,7 +29,7 @@ export function getOneContactExt(ext, contacts) {
 }
 
 export function getInterlocutor(item) {
-  if (item.direction === 'incoming') {
+  if (item.direction === 'incoming' || item.direction === 'forwarded') {
     return item.cli
   } else if (item.direction === 'outgoing') {
     return item.cld

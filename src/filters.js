@@ -67,38 +67,44 @@ Vue.filter('formatDateTime', (datetime) => {
 })
 
 Vue.filter('getDirectionTitle', (item) => {
-  if (!item) {
-    return ''
-  } else if (item.direction === 'incoming') {
-    return item.failed ? 'Incoming failed' : 'Incoming'
-  } else if (item.direction === 'outgoing') {
-    return item.failed ? 'Outgoing failed' : 'Outgoing'
-  } else {
-    return 'Unknown'
+  if (!item) return ''
+  switch (item.direction) {
+    case 'incoming':
+      return item.failed ? i18n.t('call.Incoming failed') : i18n.t('call.Incoming')
+    case 'outgoing':
+      return item.failed ? i18n.t('call.Outgoing failed') : i18n.t('call.Outgoing')
+    case 'forwarded':
+      return i18n.t('call.Call forwarded')
+    default:
+      return i18n.t('call.Unknown')
   }
 })
 
 Vue.filter('getDirectionIcon', (item) => {
-  if (!item) {
-    return ''
-  } else if (item.direction === 'incoming') {
-    return item.failed ? '$call-history-incoming-failed' : '$call-history-incoming'
-  } else if (item.direction === 'outgoing') {
-    return item.failed ? '$call-history-outgoing-failed' : '$call-history-outgoing'
-  } else {
-    return '$call-history-unknown'
+  if (!item) return ''
+  switch (item.direction) {
+    case 'incoming':
+      return item.failed ? '$call-history-incoming-failed' : '$call-history-incoming'
+    case 'outgoing':
+      return item.failed ? '$call-history-outgoing-failed' : '$call-history-outgoing'
+    case 'forwarded':
+      return '$call-history-forward'
+    default:
+      return '$call-history-unknown'
   }
 })
 
 Vue.filter('getIconColor', (item) => {
-  if (!item) {
-    return ''
-  } else if (item.direction === 'incoming') {
-    return item.failed ? 'red' : '#1976D2'
-  } else if (item.direction === 'outgoing') {
-    return item.failed ? 'red' : '#43A047'
-  } else {
-    return '#eceff1'
+  if (!item) return ''
+  switch (item.direction) {
+    case 'incoming':
+      return item.failed ? 'red' : '#1976D2'
+    case 'outgoing':
+      return item.failed ? 'red' : '#43A047'
+    case 'forwarded':
+      return 'gray'
+    default:
+      return '#eceff1'
   }
 })
 

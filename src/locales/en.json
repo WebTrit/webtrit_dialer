@@ -138,7 +138,13 @@
     "Last": "Last 10 calls made",
     "Missed": "You missed a call",
     "Unanswered": "Your call wasn't answered",
-    "Not Succeed": "The call didn't succeed"
+    "Not Succeed": "The call didn't succeed",
+    "Incoming": "Incoming",
+    "Outgoing": "Outgoing",
+    "Call forwarded": "Call forwarded",
+    "Incoming failed": "Incoming failed",
+    "Outgoing failed": "Outgoing failed",
+    "Unknown": "Unknown"
   },
   "datetime": {
     "Today": "Today",

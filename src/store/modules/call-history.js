@@ -23,10 +23,10 @@ const getters = {
       initialItems.forEach((item) => {
         const interlocutor = getInterlocutor(item)
         const data = getInterlocutorNumber(interlocutor)
-        const contact = getContact(data, rootGetters)
-        const [date] = item.connect_time.match(/\S+/)
-        item.date = date
-        item.contactInfo = contact
+        item.contactInfo = getContact(data, rootGetters)
+        const date = new Date(item.connect_time)
+        date.setHours(0, 0, 0, 0)
+        item.date = date.toISOString()
         itemsWithContactInfo.push(item)
       })
       return itemsWithContactInfo

@@ -1,4 +1,5 @@
 import { mapMutations, mapActions } from 'vuex'
+import i18n from '@/plugins/i18n'
 
 export const breakpoints = {
   computed: {
@@ -85,12 +86,12 @@ export const contacts = {
 export const calls = {
   methods: {
     $_calls_getInterlocutor(item) {
-      if (item.direction === 'incoming') {
+      if (item.direction === 'incoming' || item.direction === 'forwarded') {
         return item.cli
       } else if (item.direction === 'outgoing') {
         return item.cld
       } else {
-        return 'unknown'
+        return i18n.t('call.Unknown')
       }
     },
     $_calls_getFilename(item) {

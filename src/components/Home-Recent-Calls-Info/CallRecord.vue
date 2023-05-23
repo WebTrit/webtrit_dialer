@@ -10,7 +10,7 @@
             {{ ($options.filters.formatPrettySeconds(call.duration)) || '00 sec' }}
           </v-col>
           <v-col class="call-record__subtitle">
-            {{ call | formatDateTime }}
+            {{ call.connect_time | formatDateTime }}
           </v-col>
         </v-row>
         <v-row>

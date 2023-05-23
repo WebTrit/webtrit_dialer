@@ -137,7 +137,13 @@
     "Last": "Ultime 10 chiamate effettuate",
     "Missed": "Hai perso una chiamata",
     "Unanswered": "La tua chiamata non ha ricevuto risposta",
-    "Not Succeed": "La chiamata non è andata a buon fine"
+    "Not Succeed": "La chiamata non è andata a buon fine",
+    "Incoming": "In entrata",
+    "Outgoing": "Outgoing",
+    "Call forwarded": "Call forwarded",
+    "Incoming failed": "Incoming failed",
+    "Outgoing failed": "Outgoing failed",
+    "Unknown": "Unknown"
   },
   "datetime": {
     "Today": "Oggi",
