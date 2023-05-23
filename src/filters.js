@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import i18n from '@/plugins/i18n'
 
+/**
+ * @param {Date} datetime
+ * @returns {number}
+ */
 function getDiffOnDaysFromNow(datetime) {
   const midnight = new Date()
   datetime.setHours(0, 0, 0, 0)
@@ -8,6 +12,11 @@ function getDiffOnDaysFromNow(datetime) {
   return Math.round(((midnight.getTime()) - datetime.getTime()) / (24 * 60 * 60 * 1000))
 }
 
+/**
+ * @param {string} str
+ * @param {Object} replacements
+ * @returns {string}
+ */
 function replaceValues(str, replacements) {
   Object.keys(replacements).forEach((key) => {
     str = str.replace(new RegExp(key, 'g'), replacements[key])
