@@ -96,7 +96,8 @@
     "ice_slowlink": {
       "weak": "Connection is weak",
       "poor": "Connection is poor"
-    }
+    },
+    "already opened": "It looks like the Dialer has already been opened in another tab.<br>Please go to the previously open one.<br>If you are sure that all tabs are closed please contact your administrator."
   },
   "menu": {
     "Account": "Account",
