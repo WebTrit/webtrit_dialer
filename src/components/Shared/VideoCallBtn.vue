@@ -2,7 +2,7 @@
   <v-btn
     class="video-call-btn"
     :color="btnColor"
-    :disabled="!isRegistered"
+    :disabled="!isRegistered || !isActive"
     fab
     dark
     :width="size"
@@ -46,6 +46,7 @@ export default {
   },
   computed: {
     ...mapGetters('webrtc', ['isRegistered']),
+    ...mapGetters('account', ['isActive']),
   },
   methods: {
     ...mapActions('webrtc', ['call']),

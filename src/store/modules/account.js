@@ -16,6 +16,9 @@ const getters = {
   isLogin(state) {
     return !!state.token
   },
+  isActive(state) {
+    return state.info === null || state.info.status === undefined ? true : state.info.status === 'active'
+  },
   info(state) {
     if (!state.info) {
       return null

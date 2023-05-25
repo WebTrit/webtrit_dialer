@@ -91,6 +91,7 @@ export default {
     ...mapGetters('account', [
       'isLogin',
       'info',
+      'isActive',
     ]),
     ...mapState('webrtc', ['sessionError']),
     ...mapGetters('webrtc', ['isRegistered']),
@@ -117,7 +118,7 @@ export default {
 
   methods: {
     ...mapMutations('webrtc', ['setRegistrationStatus']),
-    ...mapActions('account', ['getInfo']),
+    ...mapActions('account', ['getInfo', 'logout']),
     ...mapActions('webrtc', ['connect', 'disconnect', 'register', 'unregister']),
     ...mapActions('snackbar', {
       snackbarHide: 'hide',
@@ -193,6 +194,21 @@ export default {
         this.sideNavigationVisible = !val
       },
       immediate: true,
+    },
+    async isActive(value) {
+      if (value) {
+        this.snackbarShow({ message: this.$t('status.account.limit_removed') })
+      } else {
+        if (this.info) {
+          if (this.info.status === 'blocked') {
+            await this.logout()
+            await this.$router.push({ name: 'Login' })
+            this.snackbarShow({ message: this.$t('status.account.blocked') })
+          } else if (this.info.status === 'limited') {
+            this.snackbarShow({ message: this.$t('status.account.limited') })
+          }
+        }
+      }
     },
   },
 }

@@ -36,6 +36,11 @@
       "registered": "registrato",
       "unregistering": "annullamento della registrazione",
       "unregistered": "non registrato"
+    },
+    "account": {
+      "limited": "The account is inactive. Dialer functionality is limited. Contact your company administrator.",
+      "blocked": "The account is blocked. Contact your company administrator.",
+      "limit_removed": "The account restrictions have been removed. You can use the full functionality."
     }
   },
   "errors": {
@@ -96,7 +101,8 @@
       "weak": "La connessione è debole",
       "poor": "La connessione è scarsa"
     },
-    "already opened": "It looks like the Dialer has already been opened in another tab.<br>Please go to the previously open one.<br>If you are sure that all tabs are closed please contact your administrator."
+    "already opened": "It looks like the Dialer has already been opened in another tab.<br>Please go to the previously open one.<br>If you are sure that all tabs are closed please contact your administrator.",
+    "undefined": "Undefined error"
   },
   "menu": {
     "Account": "Utenza",
