@@ -6,7 +6,7 @@ import { extendContactWithCalculatedProperties } from '@/store/helpers'
 const state = () => ({
   token: null,
   info: null,
-  updateBalanceInterval: null,
+  updateInterval: null,
 })
 
 const getters = {
@@ -44,16 +44,11 @@ const mutations = {
   updateInfo(state, info) {
     state.info = info
   },
-  updateBalance(state, data) {
-    const tmpInfo = { ...state.info }
-    tmpInfo.balance = data
-    state.info = tmpInfo
+  setUpdateInterval(state, ref) {
+    state.updateInterval = ref
   },
-  updateBalanceInterval(state, data) {
-    state.updateBalanceInterval = data
-  },
-  clearBalanceInterval(state) {
-    state.updateBalanceInterval = null
+  clearUpdateInterval(state) {
+    state.updateInterval = null
   },
 }
 
@@ -78,9 +73,9 @@ const actions = {
     context.commit('updateToken', token)
   },
   async logout({ state, commit, dispatch }) {
-    if (state.updateBalanceInterval) {
-      clearInterval(state.updateBalanceInterval)
-      commit('clearBalanceInterval')
+    if (state.updateInterval) {
+      clearInterval(state.updateInterval)
+      commit('clearUpdateInterval')
     }
     try {
       await axios.delete('/session')
@@ -96,18 +91,18 @@ const actions = {
   async getInfo({ commit, dispatch }) {
     const r = await axios.get('/account/info')
     commit('updateInfo', r.data)
-    dispatch('updateBalanceData')
+    dispatch('updateAccountInfo')
   },
-  async updateBalanceData({ state, commit }) {
-    if (!state.updateBalanceInterval) {
-      const updateBalanceInterval = setInterval(async () => {
+  async updateAccountInfo({ state, commit }) {
+    if (!state.updateInterval) {
+      const interval = setInterval(async () => {
         const r = await axios.get('/account/info')
-        commit('updateBalance', r.data.balance)
+        commit('updateInfo', r.data)
       }, 60000)
-      commit('updateBalanceInterval', updateBalanceInterval)
+      commit('setUpdateInterval', interval)
     } else {
       const r = await axios.get('/account/info')
-      commit('updateBalance', r.data.balance)
+      commit('updateInfo', r.data)
     }
   },
   async editInfo({ commit }, data) {

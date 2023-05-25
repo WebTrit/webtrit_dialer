@@ -144,31 +144,20 @@ describe('account.js mutations', () => {
     expect(state.info).toEqual({ login: '3445' })
   })
 
-  it('updateBalance sets state.info.balance', () => {
+  it('setUpdateInterval sets balance interval', () => {
     const state = {
-      info: {
-        login: '4545',
-        balance: 30.33,
-      },
+      updateInterval: null,
     }
-    account.mutations.updateBalance(state, 25.44)
-    expect(state.info).toEqual({ login: '4545', balance: 25.44 })
+    account.mutations.setUpdateInterval(state, 'interval')
+    expect(state.updateInterval).toBe('interval')
   })
 
-  it('updateBalanceInterval sets balance interval', () => {
+  it('clearUpdateInterval clears balance interval', () => {
     const state = {
-      updateBalanceInterval: null,
+      updateInterval: 'interval',
     }
-    account.mutations.updateBalanceInterval(state, 'interval')
-    expect(state.updateBalanceInterval).toBe('interval')
-  })
-
-  it('clearBalanceInterval clears balance interval', () => {
-    const state = {
-      updateBalanceInterval: 'interval',
-    }
-    account.mutations.clearBalanceInterval(state, 'interval')
-    expect(state.updateBalanceInterval).toBeNull()
+    account.mutations.clearUpdateInterval(state, 'interval')
+    expect(state.updateInterval).toBeNull()
   })
 })
 
