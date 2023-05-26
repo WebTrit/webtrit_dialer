@@ -58,10 +58,10 @@ WebTrit Dialer docker image is NGINX Web server with built WebTrit Dialer code.
 Env variables descriptions:
 * `VUE_APP_PUBLIC_PATH` - optional application bundle base URL (without `/` at the end) (examples: `/sub-path`)
 * `VUE_APP_GTM` - optional Google Tag Manager container IDs (examples: `GTM-xxxxxx`, `GTM-xxxxxx, GTM-yyyyyy`)
-* `VUE_APP_DEMO_BEHAVIOUR` - select log-in variation
-  * unset variable or `false` or `disable` - only by phone number of existing account
-  * `true` or `enable` - only by user email mapped to a demo account
-  * `mix` or `both` - allow both previous variants
+* `VUE_APP_LOGIN_METHODS` - set of enabled login methods, each separated by a comma (default value is `password`)
+  * `email` - login via user's email (presently associated with a demo account)
+  * `otp` - login via a phone number of an existing account using an OTP password
+  * `password` - login via both phone number and password of an existing account
 * `VUE_APP_WEBTRIT_APP_NAME` - branding app name
 * `VUE_APP_WEBTRIT_APP_SUBNAME` - branding app sub-name
 * `VUE_APP_WEBTRIT_COMPANY_NAME` - branding company name

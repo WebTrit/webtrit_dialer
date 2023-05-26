@@ -3,20 +3,22 @@ const envConfig = {
     process.env.VUE_APP_GTM && process.env.VUE_APP_GTM.split(',').map((v) => v.trim()).filter((v) => v)
   ) || [],
 
-  isSignupEnabled: (
-    process.env.VUE_APP_DEMO_BEHAVIOUR
-      && ['true', 'enable', 'mix', 'both', 'all'].includes(process.env.VUE_APP_DEMO_BEHAVIOUR.toLowerCase())
-  ) || false,
+  loginMethods: (
+    process.env.VUE_APP_LOGIN_METHODS
+      && process.env.VUE_APP_LOGIN_METHODS.split(',').map((v) => v.trim()).filter((v) => v)
+  ) || ['password'],
 
-  isOtpSignInEnabled: (
-    !process.env.VUE_APP_DEMO_BEHAVIOUR
-      || ['', 'false', 'disable', 'mix', 'both', 'all'].includes(process.env.VUE_APP_DEMO_BEHAVIOUR.toLowerCase())
-  ) || false,
+  get isSignupEnabled() {
+    return this.loginMethods.includes('email')
+  },
 
-  isPasswordSignInEnabled: (
-    process.env.VUE_APP_DEMO_BEHAVIOUR
-      && ['all'].includes(process.env.VUE_APP_DEMO_BEHAVIOUR.toLowerCase())
-  ) || false,
+  get isOtpSignInEnabled() {
+    return this.loginMethods.includes('otp')
+  },
+
+  get isPasswordSignInEnabled() {
+    return this.loginMethods.includes('password')
+  },
 
   webtritAppName: process.env.VUE_APP_WEBTRIT_APP_NAME,
   webtritAppSubname: process.env.VUE_APP_WEBTRIT_APP_SUBNAME,
