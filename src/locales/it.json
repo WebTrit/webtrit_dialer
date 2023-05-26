@@ -38,9 +38,9 @@
       "unregistered": "non registrato"
     },
     "account": {
-      "limited": "The account is inactive. Dialer functionality is limited. Contact your company administrator.",
-      "blocked": "The account is blocked. Contact your company administrator.",
-      "limit_removed": "The account restrictions have been removed. You can use the full functionality."
+      "limited": "L'account è inattivo. Le funzionalità del Dialer sono limitate. Contatta l'amministratore della tua azienda.",
+      "blocked": "L'account è bloccato. Contatta l'amministratore della tua azienda.",
+      "limit_removed": "Le restrizioni dell'account sono state rimosse. Ora puoi utilizzare tutte le funzionalità disponibili."
     }
   },
   "errors": {
@@ -101,8 +101,8 @@
       "weak": "La connessione è debole",
       "poor": "La connessione è scarsa"
     },
-    "already opened": "It looks like the Dialer has already been opened in another tab.<br>Please go to the previously open one.<br>If you are sure that all tabs are closed please contact your administrator.",
-    "undefined": "Undefined error"
+    "already opened": "Sembra che il Dialer sia già stato aperto in un'altra scheda.<BR>Per favore, vai alla scheda precedentemente aperta.<BR>Se sei sicuro che tutte le schede siano chiuse, ti preghiamo di contattare l'amministratore.",
+    "undefined": "Errore non definito"
   },
   "menu": {
     "Account": "Utenza",
@@ -145,23 +145,21 @@
     "Missed": "Hai perso una chiamata",
     "Unanswered": "La tua chiamata non ha ricevuto risposta",
     "Not Succeed": "La chiamata non è andata a buon fine",
-    "Incoming": "In entrata",
-    "Outgoing": "Outgoing",
-    "Call forwarded": "Call forwarded",
-    "Incoming failed": "Incoming failed",
-    "Outgoing failed": "Outgoing failed",
-    "Unknown": "Unknown"
+    "Incoming": "n arrivo",
+    "Outgoing": "In uscita",
+    "Call forwarded": "Chiamata inoltrata",
+    "Incoming failed": "Errore chiamata in entrata",
+    "Outgoing failed": "Errore chiamata in uscita",
+    "Unknown": "Ignoto"
   },
   "datetime": {
     "Today": "Oggi",
     "Yesterday": "Ieri",
     "lastDay": "Ieri alle %LT%",
     "sameDay": "Oggi alle %LT%",
-    "nextDay": "Domani alle %LT%",
-    "nextWeek": "%D% alle %LT%",
     "lastWeek": "Ultimo %D% alle %LT%",
     "oldDay": "%LT%, %L%",
-    "hour": "h",
+    "hour": "ora",
     "minute": "min",
     "second": "sec"
   },
@@ -211,7 +209,16 @@
     "Verification message by number": "Un codice di verifica è stato inviato a questo numero",
     "Verification message by email": "Un codice di verifica è stato inviato a questo email",
     "Email required": "E-mail richiesta",
-    "E-mail valid": "L'E-Mail deve essere valida"
+    "E-mail valid": "L'E-Mail deve essere valida",
+    "OTP Sign in": "Accedi utilizzando OTP",
+    "Free account request note in html": "La registrazione con il tuo numero di telefono richiede un account esistente. Puoi richiedere un account gratuito contattando <span class=\"font-bold\">PortaOne</span> all'indirizzo <a href=\"mailto:sales@porta.one\">sales@porta.one</a>.",
+    "Demo account note in html": "Come alternativa alla registrazione, puoi semplicemente fare clic su <span class=\"font-bold\">DEMO</span> dove puoi ottenere immediatamente l'accesso utilizzando il tuo indirizzo email.",
+    "If exist account": "Se hai un account.",
+    "If no account": "Se non hai ancora un account, verrà creato automaticamente per te.",
+    "OTP will be sent signup": "Verrà inviato un codice di verifica all'indirizzo email che hai fornito.",
+    "OTP will be sent sign in": "Verrà inviato un codice di verifica all'indirizzo email associato al tuo numero di telefono.",
+    "Check spam or": "Se non visualizzi una email nella tua casella di posta in arrivo, controlla la cartella dello spam o",
+    "New code": "È stato inviato un nuovo codice"
   },
   "slides": {
     "How to call": "Come eseguire una chiamata:",
