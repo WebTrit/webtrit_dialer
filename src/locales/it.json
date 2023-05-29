@@ -102,7 +102,8 @@
       "poor": "La connessione è scarsa"
     },
     "already opened": "Sembra che il Dialer sia già stato aperto in un'altra scheda.<BR>Per favore, vai alla scheda precedentemente aperta.<BR>Se sei sicuro che tutte le schede siano chiuse, ti preghiamo di contattare l'amministratore.",
-    "undefined": "Errore non definito"
+    "undefined": "Errore non definito",
+    "invalid_credentials": "Login o password non corretti"
   },
   "menu": {
     "Account": "Utenza",
