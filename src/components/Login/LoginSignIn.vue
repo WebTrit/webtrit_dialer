@@ -31,10 +31,13 @@
             color="secondary"
             :label="$t('label.Password')"
             :error-messages="passwordErrorMessages"
+            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="show ? 'text' : 'password'"
             outlined
             dense
             required
             @keyup.enter="provideLoginPassword()"
+            @click:append="show = !show"
           />
         </v-col>
       </v-row>
@@ -68,6 +71,7 @@ export default {
   mixins: [contacts, errors],
   data() {
     return {
+      show: false,
       login: '',
       loginRules: [
         (v) => !!v || this.$i18n.t('login.Login required'),
