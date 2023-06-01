@@ -118,19 +118,22 @@ async function handleIncomingCall({ commit, dispatch, event }, isCallActive) {
   }
 }
 
-async function handleAcceptedCall({ commit, dispatch, event }) {
+async function handleAcceptedCall({ commit, dispatch, event }, call_exist) {
   console.log(event)
   commit('setCallId', event.call_id)
   try {
     if (event.jsep) {
+      // Handle `answer` SDP
       await peerConnection.setRemoteDescription(event.jsep)
       commit('setRemoteCallMediaType', event.jsep)
     }
-    commit('setCallState', {
-      call_state: callStates.ACCEPTED,
-      call_id: event.call_id,
-    })
-    dispatch('ringtones/stop', null, { root: true })
+    if (!call_exist) {
+      commit('setCallState', {
+        call_state: callStates.ACCEPTED,
+        call_id: event.call_id,
+      })
+      dispatch('ringtones/stop', null, { root: true })
+    }
   } catch (e) {
     console.error('handleAcceptedCall', e)
     snackbarShow(dispatch, `${(e.code || 'null')} - ${e.description || e.message}`)
@@ -187,8 +190,29 @@ function handleIceEvent({ dispatch, event }) {
 }
 
 // eslint-disable-next-line no-unused-vars
-function handleChangeCall({ event }) {
+async function handleChangeCall({ event }, callId) {
   console.log('handleChangeCall', event)
+  const call_id = callId || event.call_id
+  if (event.jsep) {
+    try {
+      if (event.jsep.type === 'offer') {
+        // Remote change call state sending `offer` SDP
+        const in_sdp = event.jsep
+        await peerConnection.setRemoteDescription(in_sdp)
+        await peerConnection.createAnswer()
+        const out_sdp = peerConnection.getLocalDescription()
+        if (peerConnection.noError()) {
+          await webtritSignalingClient.execute('update', {
+            line: 0,
+            call_id,
+            jsep: out_sdp,
+          })
+        }
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  }
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -284,6 +308,9 @@ const getters = {
   getCallId(state) {
     return state.callId
   },
+  getCallExist(state) {
+    return state.callId ? !!state.callState[state.callId] : false
+  },
   getIncomingCallJsep(state) {
     return state.incomingCallJsep
   },
@@ -369,7 +396,7 @@ const actions = {
               handleOutgoingCall({ dispatch, event })
               break
             case eventType.AcceptedCall:
-              await handleAcceptedCall({ commit, dispatch, event })
+              await handleAcceptedCall({ commit, dispatch, event }, getters.getCallExist)
               break
             case eventType.HangupCall:
               handleHangupCall({ commit, dispatch, event })
@@ -384,7 +411,7 @@ const actions = {
               handleNotifyEvent({ commit, dispatch, event })
               break
             case eventType.ChangeCall:
-              handleChangeCall({ commit, dispatch, event })
+              await handleChangeCall({ commit, dispatch, event }, getters.getCallId)
               break
             default:
               console.warn('Unhandled signaling event:', event)
