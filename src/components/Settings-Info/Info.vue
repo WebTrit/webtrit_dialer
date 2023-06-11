@@ -98,6 +98,14 @@
               <td> {{ $t(`settings.systemInfo.${key}`) }} </td>
               <td> {{ val && val.version }} </td>
             </tr>
+            <tr
+              v-for="[key, val] in adapterInfo"
+              :key="key"
+              class="settings-info__row"
+            >
+              <td> {{ key }} </td>
+              <td> {{ val }} </td>
+            </tr>
           </tbody>
         </template>
       </v-simple-table>
@@ -119,6 +127,7 @@
 <script>
 import { breakpoints } from '@/mixins'
 import PanelAppBar from '@/components/Layout/PanelAppBar.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -126,6 +135,9 @@ export default {
   },
   mixins: [breakpoints],
   computed: {
+    ...mapGetters('system', {
+      info: 'info',
+    }),
     processEnvEntries() {
       return [
         ['NODE_ENV', process.env.NODE_ENV],
@@ -150,9 +162,9 @@ export default {
       const systemInfo = this.$store.state.system.info
       return (systemInfo && Object.entries(systemInfo)) || []
     },
-  },
-  created() {
-    this.$store.dispatch('system/getInfo')
+    adapterInfo() {
+      return (this.info && Object.entries(this.info)) || []
+    },
   },
   methods: {
     async copy() {
