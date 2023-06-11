@@ -102,6 +102,7 @@ import { breakpoints } from '@/mixins'
 import SignIn from '@/components/Login/SignIn.vue'
 import Demo from '@/components/Login/Signup.vue'
 import LoginSignIn from '@/components/Login/LoginSignIn.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -122,14 +123,17 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('system', {
+      info: 'info',
+    }),
     signupEnabled() {
-      return this.$envConfig.isSignupEnabled
+      return !!(this.info && this.info.adapter?.supported?.includes('signup'))
     },
     otpSignInEnabled() {
-      return this.$envConfig.isOtpSignInEnabled
+      return !!(this.info && this.info.adapter?.supported?.includes('otpSignin'))
     },
     passwordSignInEnabled() {
-      return this.$envConfig.isPasswordSignInEnabled
+      return !!(this.info && this.info.adapter?.supported?.includes('passwordSignin'))
     },
     appName() {
       return this.$envConfig.webtritAppName
