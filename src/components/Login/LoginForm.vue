@@ -119,7 +119,7 @@ export default {
   },
   data() {
     return {
-      tab: (this.$envConfig.isSignupEnabled && this.demoEmail !== null) ? 1 : 0,
+      tab: (this.demoEmail !== null) ? 1 : 0,
     }
   },
   computed: {

@@ -3,23 +3,6 @@ const envConfig = {
     process.env.VUE_APP_GTM && process.env.VUE_APP_GTM.split(',').map((v) => v.trim()).filter((v) => v)
   ) || [],
 
-  loginMethods: (
-    process.env.VUE_APP_LOGIN_METHODS
-      && process.env.VUE_APP_LOGIN_METHODS.split(',').map((v) => v.trim()).filter((v) => v)
-  ) || ['password'],
-
-  get isSignupEnabled() {
-    return this.loginMethods.includes('email')
-  },
-
-  get isOtpSignInEnabled() {
-    return this.loginMethods.includes('otp')
-  },
-
-  get isPasswordSignInEnabled() {
-    return this.loginMethods.includes('password')
-  },
-
   webtritAppName: process.env.VUE_APP_WEBTRIT_APP_NAME,
   webtritAppSubname: process.env.VUE_APP_WEBTRIT_APP_SUBNAME,
   webtritAppVersion: process.env.VUE_APP_WEBTRIT_APP_VERSION,

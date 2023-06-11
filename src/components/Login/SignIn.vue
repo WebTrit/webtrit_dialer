@@ -43,7 +43,6 @@
         </v-col>
       </v-row>
       <v-row
-        v-if="demoEnabled"
         :class="{ 'sign-in-form__content--mobile' : $vuetify.breakpoint.xs }"
       >
         <v-col>
@@ -132,11 +131,6 @@ export default {
       phoneNumberErrorMessages: null,
       otpErrorMessages: null,
     }
-  },
-  computed: {
-    demoEnabled() {
-      return this.$envConfig.isSignupEnabled
-    },
   },
   methods: {
     ...mapActions('snackbar', { snackbarShow: 'show' }),
