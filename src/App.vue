@@ -110,7 +110,10 @@ export default {
   created() {
     this.setLanguage()
     this.watchConnection()
-    this.$store.dispatch('system/getInfo')
+  },
+
+  async beforeMount() {
+    await this.$store.dispatch('system/getInfo')
   },
 
   async mounted() {
