@@ -21,11 +21,14 @@
     "English": "English",
     "Italian": "Italian",
     "system": "System",
+    "adapter additional": "Additional adapter parameters",
     "systemInfo": {
       "porta": "PortaSwitch",
       "janus": "WebTrit Janus",
       "postgres": "Postgres",
-      "core": "WebTrit Core"
+      "core": "WebTrit Core",
+      "adapter": "Hosted PBX adapter",
+      "gorush": "Push notification server"
     }
   },
   "status": {
