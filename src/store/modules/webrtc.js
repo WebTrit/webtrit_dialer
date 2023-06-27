@@ -118,7 +118,7 @@ async function handleIncomingCall({ commit, dispatch, event }, isCallActive) {
   }
 }
 
-async function handleAcceptedCall({ commit, dispatch, event }, call_exist) {
+async function handleAcceptedCall({ commit, dispatch, event }) {
   console.log(event)
   commit('setCallId', event.call_id)
   try {
@@ -127,13 +127,11 @@ async function handleAcceptedCall({ commit, dispatch, event }, call_exist) {
       await peerConnection.setRemoteDescription(event.jsep)
       commit('setRemoteCallMediaType', event.jsep)
     }
-    if (!call_exist) {
-      commit('setCallState', {
-        call_state: callStates.ACCEPTED,
-        call_id: event.call_id,
-      })
-      dispatch('ringtones/stop', null, { root: true })
-    }
+    commit('setCallState', {
+      call_state: callStates.ACCEPTED,
+      call_id: event.call_id,
+    })
+    dispatch('ringtones/stop', null, { root: true })
   } catch (e) {
     console.error('handleAcceptedCall', e)
     snackbarShow(dispatch, `${(e.code || 'null')} - ${e.description || e.message}`)
@@ -396,7 +394,7 @@ const actions = {
               handleOutgoingCall({ dispatch, event })
               break
             case eventType.AcceptedCall:
-              await handleAcceptedCall({ commit, dispatch, event }, getters.getCallExist)
+              await handleAcceptedCall({ commit, dispatch, event })
               break
             case eventType.HangupCall:
               handleHangupCall({ commit, dispatch, event })
