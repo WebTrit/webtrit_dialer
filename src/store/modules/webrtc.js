@@ -92,8 +92,8 @@ function initPeerConnection({ commit, dispatch, call_id }) {
 }
 
 async function handleIncomingCall({ commit, dispatch, event }, isCallActive) {
-  console.log(event)
-  console.log('Active call: ', isCallActive)
+  console.log('Event handling in a [handleIncomingCall] function')
+  console.log('Active call exist: ', isCallActive)
   if (isCallActive) {
     await webtritSignalingClient.execute('hangup', {
       line: event.line,
@@ -118,8 +118,8 @@ async function handleIncomingCall({ commit, dispatch, event }, isCallActive) {
   }
 }
 
-async function handleAcceptedCall({ commit, dispatch, event }, call_exist) {
-  console.log(event)
+async function handleAcceptedCall({ commit, dispatch, event }) {
+  console.log('Event handling in a [handleAcceptedCall] function')
   commit('setCallId', event.call_id)
   try {
     if (event.jsep) {
@@ -127,13 +127,11 @@ async function handleAcceptedCall({ commit, dispatch, event }, call_exist) {
       await peerConnection.setRemoteDescription(event.jsep)
       commit('setRemoteCallMediaType', event.jsep)
     }
-    if (!call_exist) {
-      commit('setCallState', {
-        call_state: callStates.ACCEPTED,
-        call_id: event.call_id,
-      })
-      dispatch('ringtones/stop', null, { root: true })
-    }
+    commit('setCallState', {
+      call_state: callStates.ACCEPTED,
+      call_id: event.call_id,
+    })
+    dispatch('ringtones/stop', null, { root: true })
   } catch (e) {
     console.error('handleAcceptedCall', e)
     snackbarShow(dispatch, `${(e.code || 'null')} - ${e.description || e.message}`)
@@ -142,7 +140,7 @@ async function handleAcceptedCall({ commit, dispatch, event }, call_exist) {
 }
 
 function handleHangupCall({ commit, dispatch, event }) {
-  console.log(event)
+  console.log('Event handling in a [handleHangupCall] function')
   if (event.event === 'hangup') {
     commit('setCallState', {
       call_state: callStates.NONE,
@@ -161,12 +159,13 @@ function handleHangupCall({ commit, dispatch, event }) {
   }
 }
 
-function handleOutgoingCall({ dispatch, event }) {
-  console.log(event)
+function handleOutgoingCall({ dispatch }) {
+  console.log('Event handling in a [handleOutgoingCall] function')
   dispatch('ringtones/playOutgoing', null, { root: true })
 }
 
 function handleState({ commit, dispatch, event }) {
+  console.log('Event handling in a [handleState] function')
   commit('setRegistrationStatus', event.event)
   if (event.code) {
     const msg = event.reason || event.description || 'Unknown'
@@ -175,7 +174,7 @@ function handleState({ commit, dispatch, event }) {
 }
 
 function handleIceEvent({ dispatch, event }) {
-  console.log('handleIceEvent', event)
+  console.log('Event handling in a [handleIceEvent] function')
   let message = ''
   if (event.event === 'ice_slowlink') {
     if (event.lost > 0 && event.lost <= SLOWLINK_POOR_THRESHOLD) {
@@ -191,7 +190,7 @@ function handleIceEvent({ dispatch, event }) {
 
 // eslint-disable-next-line no-unused-vars
 async function handleChangeCall({ event }, callId) {
-  console.log('handleChangeCall', event)
+  console.log('Event handling in a [handleChangeCall] function')
   const call_id = callId || event.call_id
   if (event.jsep) {
     try {
@@ -217,7 +216,7 @@ async function handleChangeCall({ event }, callId) {
 
 // eslint-disable-next-line no-unused-vars
 function handleNotifyEvent({ dispatch, event }) {
-  console.log('handleNotifyEvent', event)
+  console.log('Event handling in a [handleNotifyEvent] function')
   const [, code] = event.content.split(' ')
   let message
   if (i18n.getLocaleMessage(i18n.locale)?.call_msgs
@@ -393,10 +392,10 @@ const actions = {
               await handleIncomingCall({ commit, dispatch, event }, getters.isCallActive)
               break
             case eventType.OutgoingCall:
-              handleOutgoingCall({ dispatch, event })
+              handleOutgoingCall({ dispatch })
               break
             case eventType.AcceptedCall:
-              await handleAcceptedCall({ commit, dispatch, event }, getters.getCallExist)
+              await handleAcceptedCall({ commit, dispatch, event })
               break
             case eventType.HangupCall:
               handleHangupCall({ commit, dispatch, event })
@@ -418,7 +417,7 @@ const actions = {
           }
         },
         handshakeCallback: (event) => {
-          console.log('Handshake callback', event)
+          console.log('Event handling in callback [handshakeCallback]:', event)
           if (event.registration !== undefined) {
             commit('setRegistrationStatus', event.registration.status)
             if (event.registration.code) {
@@ -428,7 +427,7 @@ const actions = {
           }
         },
         errorCallback: (error) => {
-          console.log('Error callback:', error)
+          console.log('Error handling in callback:', error)
           if (error.fatal) {
             webtritSignalingClient.disconnect(error.code)
             handleCleanEvent({ commit }, getters.getCallId)
@@ -439,7 +438,7 @@ const actions = {
           promiseReject()
         },
         disconnectedCallback: (reason, code) => {
-          console.log(`Disconnect callback code: ${code}; reason: ${reason}`)
+          console.log(`Disconnect handling in callback with code: ${code}; reason: ${reason}`)
           webtritSignalingClient.disconnect()
           handleCleanEvent({ commit }, getters.getCallId)
           if (code !== WS_CLOSE_CODE_UNREGISTER) {
@@ -466,7 +465,7 @@ const actions = {
   async call({ getters, commit, dispatch }, {
     number, name, initials, video,
   }) {
-    console.log('Active call: ', getters.isCallActive)
+    console.log('Active call exist: ', getters.isCallActive)
     if (getters.isCallActive) {
       snackbarShow(dispatch, 'Error: line busy')
     } else {
