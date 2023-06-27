@@ -56,13 +56,11 @@ const mutations = {
 }
 
 const actions = {
-  async requestDemoOtp(context, payload) {
-    const r = await axios.post('/session/otp-request-demo', payload)
-    return r.otp_id
+  signup(context, payload) {
+    return axios.post('/user', payload)
   },
-  async requestOtp(context, payload) {
-    const r = await axios.post('/session/otp-request', payload)
-    return r.otp_id
+  createOtp(context, payload) {
+    return axios.post('/session/otp-create', payload)
   },
   async verifyOtp(context, payload) {
     const r = await axios.post('/session/otp-verify', payload)
