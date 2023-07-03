@@ -75,7 +75,7 @@
         "minimum": "The page number cannot be less than 1",
         "invalid_type": "The page number must be an integer"
       },
-      "itemsPerPage": {
+      "items_per_page": {
         "minimum": "The number of items per page cannot be less than 1",
         "invalid_type": "The items per page number must be an integer"
       },

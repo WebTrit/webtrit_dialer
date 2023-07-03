@@ -59,14 +59,16 @@ const mutations = {
 // actions
 const actions = {
   async fetchItems(context, params) {
-    const r = await axios.get('/account/call-history', {
+    const r = await axios.get('/user/history', {
       params,
     })
+    console.log('[USER HISTORY]', r)
     context.commit('setItems', r.data)
     context.commit('setPagination', r.pagination)
   },
   async getCallRecord(context, id) {
-    const r = await axios.get(`/account/call-record/${id}`, { responseType: 'blob' })
+    const r = await axios.get(`/user/recordings/${id}`, { responseType: 'blob' })
+    console.log('[USER RECORDINGS] ID', id, '->', r)
     return r
   },
 }

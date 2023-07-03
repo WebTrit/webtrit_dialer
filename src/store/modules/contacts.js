@@ -50,10 +50,10 @@ const mutations = {
 
 const actions = {
   async fetchItems(context, params) {
-    const r = await axios.get('/account/contacts', {
+    const r = await axios.get('/user/contacts', {
       params,
     })
-    console.log('Contacts:', r.data)
+    console.log('[Contacts]', r)
     context.commit('setItems', r.data)
   },
 }

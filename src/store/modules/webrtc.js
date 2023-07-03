@@ -147,7 +147,7 @@ function handleHangupCall({ commit, dispatch, event }) {
       call_id: event.call_id,
     })
     dispatch('ringtones/stop', null, { root: true })
-    dispatch('account/updateAccountInfo', null, { root: true })
+    dispatch('account/initGetAccountInfo', null, { root: true })
     handleCleanEvent({ commit }, event.call_id)
   }
   if (event.reason) {

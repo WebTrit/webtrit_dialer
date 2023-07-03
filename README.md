@@ -65,6 +65,7 @@ Env variables descriptions:
 * `VUE_APP_WEBTRIT_COMPANY_LOGO_IMG_SRC` - branding company image source path related to the directory with overwritten and added files (optional)
 * `VUE_APP_WEBTRIT_CORE_URL` - WebTrit Core URL
 * `VUE_APP_WEBTRIT_NAVIGATION_DRAWER_MINIMIZING` - can the main navigation menu be minimized, default: `true`
+* `VUE_APP_UPDATE_INFO_INTERVAL` - retrieve user information interval in milliseconds, default: `60000`
 
 Env variable of the set color palette. Specified through HEX color. Some colors have a default value.
 * `VUE_APP_COLOR_PRIMARY` - default: `#F5841F`

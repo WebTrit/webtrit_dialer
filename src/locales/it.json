@@ -75,7 +75,7 @@
         "minimum": "Il numero di pagina non può essere inferiore a 1",
         "invalid_type": "Il numero di pagina deve essere un numero intero"
       },
-      "itemsPerPage": {
+      "items_per_page": {
         "minimum": "Il numero di elementi per pagina non può essere inferiore a 1",
         "invalid_type": "Gli elementi per numero di pagina devono essere un numero intero "
       },

@@ -207,15 +207,14 @@ export default {
       this.loading = true
       try {
         this.fetchDataError = false
-        const params = this.getParams()
-        await this.fetchCallHistoryItems(params)
+        await this.fetchCallHistoryItems(this.getParams())
         this.createPlayProgress()
       } catch (err) {
         this.fetchDataError = err.response.status
         if (err.response.status !== 405 && err.response.status !== 401) {
           // 401 handled by error interceptor
           const code = this.$_errors_parse(err)
-          this.snackbarShow({
+          await this.snackbarShow({
             message: code,
           })
         }
@@ -225,10 +224,10 @@ export default {
     },
     getParams() {
       return {
-        dateTo: this.date?.dateTo,
-        dateFrom: this.date?.dateFrom,
+        time_to: this.date?.dateTo,
+        time_from: this.date?.dateFrom,
         page: this.dataTableOptions.page,
-        itemsPerPage: this.dataTableOptions.itemsPerPage,
+        items_per_page: this.dataTableOptions.itemsPerPage,
       }
     },
     updateSearch(val) {

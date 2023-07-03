@@ -129,7 +129,7 @@ export default {
         this.fetchDataError = false
         await this.fetchCallHistoryItems({
           page: 1,
-          itemsPerPage: 100,
+          items_per_page: 100,
         })
       } catch (err) {
         this.fetchDataError = err.response.status
