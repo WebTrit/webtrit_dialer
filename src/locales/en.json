@@ -102,9 +102,10 @@
       "weak": "Connection is weak",
       "poor": "Connection is poor"
     },
-    "already opened": "It looks like the Dialer has already been opened in another tab.<br>Please go to the previously open one.<br>If you are sure that all tabs are closed please contact your administrator.",
+    "already opened": "It looks like the Dialer has already been opened in another tab. \n Please go to the previously open one. \n If you are sure that all tabs are closed please contact your administrator.",
     "undefined": "Undefined error",
-    "invalid_credentials": "Login or password incorrect"
+    "invalid_credentials": "Login or password incorrect",
+    "credentials missed": "Billing account credentials missed. \n Please contact your administrator to solve the issue."
   },
   "menu": {
     "Account": "Account",

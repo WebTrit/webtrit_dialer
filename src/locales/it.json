@@ -101,9 +101,10 @@
       "weak": "La connessione è debole",
       "poor": "La connessione è scarsa"
     },
-    "already opened": "Sembra che il Dialer sia già stato aperto in un'altra scheda.<BR>Per favore, vai alla scheda precedentemente aperta.<BR>Se sei sicuro che tutte le schede siano chiuse, ti preghiamo di contattare l'amministratore.",
+    "already opened": "Sembra che il Dialer sia già stato aperto in un'altra scheda. \n Per favore, vai alla scheda precedentemente aperta. \n Se sei sicuro che tutte le schede siano chiuse, ti preghiamo di contattare l'amministratore.",
     "undefined": "Errore non definito",
-    "invalid_credentials": "Login o password non corretti"
+    "invalid_credentials": "Login o password non corretti",
+    "credentials missed": "Credenziali dell'account di fatturazione mancanti. \n Si prega di contattare l'amministratore per risolvere il problema."
   },
   "menu": {
     "Account": "Utenza",

@@ -35,7 +35,7 @@
         class="d-flex flex-column align-center"
       >
         <p
-          class="text-h5"
+          class="text-h5 whitespace-pre-line text-center"
         >
           {{ sessionError }}
         </p>
