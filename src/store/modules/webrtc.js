@@ -583,26 +583,28 @@ const actions = {
     webtritSignalingClient.disconnect()
     handleCleanEvent({ commit }, null)
   },
-  async register({ commit, dispatch }) {
+  async register({ commit }) {
     const r = await axios.patch('/app/status', {
       register: true,
     })
-    if (r.status === 204) {
+    if (r === 204) {
       commit('setRegistrationStatus', 'registered')
-      dispatch('webrtc/connect', null, { root: true })
+      window.dispatchEvent(new Event('online'))
     } else {
       commit('setRegistrationStatus', 'unregistered')
+      window.dispatchEvent(new Event('offline'))
     }
   },
-  async unregister({ commit, dispatch }) {
+  async unregister({ commit }) {
     const r = await axios.patch('/app/status', {
       register: false,
     })
-    if (r.status === 204) {
+    if (r === 204) {
       commit('setRegistrationStatus', 'unregistered')
+      window.dispatchEvent(new Event('offline'))
     } else {
       commit('setRegistrationStatus', 'registered')
-      dispatch('webrtc/connect', null, { root: true })
+      window.dispatchEvent(new Event('online'))
     }
   },
 }
