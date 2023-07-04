@@ -442,7 +442,7 @@ const actions = {
           webtritSignalingClient.disconnect()
           handleCleanEvent({ commit }, getters.getCallId)
           if (code !== WS_CLOSE_CODE_UNREGISTER) {
-            if (code === WS_CLOSE_CODE_ATTACH_ERROR) {
+            if (getters.isRegistered && (code === WS_CLOSE_CODE_ATTACH_ERROR)) {
               reason = i18n.t('errors.already opened')
             } else if (code === WS_CLOSE_CODE_MISSED_CREDENTIALS) {
               reason = 'billing account credentials missed <br> please contact your administrator to solve the issue'
