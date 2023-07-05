@@ -3,6 +3,8 @@ import VueI18n from 'vue-i18n'
 
 Vue.use(VueI18n)
 
+const defaultLanguage = 'en'
+
 function loadLocaleMessages() {
   const locales = require.context('../locales', true, /[A-Za-z0-9-_,\s]+\.json$/i)
   const messages = {}
@@ -14,10 +16,6 @@ function loadLocaleMessages() {
     }
   })
   return messages
-}
-
-export function defaultLanguage() {
-  return String(navigator.language).substring(0, 2)
 }
 
 export function supportedLanguages() {
@@ -32,8 +30,20 @@ export function supportedLanguages() {
   return list
 }
 
+export function getMainLocale() {
+  const supported = supportedLanguages()
+  return process.env.VUE_APP_I18N_LOCALE && supported.includes(process.env.VUE_APP_I18N_LOCALE)
+    ? process.env.VUE_APP_I18N_LOCALE : defaultLanguage
+}
+
+export function getFallbackLocale() {
+  const supported = supportedLanguages()
+  return process.env.VUE_APP_I18N_FALLBACK_LOCALE && supported.includes(process.env.VUE_APP_I18N_FALLBACK_LOCALE)
+    ? process.env.VUE_APP_I18N_FALLBACK_LOCALE : defaultLanguage
+}
+
 export default new VueI18n({
-  locale: process.env.VUE_APP_I18N_LOCALE || defaultLanguage(),
-  fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || defaultLanguage(),
+  locale: getMainLocale(),
+  fallbackLocale: getFallbackLocale(),
   messages: loadLocaleMessages(),
 })
