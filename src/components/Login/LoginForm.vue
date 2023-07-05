@@ -20,52 +20,31 @@
           :class="[ $vuetify.breakpoint.xs? 'login-form__inner-col--mobile' : 'login-form__inner-col']"
         >
           <v-tabs
-            v-model="tab"
+            v-model="activeTab"
             align-with-title
             grow
             active-class="secondary--text"
             background-color="transparent"
             slider-color="secondary"
-            :hide-slider="!(signupEnabled && otpSignInEnabled)"
           >
             <v-tab
-              v-if="signupEnabled"
-              class="login-form__tab"
-              :ripple="false"
-              :class="{ 'login-form__tab--no-hover': !signupEnabled }"
+              v-for="(tab, index) in getTabs"
+              :key="index"
             >
-              {{ $t('login.Demo') }}
+              {{ tab.title }}
             </v-tab>
 
-            <v-tab
-              v-if="otpSignInEnabled"
-              class="login-form__tab"
-              :ripple="false"
-              :class="{ 'login-form__tab--no-hover': !otpSignInEnabled }"
-            >
-              {{ $t('login.OTP Sign in') }}
-            </v-tab>
-
-            <v-tab
-              v-if="passwordSignInEnabled"
-              class="login-form__tab"
-              :ripple="false"
-              :class="{ 'login-form__tab--no-hover': !passwordSignInEnabled }"
-            >
-              {{ $t('login.Sign in') }}
-            </v-tab>
-
-            <v-tabs-items
-              v-model="tab"
-            >
-              <v-tab-item v-if="signupEnabled">
-                <Demo v-bind="$props" />
-              </v-tab-item>
-              <v-tab-item v-if="otpSignInEnabled">
-                <SignIn v-bind="$props" />
-              </v-tab-item>
-              <v-tab-item v-if="passwordSignInEnabled">
-                <LoginSignIn v-bind="$props" />
+            <v-tabs-items v-model="activeTab">
+              <v-tab-item
+                v-for="(tab, index) in getTabs"
+                :key="index"
+              >
+                <component
+                  :is="tab.component"
+                  ref="components"
+                  :key="index"
+                  v-bind="$props"
+                />
               </v-tab-item>
             </v-tabs-items>
           </v-tabs>
@@ -105,11 +84,6 @@ import LoginSignIn from '@/components/Login/LoginSignIn.vue'
 import { mapGetters } from 'vuex'
 
 export default {
-  components: {
-    SignIn,
-    Demo,
-    LoginSignIn,
-  },
   mixins: [breakpoints],
   props: {
     demoEmail: {
@@ -119,21 +93,35 @@ export default {
   },
   data() {
     return {
-      tab: (this.demoEmail !== null) ? 1 : 0,
+      activeTab: 0,
+      tabs: [
+        {
+          title: this.$i18n.t('login.Demo'),
+          component: Demo,
+          support: 'signup',
+        },
+        {
+          title: this.$i18n.t('login.OTP Sign in'),
+          component: SignIn,
+          support: 'otpSignin',
+        },
+        {
+          title: this.$i18n.t('login.Sign in'),
+          component: LoginSignIn,
+          support: 'passwordSignin',
+        },
+      ],
     }
   },
   computed: {
     ...mapGetters('system', {
       info: 'info',
     }),
-    signupEnabled() {
-      return !!(this.info && this.info.adapter?.supported?.includes('signup'))
+    isSupported() {
+      return (item) => !!(this.info && this.info.adapter?.supported?.includes(item.support))
     },
-    otpSignInEnabled() {
-      return !!(this.info && this.info.adapter?.supported?.includes('otpSignin'))
-    },
-    passwordSignInEnabled() {
-      return !!(this.info && this.info.adapter?.supported?.includes('passwordSignin'))
+    getTabs() {
+      return this.tabs.filter(this.isSupported)
     },
     appName() {
       return this.$envConfig.webtritAppName
@@ -146,6 +134,19 @@ export default {
     },
     companyUrl() {
       return this.$envConfig.webtritCompanyUrl
+    },
+  },
+  methods: {
+    callFocusFunction() {
+      const component = this.$refs.components.at(this.activeTab)
+      if (component) {
+        component.focusOnFirstInput()
+      }
+    },
+  },
+  watch: {
+    activeTab() {
+      this.$nextTick(this.callFocusFunction)
     },
   },
 }

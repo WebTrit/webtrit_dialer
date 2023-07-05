@@ -18,6 +18,7 @@
             :rules="loginRules"
             :label="$t('label.Login')"
             :error-messages="loginErrorMessages"
+            ref="firstField"
             outlined
             dense
             required
@@ -126,6 +127,12 @@ export default {
         }
       }
     },
+    focusOnFirstInput() {
+      this.$refs.firstField.$refs.input.focus()
+    },
+  },
+  mounted() {
+    this.$nextTick(this.focusOnFirstInput)
   },
   watch: {
     login() {

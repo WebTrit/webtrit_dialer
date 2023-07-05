@@ -18,6 +18,7 @@
             :rules="emailRules"
             :label="$t('label.Email')"
             :error-messages="emailErrorMessages"
+            ref="firstField"
             outlined
             dense
             required
@@ -213,6 +214,12 @@ export default {
         }
       }
     },
+    focusOnFirstInput() {
+      this.$refs.firstField.$refs.input.focus()
+    },
+  },
+  mounted() {
+    this.$nextTick(this.focusOnFirstInput)
   },
   watch: {
     email() {
