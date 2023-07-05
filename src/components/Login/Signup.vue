@@ -13,6 +13,7 @@
           <v-text-field
             class="signup-form__input"
             v-model="email"
+            v-model.trim="email"
             color="secondary"
             :rules="emailRules"
             :label="$t('label.Email')"
@@ -63,6 +64,7 @@
           <v-text-field
             class="signup-form__input"
             v-model="otp"
+            v-model.trim="otp"
             color="secondary"
             :rules="otpRules"
             :label="$t('label.Verification')"
@@ -125,9 +127,6 @@ export default {
       emailErrorMessages: null,
       otp: '',
       otpId: '',
-      otpRules: [
-        (v) => !!v || this.$i18n.t('login.Verification required'),
-      ],
       otpProcessing: false,
       otpErrorMessages: null,
     }
@@ -136,14 +135,13 @@ export default {
     emailRules() {
       return [
         (v) => !!v || this.$i18n.t('login.Email required'),
-        (v) => {
-          if (v) {
-            const emailRegExp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            return emailRegExp.test(v) || this.$i18n.t('login.E-mail valid')
-          } else {
-            return true
-          }
-        },
+        (v) => /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(v)
+            || this.$i18n.t('login.E-mail valid'),
+      ]
+    },
+    otpRules() {
+      return [
+        (v) => !!v || this.$i18n.t('login.Verification required'),
       ]
     },
   },
