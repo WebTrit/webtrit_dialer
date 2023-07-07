@@ -40,30 +40,11 @@ export const contacts = {
       fetchContactsItems: 'fetchItems',
     }),
     $_contacts_getOneContact(number) {
-      const contact = this.contacts.filter((item) => item.number === number)
+      const contact = this.contacts.filter((item) => item.number === number || item.extension_id === number)
       if (contact.length > 0) {
-        return this.extendContactWithCalculatedProperties(contact[0])
-      } else {
-        return null
+        return contact[0]
       }
-    },
-    $_contacts_getOneContactExt(ext) {
-      const contact = this.contacts.filter((item) => item.extension_id === ext)
-      if (contact.length > 0) {
-        return this.extendContactWithCalculatedProperties(contact[0])
-      } else {
-        return null
-      }
-    },
-    pickOutInitials(name) {
-      return name.split(' ').map((n) => (n.length >= 1 ? n[0].toUpperCase() : '?')).join('')
-    },
-    extendContactWithCalculatedProperties(contact) {
-      contact.name = contact.extension_name
-        || (`${contact.firstname || ''} ${contact.lastname || ''}`).trim()
-        || null
-      contact.initials = contact.name && this.pickOutInitials(contact.name)
-      return contact
+      return null
     },
     async $_contacts_getContacts() {
       this.updateLoading(true)

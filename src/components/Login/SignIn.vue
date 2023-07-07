@@ -13,10 +13,12 @@
           <v-text-field
             class="sign-in-form__input"
             v-model="phoneNumber"
+            v-model.trim="phoneNumber"
             color="secondary"
-            :rules="phoneRules"
+            :rules="phoneNumberRules"
             :label="$t('label.Phone')"
             :error-messages="phoneNumberErrorMessages"
+            ref="firstField"
             outlined
             dense
             required
@@ -66,6 +68,7 @@
           <v-text-field
             class="sign-in-form__input"
             v-model="otp"
+            v-model.trim="otp"
             color="secondary"
             :rules="otpRules"
             :label="$t('label.Verification')"
@@ -118,19 +121,26 @@ export default {
   data() {
     return {
       phoneNumber: '',
-      phoneRules: [
-        (v) => !!v || this.$i18n.t('login.Phone required'),
-      ],
       otp: '',
       otpId: '',
-      otpRules: [
-        (v) => !!v || this.$i18n.t('login.Verification required'),
-      ],
       phoneNumberProcessing: false,
       otpProcessing: false,
       phoneNumberErrorMessages: null,
       otpErrorMessages: null,
     }
+  },
+  computed: {
+    phoneNumberRules() {
+      return [
+        (v) => !!v || this.$i18n.t('login.Phone required'),
+        (v) => /^\+?[a-zA-Z0-9@.]{1,64}$/.test(v) || this.$i18n.t('login.From-to contain', { field: this.$i18n.t('login.Phone'), from: 1, to: 64 }),
+      ]
+    },
+    otpRules() {
+      return [
+        (v) => !!v || this.$i18n.t('login.Verification required'),
+      ]
+    },
   },
   methods: {
     ...mapActions('snackbar', { snackbarShow: 'show' }),
@@ -149,8 +159,7 @@ export default {
             identifier,
           })
         } catch (e) {
-          const code = this.$_errors_parse(e)
-          this.phoneNumberErrorMessages = code
+          this.phoneNumberErrorMessages = this.$_errors_parse(e)
         } finally {
           this.phoneNumberProcessing = false
         }
@@ -172,8 +181,7 @@ export default {
           await this.$router.push({ name: 'Home' })
           await this.$_contacts_getContacts()
         } catch (e) {
-          const code = this.$_errors_parse(e)
-          this.otpErrorMessages = code
+          this.otpErrorMessages = this.$_errors_parse(e)
         } finally {
           this.otpProcessing = false
         }
@@ -196,13 +204,18 @@ export default {
           this.otp = ''
           await this.snackbarShow({ message: this.$t('login.New code') })
         } catch (e) {
-          const code = this.$_errors_parse(e)
-          this.phoneNumberErrorMessages = code
+          this.phoneNumberErrorMessages = this.$_errors_parse(e)
         } finally {
           this.phoneNumberProcessing = false
         }
       }
     },
+    focusOnFirstInput() {
+      this.$refs.firstField.$refs.input.focus()
+    },
+  },
+  mounted() {
+    this.$nextTick(this.focusOnFirstInput)
   },
   watch: {
     phoneNumber() {

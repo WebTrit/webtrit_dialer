@@ -58,7 +58,7 @@ const axiosInitPlugin = (store) => {
   axios.interceptors.response.use(
     (response) => {
       console.log('Get response:', response)
-      return response.data
+      return response.status === 204 ? response.status : response.data
     },
     (error) => {
       console.log('Get error:', error)

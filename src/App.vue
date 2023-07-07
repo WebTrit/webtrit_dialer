@@ -35,7 +35,7 @@
         class="d-flex flex-column align-center"
       >
         <p
-          class="text-h5"
+          class="text-h5 whitespace-pre-line text-center"
         >
           {{ sessionError }}
         </p>
@@ -63,7 +63,7 @@ import SideNavigation from '@/components/Main/SideNavigation/SideNavigation.vue'
 import AppBar from '@/components/Main/AppBar.vue'
 import UserInfoNavigation from '@/components/Main/UserInfo/UserInfoNavigation.vue'
 import DialogNumber from '@/components/Home-Contacts/DialogNumber.vue'
-import { defaultLanguage, supportedLanguages } from '@/plugins/i18n'
+import { getMainLocale } from '@/plugins/i18n'
 
 export default {
   name: 'App',
@@ -144,12 +144,10 @@ export default {
       this.userNavigationVisible = false
     },
     setLanguage() {
-      const defaultLang = defaultLanguage()
-      const supportedLang = supportedLanguages()
-      const selectedLang = supportedLang.includes(defaultLang) ? defaultLang : this.$i18n.fallbackLocale
-      this.$root.$i18n.locale = selectedLang
-      this.$vuetify.lang.current = selectedLang
-      document.documentElement.setAttribute('lang', selectedLang)
+      const defaultLocale = getMainLocale()
+      this.$root.$i18n.locale = defaultLocale
+      this.$vuetify.lang.current = defaultLocale
+      document.documentElement.setAttribute('lang', defaultLocale)
     },
     watchConnection() {
       window.addEventListener('offline', () => { this.closeConnection() })

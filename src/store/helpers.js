@@ -1,31 +1,13 @@
 export function pickOutInitials(name) {
-  return name.split(' ').map((n) => (n.length >= 1 ? n[0].toUpperCase() : '?')).join('')
+  return name.split(' ', 3).map((n) => (n.length >= 1 ? n[0].toUpperCase() : '?')).join('')
 }
 
 export function extendContactWithCalculatedProperties(contact) {
   contact.name = contact.extension_name
     || (`${contact.firstname || ''} ${contact.lastname || ''}`).trim()
     || null
-  contact.initials = contact.name && pickOutInitials(contact.name)
+  contact.initials = contact.name && pickOutInitials(contact.name) || null
   return contact
-}
-
-export function getOneContact(number, contacts) {
-  const contact = contacts.filter((item) => item.number === number)
-  if (contact.length > 0) {
-    return extendContactWithCalculatedProperties(contact[0])
-  } else {
-    return null
-  }
-}
-
-export function getOneContactExt(ext, contacts) {
-  const contact = contacts.filter((item) => item.extension_id === ext)
-  if (contact.length > 0) {
-    return extendContactWithCalculatedProperties(contact[0])
-  } else {
-    return null
-  }
 }
 
 export function getInterlocutor(item) {
@@ -52,13 +34,11 @@ export function getInterlocutorNumber(interlocutor) {
 
 export function getContact(data, rootGetters) {
   const contacts = rootGetters['contacts/items']
-  if (data && data.type === 'number') {
-    return getOneContact(data.number, contacts) || { number: data.number }
-  } else if (data && data.type === 'ext') {
-    return getOneContactExt(data.number, contacts) || { extension_id: data.number }
-  } else {
-    return null
+  const contact = contacts.filter((item) => item.number === data.number || item.extension_id === data.number)
+  if (contact.length > 0) {
+    return contact[0]
   }
+  return null
 }
 
 export function getErrorCode(code) {

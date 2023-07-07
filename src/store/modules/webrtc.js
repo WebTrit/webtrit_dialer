@@ -442,10 +442,10 @@ const actions = {
           webtritSignalingClient.disconnect()
           handleCleanEvent({ commit }, getters.getCallId)
           if (code !== WS_CLOSE_CODE_UNREGISTER) {
-            if (code === WS_CLOSE_CODE_ATTACH_ERROR) {
+            if (getters.isRegistered && (code === WS_CLOSE_CODE_ATTACH_ERROR)) {
               reason = i18n.t('errors.already opened')
             } else if (code === WS_CLOSE_CODE_MISSED_CREDENTIALS) {
-              reason = 'billing account credentials missed <br> please contact your administrator to solve the issue'
+              reason = i18n.t('errors.credentials missed')
             }
             commit('setSessionError', reason)
           }
@@ -583,26 +583,28 @@ const actions = {
     webtritSignalingClient.disconnect()
     handleCleanEvent({ commit }, null)
   },
-  async register({ commit, dispatch }) {
+  async register({ commit }) {
     const r = await axios.patch('/app/status', {
       register: true,
     })
-    if (r.status === 204) {
+    if (r === 204) {
       commit('setRegistrationStatus', 'registered')
-      dispatch('webrtc/connect', null, { root: true })
+      window.dispatchEvent(new Event('online'))
     } else {
       commit('setRegistrationStatus', 'unregistered')
+      window.dispatchEvent(new Event('offline'))
     }
   },
-  async unregister({ commit, dispatch }) {
+  async unregister({ commit }) {
     const r = await axios.patch('/app/status', {
       register: false,
     })
-    if (r.status === 204) {
+    if (r === 204) {
       commit('setRegistrationStatus', 'unregistered')
+      window.dispatchEvent(new Event('offline'))
     } else {
       commit('setRegistrationStatus', 'registered')
-      dispatch('webrtc/connect', null, { root: true })
+      window.dispatchEvent(new Event('online'))
     }
   },
 }

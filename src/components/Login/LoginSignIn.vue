@@ -13,10 +13,12 @@
           <v-text-field
             class="login-sign-in-form__input"
             v-model="login"
+            v-model.trim="login"
             color="secondary"
             :rules="loginRules"
             :label="$t('label.Login')"
             :error-messages="loginErrorMessages"
+            ref="firstField"
             outlined
             dense
             required
@@ -28,7 +30,9 @@
           <v-text-field
             class="login-sign-in-form__input"
             v-model="password"
+            v-model.trim="password"
             color="secondary"
+            :rules="passwordRules"
             :label="$t('label.Password')"
             :error-messages="passwordErrorMessages"
             :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
@@ -73,14 +77,27 @@ export default {
     return {
       show: false,
       login: '',
-      loginRules: [
-        (v) => !!v || this.$i18n.t('login.Login required'),
-      ],
       password: '',
       loginProcessing: false,
       loginErrorMessages: null,
       passwordErrorMessages: null,
     }
+  },
+  computed: {
+    loginRules() {
+      return [
+        (v) => !!v || this.$i18n.t('login.Login required'),
+        (v) => /^\+?[a-zA-Z0-9@]{1,64}$/.test(v) || this.$i18n.t('login.From-to contain', { field: this.$i18n.t('login.Login'), from: 1, to: 64 }),
+      ]
+    },
+    passwordRules() {
+      return [
+        (v) => {
+          const pattern = new RegExp('^[\\d\\w\\(\\)\\[\\]\\$\\^\\*\\+\\?\\!\\.\\|<>`~,;:@#%&=-]{0,32}$')
+          return pattern.test(v) || this.$i18n.t('login.Password contain', { from: 0, to: 32 })
+        },
+      ]
+    },
   },
   methods: {
     ...mapActions('snackbar', { snackbarShow: 'show' }),
@@ -110,6 +127,12 @@ export default {
         }
       }
     },
+    focusOnFirstInput() {
+      this.$refs.firstField.$refs.input.focus()
+    },
+  },
+  mounted() {
+    this.$nextTick(this.focusOnFirstInput)
   },
   watch: {
     login() {

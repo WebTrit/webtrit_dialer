@@ -9,13 +9,9 @@
       :class="[!$vuetify.breakpoint.xs? 'dialog-call' : 'dialog-call--mobile']"
     >
       <DialogCallInfo
-        v-if="contactInfo"
-        :contact-info="contactInfo"
-        :call-description="callDescription"
-      />
-      <DialogCallInfo
-        v-else-if="unknownInterlocutor"
-        :contact-info="unknownInterlocutor"
+        :initials="contactInfo.initials"
+        :email="contactInfo.email"
+        :name="contactInfo.name || contactInfo.ext"
       />
       <div
         v-show="remoteStreamHasVideo"
@@ -50,7 +46,7 @@
       </v-row>
       <DialogCallActionBtns
         @toggle-keypad="keypad = $event"
-        :call-description="callDescription"
+        :call-description="contactInfo.number || contactInfo.ext || '-'"
       />
     </v-container>
   </v-dialog>
@@ -63,6 +59,7 @@ import { contacts } from '@/mixins'
 import Keypad from '@/components/Shared/Keypad.vue'
 import DialogCallActionBtns from '@/components/Main/DialogCall/ActionBtns.vue'
 import DialogCallInfo from '@/components/Main/DialogCall/CallInfo.vue'
+import { pickOutInitials } from '@/store/helpers'
 
 export default {
   name: 'DialogCall',
@@ -73,39 +70,27 @@ export default {
   },
   mixins: [contacts],
   data: () => ({
-    contactInfo: null,
+    contactInfo: {},
     keypad: false,
-    unknownInterlocutor: null,
   }),
   computed: {
     ...mapState('webrtc', ['localStream', 'remoteStream', 'callInfo']),
     ...mapGetters('webrtc', ['remoteStreamHasVideo', 'isCallAccepted', 'isCallActive']),
-    callDescription() {
-      return this.contactInfo && this.contactInfo.name
-        || this.callInfo && (this.callInfo.name || this.callInfo.number)
-    },
   },
   methods: {
     keypadClick(key) {
       this.$store.dispatch('webrtc/sendDtmf', key)
     },
-    updateContactInfo({ contact, type }) {
-      if (type === 'number') {
-        this.contactInfo = (contact.number === (this.callInfo && this.callInfo.number))
-          ? contact : null
-      } else if (type === 'ext') {
-        this.contactInfo = (contact.extension_id === (this.callInfo && this.callInfo.number))
-          ? contact : null
-      }
-    },
-    getExtension(ext) {
-      const contact = this.$_contacts_getOneContactExt(ext)
-      if (contact) {
-        this.updateContactInfo({ contact, type: 'ext' })
+    updateContactInfo(contact) {
+      this.contactInfo.number = contact.number || null
+      this.contactInfo.ext = contact.extension_id || null
+      this.contactInfo.name = contact.name || null
+      if (contact.initials) {
+        this.contactInfo.initials = contact.initials
       } else {
-        this.contactInfo = null
-        this.unknownInterlocutor = { number: ext, unknown: true }
+        this.contactInfo.initials = this.contactInfo.name && pickOutInitials(this.contactInfo.name) || 'JD'
       }
+      this.contactInfo.email = contact.email || ''
     },
   },
   watch: {
@@ -124,9 +109,9 @@ export default {
       if (callInfo) {
         const contact = this.$_contacts_getOneContact(callInfo.number)
         if (contact) {
-          this.updateContactInfo({ contact, type: 'number' })
+          this.updateContactInfo(contact)
         } else {
-          this.getExtension(callInfo.number)
+          this.updateContactInfo(callInfo)
         }
       }
     },
