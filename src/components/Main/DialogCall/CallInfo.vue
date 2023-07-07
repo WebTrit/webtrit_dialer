@@ -7,22 +7,15 @@
       <Avatar
         color="secondary"
         :size="160"
-        :initials="callInitials"
-        :email="contactInfo && contactInfo.email"
+        :initials="initials"
+        :email="email"
       />
     </v-col>
     <v-col class="dialog-call__name-col">
       <p
         class="dialog-call__name"
-        v-if="!contactInfo.unknown"
       >
-        {{ callDescription }}
-      </p>
-      <p
-        class="dialog-call__name"
-        v-else
-      >
-        {{ contactInfo.number }}
+        {{ name }}
       </p>
     </v-col>
     <v-col>
@@ -34,7 +27,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 import Avatar from '@/components/Shared/Avatar.vue'
 
 export default {
@@ -42,17 +35,23 @@ export default {
     Avatar,
   },
   props: {
-    contactInfo: {
-      type: Object,
+    initials: {
+      type: String,
+      default: '',
       required: true,
     },
-    callDescription: {
+    email: {
       type: String,
-      default: null,
+      default: '',
+      required: true,
+    },
+    name: {
+      type: String,
+      default: '',
+      required: true,
     },
   },
   computed: {
-    ...mapState('webrtc', ['callInfo']),
     ...mapGetters('webrtc', [
       'remoteStreamHasVideo',
       'isCallInitiating',
@@ -60,11 +59,6 @@ export default {
       'isCallOutgoing',
       'isCallAccepted',
     ]),
-    callInitials() {
-      return this.contactInfo && this.contactInfo.initials
-        || this.callInfo && (this.callInfo.initials || '')
-        || ''
-    },
     callState() {
       if (this.isCallInitiating) {
         if (this.isCallIncoming) {
