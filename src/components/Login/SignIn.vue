@@ -154,7 +154,7 @@ export default {
         this.phoneNumberProcessing = true
         try {
           const { identifier } = this.$store.state
-          const r = await this.$store.dispatch('account/createOtp', {
+          const r = await this.$store.dispatch('account/requestOtpSignIn', {
             user_ref: this.phoneNumber,
             type: 'web',
             identifier,
@@ -176,7 +176,7 @@ export default {
       if (this.$refs['verification-form'].validate()) {
         this.otpProcessing = true
         try {
-          const token = await this.$store.dispatch('account/verifyOtp', {
+          const token = await this.$store.dispatch('account/requestOtpVerify', {
             otp_id: this.otpId,
             code: this.otp,
           })
@@ -199,7 +199,7 @@ export default {
         this.phoneNumberProcessing = true
         try {
           const { identifier } = this.$store.state
-          const r = await this.$store.dispatch('account/createOtp', {
+          const r = await this.$store.dispatch('account/requestOtpSignIn', {
             user_ref: this.phoneNumber,
             type: 'web',
             identifier,

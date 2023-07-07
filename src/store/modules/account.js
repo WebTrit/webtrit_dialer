@@ -60,20 +60,18 @@ const mutations = {
 }
 
 const actions = {
-  async requestDemoOtp(context, payload) {
-    const r = await axios.post('/session/otp-request-demo', payload)
-    return r.otp_id
+  async requestOtpSignup(context, payload) {
+    return axios.post('/user', payload)
   },
-  async requestOtp(context, payload) {
-    const r = await axios.post('/session/otp-request', payload)
-    return r.otp_id
+  async requestOtpSignIn(context, payload) {
+    return axios.post('/session/otp-create', payload)
   },
-  async verifyOtp(context, payload) {
-    const r = await axios.post('/session/otp-verify', payload)
+  async requestSignIn(context, payload) {
+    const r = await axios.post('/session', payload)
     return r.token
   },
-  async requestLogin(context, payload) {
-    const r = await axios.post('/session', payload)
+  async requestOtpVerify(context, payload) {
+    const r = await axios.post('/session/otp-verify', payload)
     return r.token
   },
   async storeToken(context, token) {
@@ -88,6 +86,7 @@ const actions = {
     } finally {
       dispatch('webrtc/disconnect', { active: false }, { root: true })
       commit('callHistory/setItems', [], { root: true })
+      commit('contacts/setItems', [], { root: true })
       commit('updateToken', null)
       commit('updateInfo', null)
     }
@@ -102,7 +101,6 @@ const actions = {
   },
   async getAccountInfo({ commit }) {
     const r = await axios.get('/user')
-    console.log('[USER INFO]', r)
     commit('updateInfo', r)
   },
 }

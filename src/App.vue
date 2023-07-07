@@ -174,7 +174,7 @@ export default {
         async handler() {
           if (this.isLogin && !this.info) {
             try {
-              await this.initGetAccountInfo()
+              await this.$store.dispatch('account/initGetAccountInfo')
               await this.connect()
             } catch (error) {
               console.error('Connection error:', error)

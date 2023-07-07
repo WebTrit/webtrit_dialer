@@ -158,7 +158,7 @@ export default {
         this.emailProcessing = true
         try {
           const { identifier } = this.$store.state
-          const r = await this.$store.dispatch('account/signup', {
+          const r = await this.$store.dispatch('account/requestOtpSignup', {
             email: this.email,
             type: 'web',
             identifier,
@@ -180,7 +180,7 @@ export default {
       if (this.$refs['verification-form'].validate()) {
         this.otpProcessing = true
         try {
-          const token = await this.$store.dispatch('account/verifyOtp', {
+          const token = await this.$store.dispatch('account/requestOtpVerify', {
             otp_id: this.otpId,
             code: this.otp,
           })
@@ -203,7 +203,7 @@ export default {
         this.emailProcessing = true
         try {
           const { identifier } = this.$store.state
-          const r = await this.$store.dispatch('account/signup', {
+          const r = await this.$store.dispatch('account/requestOtpSignup', {
             email: this.email,
             type: 'web',
             identifier,

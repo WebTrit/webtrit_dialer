@@ -1,12 +1,15 @@
+import i18n from '@/plugins/i18n'
+
 export function pickOutInitials(name) {
   return name.split(' ', 3).map((n) => (n.length >= 1 ? n[0].toUpperCase() : '?')).join('')
 }
 
 export function extendContactWithCalculatedProperties(contact) {
-  contact.name = contact.extension_name
-    || (`${contact.firstname || ''} ${contact.lastname || ''}`).trim()
-    || null
-  contact.initials = contact.name && pickOutInitials(contact.name) || null
+  contact.name = (`${contact.first_name || ''} ${contact.last_name || ''}`).trim()
+    || contact.sip?.display_name
+    || contact.email
+    || i18n.t('user.Unknown')
+  contact.initials = pickOutInitials(contact.name)
   return contact
 }
 
