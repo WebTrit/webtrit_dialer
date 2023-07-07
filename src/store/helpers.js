@@ -1,5 +1,5 @@
 export function pickOutInitials(name) {
-  return name.split(' ').map((n) => (n.length >= 1 ? n[0].toUpperCase() : '?')).join('')
+  return name.split(' ', 3).map((n) => (n.length >= 1 ? n[0].toUpperCase() : '?')).join('')
 }
 
 export function extendContactWithCalculatedProperties(contact) {
