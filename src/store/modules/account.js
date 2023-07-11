@@ -85,8 +85,8 @@ const actions = {
       console.log(e.response.data)
     } finally {
       dispatch('webrtc/disconnect', { active: false }, { root: true })
-      commit('callHistory/setItems', [], { root: true })
-      commit('contacts/setItems', [], { root: true })
+      commit('callHistory/setItems', null, { root: true })
+      commit('contacts/setItems', null, { root: true })
       commit('updateToken', null)
       commit('updateInfo', null)
     }
