@@ -22,7 +22,7 @@
           <v-col class="container__col">
             <v-row class="container__inner-row">
               <v-col class="container__item-name">
-                {{ $_calls_getInterlocutor(scopedSlots.contact) }}
+                {{ scopedSlots.contact.contactInfo.name }}
               </v-col>
             </v-row>
             <v-row class="container__inner-row">
@@ -37,16 +37,22 @@
             </v-row>
             <v-row class="container__inner-row">
               <v-col
-                v-if="$options.filters.formatPrettySeconds(scopedSlots.contact.duration)"
+                v-if="scopedSlots.contact.duration > 0 && scopedSlots.contact.status === 'accepted'"
                 class="text-xs"
               >
                 Duration: {{ scopedSlots.contact.duration | formatPrettySeconds }}
+              </v-col>
+              <v-col
+                v-else
+                class="text-xs"
+              >
+                {{ scopedSlots.contact | getDirectionTitle }}
               </v-col>
             </v-row>
           </v-col>
 
           <v-col
-            v-if="scopedSlots.selectedItem !== scopedSlots.contact.id"
+            v-if="scopedSlots.selectedItem !== scopedSlots.contact.index"
             class="container__col-last"
           >
             <v-icon
@@ -75,17 +81,17 @@
               />
             </v-row>
             <v-row
-              v-if="scopedSlots.contact.call_recording_exist"
+              v-if="scopedSlots.contact.recording_id"
               class="container__inner-row mt-2"
               justify="end"
             >
               <PlayBtn
-                :call-id="scopedSlots.contact.id"
+                :call-id="scopedSlots.contact.recording_id"
                 :size="28"
               />
               <DownloadBtn
                 class="ml-2"
-                :call-id="scopedSlots.contact.id"
+                :call-id="scopedSlots.contact.recording_id"
                 :filename="$_calls_getFilename(scopedSlots.contact)"
                 :small="true"
               />
@@ -167,6 +173,11 @@ export default {
       set(page) {
         this.$emit('update-page', page)
       },
+    },
+  },
+  watch: {
+    search() {
+      this.$emit('update-page', 1)
     },
   },
 }

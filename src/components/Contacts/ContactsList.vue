@@ -75,8 +75,8 @@
               />
             </v-row>
             <v-row
-                justify="end"
-                class="contacts-list__action-btns"
+              justify="end"
+              class="contacts-list__action-btns"
             >
               <VideoCallBtn
                 :size="28"

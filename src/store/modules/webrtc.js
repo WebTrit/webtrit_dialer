@@ -3,7 +3,6 @@ import Vue from 'vue'
 import { envConfig } from '@/env-config'
 import WebtritSignaling from '@webtrit/webtrit-signaling'
 import i18n from '@/plugins/i18n'
-import { getErrorCode } from '@/store/helpers'
 import axios from 'axios'
 import PeerConnection from './webrtc_pc'
 
@@ -23,15 +22,63 @@ const WS_CLOSE_CODE_UNREGISTER = 4302
 const WS_CLOSE_CODE_MISSED_CREDENTIALS = 4412
 const WS_CLOSE_CODE_ATTACH_ERROR = 4431
 
+/**
+ * This function takes the user registration status on a SIP server as input and
+ * returns the color in which this status will be displayed on the user's avatar.
+ * @param status string
+ * @returns {string}
+ */
+export function getRegistrationStatusColor(status) {
+  switch (status) {
+    case 'unregistered':
+    case 'registration_failed':
+      return 'red'
+    case 'unregistering':
+    case 'registering':
+      return 'yellow'
+    case 'registered':
+      return 'green'
+    default:
+      return 'grey'
+  }
+}
+
+/**
+ * This function receives an error code number and generates a textual description
+ * @param code number | string
+ * @returns {string}
+ */
+export function getErrorCode(code) {
+  if (code === 401) {
+    return '401'
+  } else if (code === 480) {
+    return '480'
+  } else if (code === 486) {
+    return '486'
+  } else if (/^4/.test(code) && code.toString().length === 3) {
+    return '400'
+  } else if (/^4/.test(code) && code.toString().length === 4) {
+    return '4000'
+  } else {
+    return typeof code === 'string' ? code : code.toString()
+  }
+}
+
+/**
+ * Show badge with message
+ * @param dispatch function
+ * @param message string
+ */
 function snackbarShow(dispatch, message) {
   dispatch('snackbar/show',
     { message },
     { root: true })
 }
+
 /**
- *
- * @param commit
- * @param call_id
+ * Set default state an idle mode
+ * @param commit function
+ * @param call_id string
  */
 function handleCleanEvent({ commit }, call_id) {
   commit('setLocalStream', null)
@@ -256,18 +303,7 @@ const getters = {
     return state.registrationStatus
   },
   registrationStatusColor(state) {
-    switch (state.registrationStatus) {
-      case 'unregistered':
-      case 'registration_failed':
-        return 'red'
-      case 'unregistering':
-      case 'registering':
-        return 'yellow'
-      case 'registered':
-        return 'green'
-      default:
-        return 'grey'
-    }
+    return getRegistrationStatusColor(state.registrationStatus)
   },
   isCallActive(state) {
     return Object.keys(state.callState).length > 0

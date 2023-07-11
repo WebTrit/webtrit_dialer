@@ -68,6 +68,16 @@
       </template>
 
       <template
+        #[`item.number_ext`]="{ item }"
+      >
+        <Tooltip
+          :text="item.number_ext"
+          :disable-tooltips="false"
+          :activator-width-limit="activatorWidthLimit"
+        />
+      </template>
+
+      <template
         #[`item.number`]="{ item }"
       >
         <Tooltip
@@ -189,7 +199,7 @@ export default {
     }),
     filteredContactsItems() {
       return this.contactsItems && this.accountInfo && this.contactsItems.filter(
-        (contact) => contact.number !== this.accountInfo.login,
+        (contact) => contact.number !== this.accountInfo.number,
       )
     },
     items() {
@@ -204,7 +214,7 @@ export default {
         },
         {
           text: this.$t('user.Extension'),
-          value: 'extension_id',
+          value: 'number_ext',
           width: '10%',
         },
         {

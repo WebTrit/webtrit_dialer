@@ -9,7 +9,7 @@
         <AvatarBadge
           :initials="scopedSlots.contact.initials"
           :email="scopedSlots.contact.email"
-          :status="sipStatusColor(scopedSlots.contact.sip_status)"
+          :status="scopedSlots.contact.registration_color"
           avatar-color="secondary"
         />
       </v-col>
@@ -31,16 +31,16 @@
         </v-row>
         <v-row class="container__inner-row">
           <v-col class="container__item-sub-name contacts__list-ext">
-            {{ $t('user.Ext') }}: <span> {{ scopedSlots.contact.extension_id }} </span>
+            {{ $t('user.Ext') }}: <span> {{ scopedSlots.contact.number_ext }} </span>
           </v-col>
           <v-col class="container__item-sub-name">
-            {{ scopedSlots.contact.number }}
+            <span> {{ scopedSlots.contact.number }} </span>
           </v-col>
         </v-row>
       </v-col>
 
       <ContactsListActionBtns
-        v-if="accountInfo.login !== scopedSlots.contact.number
+        v-if="accountInfo.number !== scopedSlots.contact.number
           && !$_breakpoints_mobile"
         class="contacts-list__col--last"
         :contact="scopedSlots.contact"
@@ -86,11 +86,6 @@ export default {
     ...mapGetters('account', {
       accountInfo: 'info',
     }),
-  },
-  methods: {
-    sipStatusColor(sipStatus) {
-      return sipStatus === 1 ? 'green' : 'grey'
-    },
   },
 }
 </script>

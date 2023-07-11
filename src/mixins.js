@@ -18,8 +18,8 @@ export const janusRegistration = {
       get() {
         return this.$store.getters['settings/isRegisterEnabled']
       },
-      set(value) {
-        this.$store.dispatch('settings/setRegisterEnabled', value)
+      async set(value) {
+        await this.$store.dispatch('settings/setRegisterEnabled', value)
       },
     },
   },
@@ -40,7 +40,7 @@ export const contacts = {
       fetchContactsItems: 'fetchItems',
     }),
     $_contacts_getOneContact(number) {
-      const contact = this.contacts.filter((item) => item.number === number || item.extension_id === number)
+      const contact = this.contacts.filter((item) => item.number === number || item.number_ext === number)
       if (contact.length > 0) {
         return contact[0]
       }
@@ -68,9 +68,9 @@ export const calls = {
   methods: {
     $_calls_getInterlocutor(item) {
       if (item.direction === 'incoming' || item.direction === 'forwarded') {
-        return item.cli
+        return item.caller
       } else if (item.direction === 'outgoing') {
-        return item.cld
+        return item.callee
       } else {
         return i18n.t('call.Unknown')
       }

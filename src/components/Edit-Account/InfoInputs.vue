@@ -7,29 +7,29 @@
     <v-row :class="{ 'edit-user__row--mobile' : $vuetify.breakpoint.xs}">
       <v-col class="user-account__info">
         <span class="user-account__info-title">{{ $t('user.First Name') }}:</span>
-        <span class="user-account__info-content"> {{ userData.firstname || "'" }} </span>
+        <span class="user-account__info-content secondary--text"> {{ userData.first_name || "-" }} </span>
       </v-col>
       <v-col class="user-account__info">
         <span class="user-account__info-title">{{ $t('user.Last Name') }}:</span>
-        <span class="user-account__info-content"> {{ userData.lastname || "-" }} </span>
+        <span class="user-account__info-content secondary--text"> {{ userData.last_name || "-" }} </span>
       </v-col>
     </v-row>
     <v-row :class="{ 'edit-user__row--mobile' : $vuetify.breakpoint.xs}">
       <v-col class="user-account__info">
         <span class="user-account__info-title">{{ $t('user.Email') }}:</span>
-        <span class="user-account__info-content"> {{ userData.email || "-" }} </span>
+        <span class="user-account__info-content secondary--text"> {{ userData.email || "-" }} </span>
       </v-col>
     </v-row>
     <v-row :class="{ 'edit-user__row--mobile' : $vuetify.breakpoint.xs}">
       <v-col class="user-account__info">
         <span class="user-account__info-title">{{ $t('user.Mobile') }}:</span>
-        <span class="user-account__info-content"> {{ userData.mobile || "-" }} </span>
+        <span class="user-account__info-content secondary--text"> {{ userData.mobile || "-" }} </span>
       </v-col>
     </v-row>
     <v-row :class="{ 'edit-user__row--mobile' : $vuetify.breakpoint.xs}">
       <v-col class="user-account__info">
         <span class="user-account__info-title">{{ $t('user.Company') }}:</span>
-        <span class="user-account__info-content"> {{ userData.company_name || "-" }} </span>
+        <span class="user-account__info-content secondary--text"> {{ userData.company_name || "-" }} </span>
       </v-col>
     </v-row>
   </v-form>
@@ -42,27 +42,11 @@ export default {
       type: Object,
       required: true,
     },
-    serverErrors: {
-      type: Object,
-      default: null,
-    },
   },
   computed: {
     userData: {
       get() {
         return this.user
-      },
-    },
-  },
-  watch: {
-    user: {
-      deep: true,
-      handler() {
-        if (this.$refs['edit-form'].validate()) {
-          this.$emit('form-valid', true)
-        } else {
-          this.$emit('form-valid', false)
-        }
       },
     },
   },

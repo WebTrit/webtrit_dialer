@@ -1,21 +1,29 @@
 <template>
-  <v-row class="user-account__info-row">
-    <v-col class="user-account__info">
-      <span class="user-account__info-title">{{ $t('user.Extension') }}:</span>
-      <span class="user-account__info-content"> {{ info.ext }} </span>
-    </v-col>
-    <v-col class="user-account__info">
-      <span class="user-account__info-title">{{ $t('user.Number') }}:</span>
-      <span class="user-account__info-content"> {{ info.login }} </span>
-    </v-col>
-    <v-col
-      class="user-account__info"
+  <div>
+    <v-row class="user-account__info-row">
+      <v-col class="user-account__info">
+        <span class="user-account__info-title">{{ $t('user.Extension') }}:</span>
+        <span class="user-account__info-content secondary--text"> {{ user.number_ext }} </span>
+      </v-col>
+      <v-col class="user-account__info">
+        <span class="user-account__info-title">{{ $t('user.Number') }}:</span>
+        <span class="user-account__info-content secondary--text"> {{ user.number }} </span>
+      </v-col>
+    </v-row>
+    <v-row
+      class="user-account__info-row"
       v-if="balance"
     >
-      <span class="user-account__info-title">{{ $t('user.Balance') }}:</span>
-      <span class="user-account__info-content secondary--text"> {{ balance || '' }} </span>
-    </v-col>
-  </v-row>
+      <v-col class="user-account__info">
+        <span class="user-account__info-title">{{ $t('user.Balance') }}:</span>
+        <span class="user-account__info-content secondary--text"> {{ balance.sum }} </span>
+      </v-col>
+      <v-col class="user-account__info">
+        <span class="user-account__info-title">{{ $t('user.Balance type') }}:</span>
+        <span class="user-account__info-content secondary--text"> {{ balance.type }} </span>
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script>
@@ -23,7 +31,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   props: {
-    info: {
+    user: {
       type: Object,
       required: true,
     },

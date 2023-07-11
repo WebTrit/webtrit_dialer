@@ -1,8 +1,9 @@
 /* eslint-disable no-shadow */
 import axios from 'axios'
 import {
-  getInterlocutor, getInterlocutorNumber, getContact,
+  getInterlocutor, getContact, pickOutInitials, extendContactWithCalculatedProperties,
 } from '@/store/helpers'
+import i18n from '@/plugins/i18n'
 
 // initial state
 const state = () => ({
@@ -18,15 +19,37 @@ const state = () => ({
 const getters = {
   items(state, getters, rootState, rootGetters) {
     if (rootGetters['contacts/items']?.length > 0 && state?.items?.length > 0) {
-      const initialItems = state.items.filter((item) => item.cld !== 'Manual charge' && item.cld !== 'Manual credit')
+      const initialItems = state.items.filter((item) => !(['Manual charge', 'Manual credit'].includes(item.callee)))
       const itemsWithContactInfo = []
-      initialItems.forEach((item) => {
-        const interlocutor = getInterlocutor(item)
-        const data = getInterlocutorNumber(interlocutor)
-        item.contactInfo = getContact(data, rootGetters)
+      initialItems.forEach((item, index) => {
         const date = new Date(item.connect_time)
         date.setHours(0, 0, 0, 0)
         item.date = date.toISOString()
+        item.index = index + 1
+        const interlocutor = getInterlocutor(item)
+        if (!interlocutor || interlocutor.number === null) {
+          item.contactInfo = {
+            number: '',
+            number_ext: '',
+            name: i18n.t('call.Unknown'),
+            initials: '?',
+            registration_color: 'gray',
+          }
+        } else {
+          const contact = getContact(interlocutor, rootGetters)
+          if (contact) {
+            item.contactInfo = extendContactWithCalculatedProperties(contact)
+          } else {
+            const name = interlocutor.display_name || i18n.t('call.Unknown')
+            item.contactInfo = {
+              number: interlocutor.number || '',
+              number_ext: interlocutor.number_ext || '',
+              name,
+              initials: pickOutInitials(name),
+              registration_color: 'gray',
+            }
+          }
+        }
         itemsWithContactInfo.push(item)
       })
       return itemsWithContactInfo
@@ -37,7 +60,7 @@ const getters = {
   missedItems(state, getters) {
     let missed = []
     if (getters.items) {
-      missed = getters.items.filter((item) => item.failed === true)
+      missed = getters.items.filter((item) => item.direction === 'incoming' && item.status === 'missed')
     }
     return missed.length > 0 ? missed.slice(0, 10) : []
   },
@@ -52,7 +75,11 @@ const mutations = {
     state.items = items
   },
   setPagination(state, pagination) {
-    state.pagination = pagination
+    state.pagination = {
+      page: pagination.page,
+      itemsPerPage: pagination.items_per_page,
+      itemsTotal: pagination.items_total,
+    }
   },
 }
 
@@ -62,7 +89,7 @@ const actions = {
     const r = await axios.get('/user/history', {
       params,
     })
-    context.commit('setItems', r.data)
+    context.commit('setItems', r.items)
     context.commit('setPagination', r.pagination)
   },
   async getCallRecord(context, id) {

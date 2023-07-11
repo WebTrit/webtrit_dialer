@@ -113,6 +113,7 @@
   "menu": {
     "Account": "Account",
     "Info": "Info",
+    "Call info": "Call info",
     "Contacts": "Contacts",
     "Recent Calls": "Recent Calls",
     "Settings": "Settings",
@@ -130,6 +131,7 @@
     "Extension": "Extension",
     "Number": "Number",
     "Balance": "Balance",
+    "Balance type": "Balance type",
     "About": "About",
     "Ext": "Ext",
     "Email": "Email",
@@ -143,19 +145,23 @@
     "Unknown": "Unknown"
   },
   "call": {
-    "Name": "Name",
     "Connect Time": "Connect Time",
     "Duration": "Duration",
     "Actions": "Actions",
     "Last": "Last 10 calls made",
-    "Missed": "You missed a call",
-    "Unanswered": "Your call wasn't answered",
-    "Not Succeed": "The call didn't succeed",
-    "Incoming": "Incoming",
-    "Outgoing": "Outgoing",
-    "Call forwarded": "Call forwarded",
-    "Incoming failed": "Incoming failed",
-    "Outgoing failed": "Outgoing failed",
+    "Incoming": "Incoming call",
+    "Incoming missed": "Missed incoming call",
+    "Incoming declined": "Incoming call declined",
+    "Incoming failed": "Incoming call failed",
+    "Outgoing": "Outgoing call",
+    "Outgoing missed": "Outgoing call wasn't answered",
+    "Outgoing declined": "Outgoing call declined",
+    "Outgoing failed": "Outgoing call failed",
+    "Forwarded": "Call forwarded",
+    "Forwarded missed": "Forwarded call wasn't answered",
+    "Forwarded declined": "Forwarded call declined",
+    "Forwarded failed": "Forwarded call failed",
+    "Status": "Status",
     "Unknown": "Unknown"
   },
   "datetime": {
@@ -227,7 +233,7 @@
     "Email required": "E-mail is required",
     "E-mail valid": "E-mail must be valid",
     "New code": "New code has been sent",
-    "From": "from"   
+    "From": "from"
   },
   "edit": {
     "Tel Invalid": "Mobile number cannot exceed 21 characters",

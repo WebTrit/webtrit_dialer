@@ -36,7 +36,7 @@ export default {
       this.contact = this.$_contacts_getOneContact(number)
       if (!this.contact) {
         this.error = true
-        this.snackbarShow({ message: this.$t('errors.contact_not_found') })
+        await this.snackbarShow({ message: this.$t('errors.contact_not_found') })
       }
       this.$emit('loading', false)
     },

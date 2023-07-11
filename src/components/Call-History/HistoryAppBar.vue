@@ -48,13 +48,23 @@ export default {
     ...mapActions('snackbar', {
       snackbarShow: 'show',
     }),
-    updateFromDate(data) {
-      const date = data ? `${data}T00:00:00.000Z` : null
-      this.date.dateFrom = date
+    updateFromDate(from_date) {
+      if (from_date) {
+        const date = new Date(from_date)
+        date.setHours(0, 0, 0, 0)
+        this.date.dateFrom = date.toISOString()
+      } else {
+        this.date.dateFrom = null
+      }
     },
-    updateToDate(data) {
-      const date = data ? `${data}T23:59:59.999Z` : null
-      this.date.dateTo = date
+    updateToDate(to_date) {
+      if (to_date) {
+        const date = new Date(to_date)
+        date.setHours(23, 59, 59, 999)
+        this.date.dateTo = date.toISOString()
+      } else {
+        this.date.dateTo = null
+      }
     },
     checkDateValidity(date) {
       if (date.dateFrom && date.dateTo) {
@@ -68,9 +78,17 @@ export default {
       return true
     },
   },
+  computed: {
+    options() {
+      return this.headers.filter((item) => item.sortable !== false)
+    },
+  },
   watch: {
     search(val) {
       this.$emit('search-update', val)
+    },
+    select(val) {
+      this.$emit('sort-update', val)
     },
     date: {
       handler(date) {

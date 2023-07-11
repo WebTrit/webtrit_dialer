@@ -4,7 +4,7 @@
       <v-container>
         <v-row>
           <PanelAppBar
-            :title="$t('menu.Info')"
+            :title="$t('menu.Call info')"
           >
             <template #close>
               <v-icon
@@ -39,7 +39,7 @@
         </v-row>
         <v-row
           class="mt-5"
-          v-if="call && call.call_recording_exist"
+          v-if="call && call.recording_id"
         >
           <PanelAppBar
             :title="$t('menu.Call Record')"
@@ -163,11 +163,11 @@ export default {
       this.loading = state
     },
     fetchCallDetails() {
-      const { number: callId } = this.$route.params
-      this.call = this.findCallInHistoryItems(callId)
+      const { number: index } = this.$route.params
+      this.call = this.findCallInHistoryItems(index)
     },
-    findCallInHistoryItems(callId) {
-      const call = this.callHistoryItems.filter((item) => item.id === +callId)
+    findCallInHistoryItems(index) {
+      const call = this.callHistoryItems.filter((item) => item.index === +index)
       return call.length > 0 ? call[0] : null
     },
   },

@@ -17,7 +17,7 @@
           </td>
           <td class="user-info__row-content">
             <Tooltip
-              :text="contact.extension_id"
+              :text="contact.number_ext || '-'"
               :activator-width-limit="activatorWidthLimit"
               :disable-tooltips="disableTooltips"
             />
@@ -29,7 +29,7 @@
           </td>
           <td class="user-info__row-content">
             <Tooltip
-              :text="contact.number"
+              :text="contact.number || '-'"
               :activator-width-limit="activatorWidthLimit"
               :disable-tooltips="disableTooltips"
             />
@@ -41,7 +41,7 @@
           </td>
           <td class="user-info__row-content">
             <Tooltip
-              :text="contact.email"
+              :text="contact.email || '-'"
               :activator-width-limit="activatorWidthLimit"
               :disable-tooltips="disableTooltips"
             />
@@ -53,7 +53,7 @@
           </td>
           <td class="user-info__row-content">
             <Tooltip
-              :text="contact.mobile"
+              :text="contact.mobile || '-'"
               :activator-width-limit="activatorWidthLimit"
               :disable-tooltips="disableTooltips"
             />
@@ -65,7 +65,7 @@
           </td>
           <td class="user-info__row-content">
             <Tooltip
-              :text="contact.company_name"
+              :text="contact.company_name || '-'"
               :activator-width-limit="activatorWidthLimit"
               :disable-tooltips="disableTooltips"
             />

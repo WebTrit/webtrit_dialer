@@ -70,11 +70,38 @@ Vue.filter('getDirectionTitle', (item) => {
   if (!item) return ''
   switch (item.direction) {
     case 'incoming':
-      return item.failed ? i18n.t('call.Incoming failed') : i18n.t('call.Incoming')
+      switch (item.status) {
+        case 'accepted':
+          return i18n.t('call.Incoming')
+        case 'declined':
+          return i18n.t('call.Incoming declined')
+        case 'missed':
+          return i18n.t('call.Incoming missed')
+        default:
+          return i18n.t('call.Incoming failed')
+      }
     case 'outgoing':
-      return item.failed ? i18n.t('call.Outgoing failed') : i18n.t('call.Outgoing')
+      switch (item.status) {
+        case 'accepted':
+          return i18n.t('call.Outgoing')
+        case 'declined':
+          return i18n.t('call.Outgoing declined')
+        case 'missed':
+          return i18n.t('call.Outgoing missed')
+        default:
+          return i18n.t('call.Outgoing failed')
+      }
     case 'forwarded':
-      return i18n.t('call.Call forwarded')
+      switch (item.status) {
+        case 'accepted':
+          return i18n.t('call.Forwarded')
+        case 'declined':
+          return i18n.t('call.Forwarded declined')
+        case 'missed':
+          return i18n.t('call.Forwarded missed')
+        default:
+          return i18n.t('call.Forwarded failed')
+      }
     default:
       return i18n.t('call.Unknown')
   }
@@ -84,27 +111,58 @@ Vue.filter('getDirectionIcon', (item) => {
   if (!item) return ''
   switch (item.direction) {
     case 'incoming':
-      return item.failed ? '$call-history-incoming-failed' : '$call-history-incoming'
+      switch (item.status) {
+        case 'accepted':
+          return '$call-history-accepted-incoming'
+        case 'declined':
+          return '$call-history-declined'
+        case 'missed':
+          return '$call-history-missed'
+        default:
+          return '$call-history-failed'
+      }
     case 'outgoing':
-      return item.failed ? '$call-history-outgoing-failed' : '$call-history-outgoing'
+      switch (item.status) {
+        case 'accepted':
+          return '$call-history-accepted-outgoing'
+        case 'declined':
+          return '$call-history-declined'
+        case 'missed':
+          return '$call-history-missed'
+        default:
+          return '$call-history-failed'
+      }
     case 'forwarded':
-      return '$call-history-forward'
+      switch (item.status) {
+        case 'accepted':
+          return '$call-history-accepted-forward'
+        case 'declined':
+          return '$call-history-declined'
+        case 'missed':
+          return '$call-history-missed'
+        default:
+          return '$call-history-failed'
+      }
     default:
-      return '$call-history-unknown'
+      return '$call-history-failed'
   }
 })
 
 Vue.filter('getIconColor', (item) => {
   if (!item) return ''
-  switch (item.direction) {
-    case 'incoming':
-      return item.failed ? 'red' : '#1976D2'
-    case 'outgoing':
-      return item.failed ? 'red' : '#43A047'
-    case 'forwarded':
-      return 'gray'
+  switch (item.status) {
+    case 'declined':
+    case 'accepted':
+      switch (item.direction) {
+        case 'incoming':
+          return '#1976D2'
+        case 'outgoing':
+          return '#43A047'
+        default:
+          return 'gray'
+      }
     default:
-      return '#eceff1'
+      return 'red'
   }
 })
 

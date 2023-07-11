@@ -11,7 +11,7 @@
       <DialogCallInfo
         :initials="contactInfo.initials"
         :email="contactInfo.email"
-        :name="contactInfo.name || contactInfo.ext"
+        :name="contactInfo.name || contactInfo.number_ext"
       />
       <div
         v-show="remoteStreamHasVideo"
@@ -46,7 +46,7 @@
       </v-row>
       <DialogCallActionBtns
         @toggle-keypad="keypad = $event"
-        :call-description="contactInfo.number || contactInfo.ext || '-'"
+        :call-description="contactInfo.number || contactInfo.number_ext || '-'"
       />
     </v-container>
   </v-dialog>
@@ -83,7 +83,7 @@ export default {
     },
     updateContactInfo(contact) {
       this.contactInfo.number = contact.number || null
-      this.contactInfo.ext = contact.extension_id || null
+      this.contactInfo.number_ext = contact.number_ext || null
       this.contactInfo.name = contact.name || null
       if (contact.initials) {
         this.contactInfo.initials = contact.initials

@@ -11,7 +11,7 @@ const state = () => ({
 
 const getters = {
   items(state) {
-    return state.items && state.items.map((contact) => extendContactWithCalculatedProperties({ ...contact }))
+    return state?.items && state.items.map((contact) => extendContactWithCalculatedProperties({ ...contact }))
   },
   pagination(state) {
     return state.pagination
@@ -53,8 +53,7 @@ const actions = {
     const r = await axios.get('/user/contacts', {
       params,
     })
-    console.log('[Contacts]', r)
-    context.commit('setItems', r.data)
+    context.commit('setItems', r.items)
   },
 }
 

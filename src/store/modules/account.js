@@ -24,19 +24,23 @@ const getters = {
     if (!state.info) {
       return null
     }
-    return extendContactWithCalculatedProperties({ ...state.info })
+    return state.info
   },
   login(state) {
-    return state.info?.login
+    return state.info?.number
   },
   balance(state) {
-    switch (state.info?.billing_model) {
-      case 'debit':
-        return `${state.info?.balance.toFixed(2)} ${state.info?.currency}` || null
-      case 'credit':
-        return state.info?.credit_limit && `${state.info?.credit_limit.toFixed(2)} ${state.info?.currency}` || null
-      default:
-        return null
+    let sum = '-'
+    if (state.info && state.info.balance) {
+      if (state.info.balance.balance_type === 'inapplicable') {
+        sum = '∞'
+      } else {
+        sum = (`${state.info.balance.amount.toFixed(2) || ''} ${state.info.balance.currency || ''}`).trim()
+      }
+    }
+    return {
+      sum,
+      type: state.info.balance.balance_type,
     }
   },
 }
@@ -46,7 +50,7 @@ const mutations = {
     state.token = token
   },
   updateInfo(state, info) {
-    state.info = info
+    state.info = info && extendContactWithCalculatedProperties(info)
   },
   setUpdateInterval(state, ref) {
     state.updateInterval = ref
