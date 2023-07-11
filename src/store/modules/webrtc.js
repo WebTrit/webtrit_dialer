@@ -66,7 +66,7 @@ function initPeerConnection({ commit, dispatch, call_id }) {
       }
     },
     errorCallback: (error) => {
-      console.log('Error callback:', error)
+      console.log('[PC] Error event handling:', error)
       if (error.fatal) {
         webtritSignalingClient.disconnect(error.code)
         handleCleanEvent({ commit }, call_id)
@@ -465,7 +465,6 @@ const actions = {
   async call({ getters, commit, dispatch }, {
     number, name, initials, video,
   }) {
-    console.log('Active call exist: ', getters.isCallActive)
     if (getters.isCallActive) {
       snackbarShow(dispatch, 'Error: line busy')
     } else {
