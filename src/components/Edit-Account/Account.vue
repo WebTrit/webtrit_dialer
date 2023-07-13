@@ -10,19 +10,12 @@
       <Avatar
         color="secondary"
         :size="64"
-        :initials="info.initials"
-        :email="info.email"
+        :initials="user.initials"
+        :email="user.email"
       />
     </v-row>
-    <InfoList :info="info" />
-    <InfoInputs
-      :user="user"
-      :server-errors="serverErrors"
-      @form-valid="updateFormValid($event)"
-      @enableActionBtns="enableActionBtns()"
-      @updateUserData="updateUserData($event)"
-      @show-errors="setServerErrors($event)"
-    />
+    <InfoList :user="user" />
+    <InfoInputs :user="user" />
   </div>
   <v-container
     class="user-account--mobile"
@@ -33,22 +26,15 @@
         <Avatar
           color="secondary"
           :size="64"
-          :initials="info.initials"
-          :email="info.email"
+          :initials="user.initials"
+          :email="user.email"
         />
       </v-col>
       <v-col class="flex-grow-0">
-        <InfoList :info="info" />
+        <InfoList :user="user" />
       </v-col>
     </v-row>
-    <InfoInputs
-      :user="user"
-      :server-errors="serverErrors"
-      @form-valid="updateFormValid($event)"
-      @updateUserData="updateUserData($event)"
-      @enableActionBtns="enableActionBtns()"
-      @show-errors="setServerErrors($event)"
-    />
+    <InfoInputs :user="user" />
   </v-container>
 </template>
 
@@ -71,15 +57,15 @@ export default {
   data() {
     return {
       user: {
-        firstname: '',
-        lastname: '',
+        number: '',
+        number_ext: '',
+        first_name: '',
+        last_name: '',
         email: '',
         mobile: '',
         company_name: '',
+        initials: '',
       },
-      actionBtnsDisabled: true,
-      formValid: false,
-      serverErrors: null,
     }
   },
   computed: {
@@ -96,33 +82,17 @@ export default {
     },
   },
   methods: {
-    enableActionBtns() {
-      this.actionBtnsDisabled = false
-    },
-    disableActionBtns() {
-      this.actionBtnsDisabled = true
-    },
     prefillUserInfo() {
-      const {
-        firstname, lastname, mobile, email, company_name,
-      } = this.info
-      const user = {
-        firstname,
-        lastname,
-        email,
-        mobile,
-        company_name,
+      this.user = {
+        number: this.info.number || '-',
+        number_ext: this.info.number_ext || '-',
+        first_name: this.info.first_name || '-',
+        last_name: this.info.last_name || '-',
+        email: this.info.email || '-',
+        mobile: this.mobile || '-',
+        company_name: this.info.company_name || '-',
+        initials: this.info.initials,
       }
-      this.user = user
-    },
-    updateUserData(data) {
-      this.user = data
-    },
-    updateFormValid(validity) {
-      this.formValid = validity
-    },
-    setServerErrors(errors) {
-      this.serverErrors = errors
     },
   },
 }

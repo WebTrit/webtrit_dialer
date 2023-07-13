@@ -20,7 +20,7 @@
           <AvatarBadge
             :initials="info.initials"
             :email="info.email"
-            :status="registrationStatusColor"
+            :status="info.registration_color"
           />
         </v-col>
         <v-col class="user-info__name secondary--text">
@@ -56,7 +56,6 @@ export default {
   },
   computed: {
     ...mapGetters('account', ['info']),
-    ...mapGetters('webrtc', ['registrationStatusColor']),
   },
 }
 </script>

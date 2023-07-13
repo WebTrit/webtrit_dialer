@@ -21,11 +21,14 @@
     "English": "English",
     "Italian": "Italian",
     "system": "System",
+    "adapter additional": "Additional adapter parameters",
     "systemInfo": {
       "porta": "PortaSwitch",
       "janus": "WebTrit Janus",
       "postgres": "Postgres",
-      "core": "WebTrit Core"
+      "core": "WebTrit Core",
+      "adapter": "Hosted PBX adapter",
+      "gorush": "Push notification server"
     }
   },
   "status": {
@@ -72,7 +75,7 @@
         "minimum": "The page number cannot be less than 1",
         "invalid_type": "The page number must be an integer"
       },
-      "itemsPerPage": {
+      "items_per_page": {
         "minimum": "The number of items per page cannot be less than 1",
         "invalid_type": "The items per page number must be an integer"
       },
@@ -110,6 +113,7 @@
   "menu": {
     "Account": "Account",
     "Info": "Info",
+    "Call info": "Call info",
     "Contacts": "Contacts",
     "Recent Calls": "Recent Calls",
     "Settings": "Settings",
@@ -127,6 +131,7 @@
     "Extension": "Extension",
     "Number": "Number",
     "Balance": "Balance",
+    "Balance type": "Balance type",
     "About": "About",
     "Ext": "Ext",
     "Email": "Email",
@@ -140,19 +145,23 @@
     "Unknown": "Unknown"
   },
   "call": {
-    "Name": "Name",
     "Connect Time": "Connect Time",
     "Duration": "Duration",
     "Actions": "Actions",
     "Last": "Last 10 calls made",
-    "Missed": "You missed a call",
-    "Unanswered": "Your call wasn't answered",
-    "Not Succeed": "The call didn't succeed",
-    "Incoming": "Incoming",
-    "Outgoing": "Outgoing",
-    "Call forwarded": "Call forwarded",
-    "Incoming failed": "Incoming failed",
-    "Outgoing failed": "Outgoing failed",
+    "Incoming": "Incoming call",
+    "Incoming missed": "Missed incoming call",
+    "Incoming declined": "Incoming call declined",
+    "Incoming failed": "Incoming call failed",
+    "Outgoing": "Outgoing call",
+    "Outgoing missed": "Outgoing call wasn't answered",
+    "Outgoing declined": "Outgoing call declined",
+    "Outgoing failed": "Outgoing call failed",
+    "Forwarded": "Call forwarded",
+    "Forwarded missed": "Forwarded call wasn't answered",
+    "Forwarded declined": "Forwarded call declined",
+    "Forwarded failed": "Forwarded call failed",
+    "Status": "Status",
     "Unknown": "Unknown"
   },
   "datetime": {
@@ -213,18 +222,18 @@
     "Demo account note in html": "As an alternative to registration, you may also simply click <span class=\"font-bold\">DEMO</span> where you can get access right away simply by using your email address.",
     "If exist account": "If you have an account.",
     "If no account": "If you do not have an account yet, it will be automatically created for you.",
-    "OTP will be sent signup": "A verification code will be sent to the email you provided.",
-    "OTP will be sent sign in": "A verification code will be sent to an email address, associated with your phone number.",
-    "Check spam or": "If you do not see an email in your inbox - check your spam folder or",
+    "OTP will be sent signup": "We'll send a verification code to the email you gave.",
+    "OTP will be sent sign in": "We'll send a verification code to the email address linked to your phone number.",
+    "Check spam or": "If you don't see an email {from} in your inbox, make sure to check your spam folder or",
     "Verification": "Verification code",
     "Verification required": "The verification code is required",
     "Get started": "Get started with",
     "Email": "Please provide your Email",
-    "Verification message by number": "A verification code has been sent to this number",
-    "Verification message by email": "A verification code has been sent to this email",
+    "Verification message": "A verification code has been sent",
     "Email required": "E-mail is required",
     "E-mail valid": "E-mail must be valid",
-    "New code": "New code has been sent"
+    "New code": "New code has been sent",
+    "From": "from"
   },
   "edit": {
     "Tel Invalid": "Mobile number cannot exceed 21 characters",

@@ -111,7 +111,7 @@ export default {
         this.loginProcessing = true
         try {
           const { identifier } = this.$store.state
-          const token = await this.$store.dispatch('account/requestLogin', {
+          const token = await this.$store.dispatch('account/requestSignIn', {
             login: this.login,
             password: this.password,
             type: 'web',

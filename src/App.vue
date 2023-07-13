@@ -122,7 +122,7 @@ export default {
 
   methods: {
     ...mapMutations('webrtc', ['setRegistrationStatus']),
-    ...mapActions('account', ['getInfo', 'logout']),
+    ...mapActions('account', ['initGetAccountInfo', 'logout']),
     ...mapActions('webrtc', ['connect', 'disconnect', 'register', 'unregister']),
     ...mapActions('snackbar', {
       snackbarHide: 'hide',
@@ -174,7 +174,7 @@ export default {
         async handler() {
           if (this.isLogin && !this.info) {
             try {
-              await this.getInfo()
+              await this.$store.dispatch('account/initGetAccountInfo')
               await this.connect()
             } catch (error) {
               console.error('Connection error:', error)

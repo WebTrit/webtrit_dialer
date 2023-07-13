@@ -113,7 +113,6 @@ export default class PeerConnection {
    */
   close() {
     if (this._peerConnection) {
-      console.log('Closed senders:', this._peerConnection.getSenders())
       this._peerConnection.getSenders()
         .forEach((sender) => {
           sender.track.stop()
@@ -178,7 +177,6 @@ export default class PeerConnection {
    */
   async setLocalStreams(media) {
     raiseIfPeerConnectionNull(this._peerConnection)
-    console.log(media)
     try {
       const stream = await navigator.mediaDevices.getUserMedia(media)
       stream.getTracks()

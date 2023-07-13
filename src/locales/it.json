@@ -21,11 +21,14 @@
     "English": "English",
     "Italian": "Italiana",
     "system": "Sistema",
+    "adapter additional": "Parametri aggiuntivi dell'adattatore",
     "systemInfo": {
       "porta": "PortaSwitch",
       "janus": "WebTrit Janus",
       "postgres": "Postgres",
-      "core": "WebTrit Core"
+      "core": "WebTrit Core",
+      "adapter": "Adattatore PBX ospitato",
+      "gorush": "Server di notifiche push"
     }
   },
   "status": {
@@ -72,7 +75,7 @@
         "minimum": "Il numero di pagina non può essere inferiore a 1",
         "invalid_type": "Il numero di pagina deve essere un numero intero"
       },
-      "itemsPerPage": {
+      "items_per_page": {
         "minimum": "Il numero di elementi per pagina non può essere inferiore a 1",
         "invalid_type": "Gli elementi per numero di pagina devono essere un numero intero "
       },
@@ -109,6 +112,7 @@
   "menu": {
     "Account": "Utenza",
     "Info": "Info",
+    "Call info": "Info chiamate",
     "Contacts": "Contatti",
     "Recent Calls": "Chiamate Recenti",
     "Settings": "Impostazioni",
@@ -126,6 +130,7 @@
     "Extension": "Interno",
     "Number": "Numero",
     "Balance": "Saldo",
+    "Balance type": "Tipo di saldo",
     "About": "Riguardo",
     "Ext": "Interno",
     "Email": "E-Mail",
@@ -139,20 +144,24 @@
     "Unknown": "Sconosciuto"
   },
   "call": {
-    "Name": "Nome",
-    "Connect Time": "Connetti il tempo",
+    "Connect Time": "Orario di connessione",
     "Duration": "Durata",
     "Actions": "Azioni",
-    "Last": "Ultime 10 chiamate effettuate",
-    "Missed": "Hai perso una chiamata",
-    "Unanswered": "La tua chiamata non ha ricevuto risposta",
-    "Not Succeed": "La chiamata non è andata a buon fine",
-    "Incoming": "n arrivo",
-    "Outgoing": "In uscita",
-    "Call forwarded": "Chiamata inoltrata",
-    "Incoming failed": "Errore chiamata in entrata",
-    "Outgoing failed": "Errore chiamata in uscita",
-    "Unknown": "Ignoto"
+    "Last": "Ultimi 10 chiamate effettuate",
+    "Incoming": "Chiamata in entrata",
+    "Incoming missed": "Chiamata in entrata persa",
+    "Incoming declined": "Chiamata in entrata rifiutata",
+    "Incoming failed": "Chiamata in entrata fallita",
+    "Outgoing": "Chiamata in uscita",
+    "Outgoing missed": "Chiamata in uscita non risposta",
+    "Outgoing declined": "Chiamata in uscita rifiutata",
+    "Outgoing failed": "Chiamata in uscita fallita",
+    "Forwarded": "Chiamata inoltrata",
+    "Forwarded missed": "Chiamata inoltrata non risposta",
+    "Forwarded declined": "Chiamata inoltrata rifiutata",
+    "Forwarded failed": "Chiamata inoltrata fallita",
+    "Status": "Lo stato",
+    "Unknown": "Sconosciuto"
   },
   "datetime": {
     "Today": "Oggi",
@@ -199,31 +208,31 @@
     "Password": "Immettere la password dell'utente"
   },
   "login": {
-    "Sign in": "Registrati",
-    "Demo": "Demo",
-    "Phone required": "E' richiesto il numero di telefono",
-    "Login required": "E' richiesto il login",
+    "Sign in": "Accedi",
+    "OTP Sign in": "Accedi usando OTP",
+    "Demo": "Registrati per la demo",
+    "Phone required": "Il numero di telefono è obbligatorio",
+    "Login required": "Il login è obbligatorio",
     "From-to contain": "{field} deve contenere cifre, lettere e deve avere una lunghezza compresa tra {from} e {to} caratteri",
     "Password contain": "La password deve contenere cifre, lettere, simboli e deve essere inferiore a {to} caratteri",
     "Login": "Accesso",
     "Phone": "Telefono",
+    "Free account request note in html": "Accedere con il numero di telefono richiede un account esistente. Puoi richiedere un account gratuito contattando <span class=\"font-bold\">PortaOne</span> all'indirizzo <a href=\"mailto:sales@porta.one\">sales@porta.one</a>.",
+    "Demo account note in html": "Come alternativa alla registrazione, puoi semplicemente cliccare su <span class=\"font-bold\">DEMO</span>, dove puoi ottenere accesso immediato utilizzando il tuo indirizzo email.",
+    "If exist account": "Se hai un account.",
+    "If no account": "Se non hai ancora un account, ne verrà creato automaticamente uno per te.",
+    "OTP will be sent signup": "Inviaremo un codice di verifica all'indirizzo email che hai fornito.",
+    "OTP will be sent sign in": "Inviaremo un codice di verifica all'indirizzo email associato al tuo numero di telefono.",
+    "Check spam or": "Se non vedi un email {from} nella tua casella di posta, assicurati di controllare la cartella dello spam o",
     "Verification": "Codice di verifica",
     "Verification required": "Il codice di verifica è obbligatorio",
     "Get started": "Inizia con",
-    "Email": "La tua E-mail",
-    "Verification message by number": "Un codice di verifica è stato inviato a questo numero",
-    "Verification message by email": "Un codice di verifica è stato inviato a questo email",
-    "Email required": "E-mail richiesta",
-    "E-mail valid": "L'E-Mail deve essere valida",
-    "OTP Sign in": "Accedi utilizzando OTP",
-    "Free account request note in html": "La registrazione con il tuo numero di telefono richiede un account esistente. Puoi richiedere un account gratuito contattando <span class=\"font-bold\">PortaOne</span> all'indirizzo <a href=\"mailto:sales@porta.one\">sales@porta.one</a>.",
-    "Demo account note in html": "Come alternativa alla registrazione, puoi semplicemente fare clic su <span class=\"font-bold\">DEMO</span> dove puoi ottenere immediatamente l'accesso utilizzando il tuo indirizzo email.",
-    "If exist account": "Se hai un account.",
-    "If no account": "Se non hai ancora un account, verrà creato automaticamente per te.",
-    "OTP will be sent signup": "Verrà inviato un codice di verifica all'indirizzo email che hai fornito.",
-    "OTP will be sent sign in": "Verrà inviato un codice di verifica all'indirizzo email associato al tuo numero di telefono.",
-    "Check spam or": "Se non visualizzi una email nella tua casella di posta in arrivo, controlla la cartella dello spam o",
-    "New code": "È stato inviato un nuovo codice"
+    "Email": "Per favore, fornisci la tua email",
+    "Verification message": "È stato inviato un codice di verifica",
+    "Email required": "L'indirizzo email è obbligatorio",
+    "E-mail valid": "L'indirizzo email deve essere valido",
+    "New code": "È stato inviato un nuovo codice",
+    "From": "da"
   },
   "slides": {
     "How to call": "Come eseguire una chiamata:",

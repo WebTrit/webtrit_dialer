@@ -79,7 +79,7 @@
 <script>
 import { breakpoints } from '@/mixins'
 import SignIn from '@/components/Login/SignIn.vue'
-import Demo from '@/components/Login/Signup.vue'
+import Signup from '@/components/Login/Signup.vue'
 import LoginSignIn from '@/components/Login/LoginSignIn.vue'
 import { mapGetters } from 'vuex'
 
@@ -97,7 +97,7 @@ export default {
       tabs: [
         {
           title: this.$i18n.t('login.Demo'),
-          component: Demo,
+          component: Signup,
           support: 'signup',
         },
         {

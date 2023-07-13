@@ -3,6 +3,8 @@ const envConfig = {
     process.env.VUE_APP_GTM && process.env.VUE_APP_GTM.split(',').map((v) => v.trim()).filter((v) => v)
   ) || [],
 
+  updateAccountInfoInterval: process.env.VUE_APP_UPDATE_INFO_INTERVAL || 60000,
+
   webtritAppName: process.env.VUE_APP_WEBTRIT_APP_NAME,
   webtritAppSubname: process.env.VUE_APP_WEBTRIT_APP_SUBNAME,
   webtritAppVersion: process.env.VUE_APP_WEBTRIT_APP_VERSION,

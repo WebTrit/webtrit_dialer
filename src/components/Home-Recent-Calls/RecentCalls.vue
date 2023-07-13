@@ -129,13 +129,13 @@ export default {
         this.fetchDataError = false
         await this.fetchCallHistoryItems({
           page: 1,
-          itemsPerPage: 100,
+          items_per_page: 100,
         })
       } catch (err) {
         this.fetchDataError = err.response.status
         if (err.response.status !== 405 && err.response.status !== 401) {
           // 401 handled by error interceptor
-          this.snackbarShow({ message: this.$t(`errors["${err.code}"]`) })
+          await this.snackbarShow({ message: this.$t(`errors["${err.code}"]`) })
         }
       } finally {
         this.loading = false

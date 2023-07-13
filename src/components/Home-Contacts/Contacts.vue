@@ -98,7 +98,7 @@ export default {
     }),
     filteredContactsItems() {
       return this.contactsItems && this.accountInfo && this.contactsItems.filter(
-        (contact) => contact.number !== this.accountInfo.login,
+        (contact) => contact.number !== this.accountInfo.number,
       )
     },
     sortedContactsItems() {

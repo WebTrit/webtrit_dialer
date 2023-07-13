@@ -9,7 +9,7 @@
           <AvatarBadge
             :initials="contact.initials"
             :email="contact.email"
-            :status="sipStatusColor(contact.sip_status)"
+            :status="contact.registration_color"
             :size="64"
           />
         </v-col>
@@ -58,11 +58,6 @@ export default {
     contact: {
       type: Object,
       default: () => {},
-    },
-  },
-  methods: {
-    sipStatusColor(sipStatus) {
-      return sipStatus === 1 ? 'green' : 'grey'
     },
   },
 }

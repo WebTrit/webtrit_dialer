@@ -62,7 +62,10 @@ export default {
       this.hoveredItem = null
     },
     getContactId(contact) {
-      return this.linkName === 'ContactDetails' ? contact.number : contact.id
+      if (this.linkName === 'ContactDetails') {
+        return contact.number
+      }
+      return contact.index
     },
   },
   watch: {

@@ -16,22 +16,22 @@
         <v-row>
           <v-col class="flex items-center">
             <v-progress-linear
-              v-if="call.call_recording_exist"
+              v-if="call.recording_id"
               :value="playProgress"
             />
           </v-col>
           <v-col class="max-w-max">
             <PlayBtn
-              v-if="call.call_recording_exist"
-              :call-id="call.id"
+              v-if="call.recording_id"
+              :call-id="call.recording_id"
               @update-progress="updatePlayProgress($event)"
               :always-upd-parent-progress="true"
             />
           </v-col>
           <v-col class="max-w-max pl-0 flex items-center">
             <DownloadBtn
-              v-if="call.call_recording_exist"
-              :call-id="call.id"
+              v-if="call.recording_id"
+              :call-id="call.recording_id"
               :filename="$_calls_getFilename(call)"
             />
           </v-col>

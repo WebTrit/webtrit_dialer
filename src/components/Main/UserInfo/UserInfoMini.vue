@@ -7,15 +7,15 @@
       <AvatarBadge
         :initials="info.initials"
         :email="info.email"
-        :status="registrationStatusColor"
+        :status="info.registration_color"
       />
     </v-list-item>
     <v-list-item
-      v-if="balance"
+      v-if="balance.sum"
       class="user-info__balance"
       style="color: white !important"
     >
-      {{ balance || '' }}
+      {{ balance.sum || '' }}
     </v-list-item>
   </v-list>
 </template>
@@ -30,7 +30,6 @@ export default {
   },
   computed: {
     ...mapGetters('account', ['info', 'balance']),
-    ...mapGetters('webrtc', ['registrationStatusColor']),
   },
 }
 </script>

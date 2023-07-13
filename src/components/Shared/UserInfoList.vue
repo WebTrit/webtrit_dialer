@@ -9,7 +9,7 @@
           <td class="user-info__row-title py-4">
             {{ $t('user.Status') }}:
           </td>
-          <td class="user-info__row-content--status py-4">
+          <td class="user-info__row-content--status py-4 secondary--text">
             <Tooltip
               :text="$t(`status.registration.${registrationStatus}`)"
               :disable-tooltips="disableTooltips"
@@ -21,9 +21,9 @@
           <td class="user-info__row-title pb-1">
             {{ $t('user.Extension') }}:
           </td>
-          <td class="user-info__row-content pb-1 font-bold">
+          <td class="user-info__row-content pb-1 font-bold secondary--text">
             <Tooltip
-              :text="info.ext || ''"
+              :text="info.number_ext || '-'"
               :activator-width-limit="activatorWidthLimit"
               :disable-tooltips="disableTooltips"
             />
@@ -33,9 +33,9 @@
           <td class="user-info__row-title">
             {{ $t('user.Number') }}:
           </td>
-          <td class="user-info__row-content font-bold">
+          <td class="user-info__row-content font-bold secondary--text">
             <Tooltip
-              :text="info.login"
+              :text="info.number || '-'"
               :activator-width-limit="activatorWidthLimit"
               :disable-tooltips="disableTooltips"
             />
@@ -50,7 +50,7 @@
           </td>
           <td class="user-info__row-content--blue pt-4 secondary--text">
             <Tooltip
-              :text="balance || ''"
+              :text="balance.sum"
               :activator-width-limit="activatorWidthLimit"
               :disable-tooltips="disableTooltips"
             />

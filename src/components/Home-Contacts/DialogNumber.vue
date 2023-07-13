@@ -23,7 +23,7 @@
         <v-row v-if="$vuetify.breakpoint.xs && balance">
           <v-col class="dialog-number__balance">
             <span> {{ $t('modal.Balance') }}: </span>
-            <span class="secondary--text font-bold pl-3"> {{ balance }} </span>
+            <span class="secondary--text font-bold pl-3"> {{ balance.sum }} </span>
           </v-col>
         </v-row>
         <v-row>
@@ -52,7 +52,7 @@
         <v-row v-if="!$vuetify.breakpoint.xs && balance">
           <v-col class="dialog-number__balance my-9">
             <span> {{ $t('modal.Balance') }}: </span>
-            <span class="secondary--text font-bold pl-3"> {{ balance }} </span>
+            <span class="secondary--text font-bold pl-3"> {{ balance.sum }} </span>
           </v-col>
         </v-row>
         <v-row

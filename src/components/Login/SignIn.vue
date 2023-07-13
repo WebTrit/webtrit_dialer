@@ -41,7 +41,7 @@
           <span
             v-else
             class="sign-in-form__msg"
-          > {{ $t('login.Verification message by number') }} </span>
+          > {{ $t('login.Verification message') }} </span>
         </v-col>
       </v-row>
       <v-row
@@ -98,7 +98,7 @@
       >
         <v-col>
           <p class="sign-in-form__msg">
-            {{ $t('login.Check spam or') }} <span
+            {{ $t('login.Check spam or', { from: deliveryFromString()}) }} <span
               class="sign-in-form__resend"
               :class="[ $vuetify.breakpoint.xs ? 'sign-in-form__resend--mobile' : 'sign-in-form__resend']"
               @click="resendCode()"
@@ -123,6 +123,7 @@ export default {
       phoneNumber: '',
       otp: '',
       otpId: '',
+      deliveryFrom: '',
       phoneNumberProcessing: false,
       otpProcessing: false,
       phoneNumberErrorMessages: null,
@@ -153,11 +154,13 @@ export default {
         this.phoneNumberProcessing = true
         try {
           const { identifier } = this.$store.state
-          this.otpId = await this.$store.dispatch('account/requestOtp', {
-            phone: this.phoneNumber,
+          const r = await this.$store.dispatch('account/requestOtpSignIn', {
+            user_ref: this.phoneNumber,
             type: 'web',
             identifier,
           })
+          this.otpId = r.otp_id
+          this.deliveryFrom = r.delivery_from || ''
         } catch (e) {
           this.phoneNumberErrorMessages = this.$_errors_parse(e)
         } finally {
@@ -173,7 +176,7 @@ export default {
       if (this.$refs['verification-form'].validate()) {
         this.otpProcessing = true
         try {
-          const token = await this.$store.dispatch('account/verifyOtp', {
+          const token = await this.$store.dispatch('account/requestOtpVerify', {
             otp_id: this.otpId,
             code: this.otp,
           })
@@ -196,11 +199,13 @@ export default {
         this.phoneNumberProcessing = true
         try {
           const { identifier } = this.$store.state
-          this.otpId = await this.$store.dispatch('account/requestOtp', {
-            phone: this.phoneNumber,
+          const r = await this.$store.dispatch('account/requestOtpSignIn', {
+            user_ref: this.phoneNumber,
             type: 'web',
             identifier,
           })
+          this.otpId = r.otp_id
+          this.deliveryFrom = r.delivery_from || ''
           this.otp = ''
           await this.snackbarShow({ message: this.$t('login.New code') })
         } catch (e) {
@@ -209,6 +214,10 @@ export default {
           this.phoneNumberProcessing = false
         }
       }
+    },
+    deliveryFromString() {
+      if (this.deliveryFrom.length === 0) return ''
+      return [this.$i18n.t('login.From'), ' <', this.deliveryFrom, '>'].join('')
     },
     focusOnFirstInput() {
       this.$refs.firstField.$refs.input.focus()

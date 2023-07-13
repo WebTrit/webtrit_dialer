@@ -186,7 +186,7 @@ describe('account.js actions', () => {
         otpId: '2323',
       },
     })
-    const res = await account.actions.requestOtp({}, '445154')
+    const res = await account.actions.createOtp({}, '445154')
     setTimeout(() => {
       expect(axios.post).toHaveBeenCalledWith('/session/otp-request', '445154')
       expect(res).toBe('2323')

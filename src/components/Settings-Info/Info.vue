@@ -96,15 +96,38 @@
               class="settings-info__row"
             >
               <td> {{ $t(`settings.systemInfo.${key}`) }} </td>
-              <td> {{ val && val.version }} </td>
+              <td> {{ val && val.version || '-' }} </td>
             </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+      <v-simple-table
+        class="w-full mt-9"
+        dense
+      >
+        <template #default>
+          <thead>
+            <tr>
+              <th
+                class="settings-info__header"
+                colspan="2"
+              >
+                {{ $t('settings.adapter additional') }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
             <tr
               v-for="[key, val] in adapterInfo"
               :key="key"
               class="settings-info__row"
             >
-              <td> {{ key }} </td>
-              <td> {{ val }} </td>
+              <td v-if="key !== 'version'">
+                {{ key }}
+              </td>
+              <td v-if="key !== 'version'">
+                {{ val && val || '-' }}
+              </td>
             </tr>
           </tbody>
         </template>
@@ -159,11 +182,10 @@ export default {
       return this.$envConfig.webtritAppVersion
     },
     systemInfo() {
-      const systemInfo = this.$store.state.system.info
-      return (systemInfo && Object.entries(systemInfo)) || []
+      return (this.info && Object.entries(this.info)) || []
     },
     adapterInfo() {
-      return (this.info && Object.entries(this.info)) || []
+      return (this.info && Object.entries(this.info.adapter)) || []
     },
   },
   methods: {

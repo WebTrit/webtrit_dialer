@@ -16,23 +16,26 @@
 
       <v-col class="container__col">
         <v-row class="container__inner-row">
-          <span class="container__item-name"> {{ $_calls_getInterlocutor(scopedSlots.contact) }} </span>
+          <v-col>
+            <span class="container__item-name"> {{ getCallerName(scopedSlots.contact.contactInfo) }} </span>
+          </v-col>
+          <v-col>
+            <span
+              class="container__item-sub-name"
+              v-if="scopedSlots.contact.duration > 0 && scopedSlots.contact.status === 'accepted'"
+            >
+              {{ $t('call.Duration') }}: <span> {{ scopedSlots.contact.duration | formatPrettySeconds }} </span>
+            </span>
+            <span
+              class="container__item-sub-name"
+              v-else
+            >
+              {{ scopedSlots.contact | getDirectionTitle }}
+            </span>
+          </v-col>
         </v-row>
         <v-row class="container__inner-row">
-          <span
-            class="container__item-sub-name"
-            v-if="$options.filters.formatPrettySeconds(scopedSlots.contact.duration)"
-          > {{ $t('call.Duration') }}:
-            <span>
-              {{ scopedSlots.contact.duration | formatPrettySeconds }}
-            </span>
-          </span>
-          <span
-            v-else
-            class="recent-calls__failed"
-          >
-            {{ getFailMessage(scopedSlots.contact) }}
-          </span>
+          <span class="container__item-sub-name"> {{ getCallerNumber(scopedSlots.contact.contactInfo) }} </span>
         </v-row>
       </v-col>
 
@@ -46,7 +49,8 @@
         <v-row class="container__inner-row justify-end">
           <v-btn
             class="recent-calls-callback-btn elevation-0"
-            :disabled="!isRegistered"
+            :disabled="!(isRegistered && (scopedSlots.contact.contactInfo.number.length > 0
+              || scopedSlots.contact.contactInfo.number_ext.length > 0))"
             color="accent"
             small
             outlined
@@ -84,23 +88,24 @@ export default {
   },
   methods: {
     ...mapActions('webrtc', ['call']),
-    getFailMessage(item) {
-      if (item.direction === 'incoming') {
-        return item.failed ? 'You missed the call' : ''
-      } else if (item.direction === 'outgoing') {
-        return item.failed ? 'Your call wasn\'t answered' : ''
-      } else {
-        return 'The call didn\'t succeed'
-      }
-    },
     makeCall(contactInfo) {
-      const { number, initials = '', name = '' } = contactInfo
       this.call({
-        number,
-        name,
-        initials,
+        number: contactInfo.number?.length > 0 ? contactInfo.number : contactInfo.number_ext,
+        name: contactInfo.name,
+        initials: contactInfo.initials,
         video: false,
       })
+    },
+    getCallerName(caller_contact) {
+      if (caller_contact.name) return caller_contact.name
+      return caller_contact.number
+    },
+    getCallerNumber(caller_contact) {
+      if (caller_contact.number_ext) {
+        if (caller_contact.number) return `${caller_contact.number} (ext: ${caller_contact.number_ext})`
+        return `ext: ${caller_contact.number_ext}`
+      }
+      return caller_contact.number
     },
   },
 }

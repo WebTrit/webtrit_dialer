@@ -41,7 +41,7 @@
           <span
             v-else
             class="signup-form__msg"
-          > {{ $t('login.Verification message by email') }} </span>
+          > {{ $t('login.Verification message') }} </span>
         </v-col>
       </v-row>
       <v-row
@@ -95,7 +95,7 @@
       >
         <v-col>
           <p class="signup-form__msg">
-            {{ $t('login.Check spam or') }} <span
+            {{ $t('login.Check spam or', { from: deliveryFromString()}) }} <span
               class="signup-form__resend"
               :class="[ $vuetify.breakpoint.xs ? 'signup-form__resend--mobile' : 'signup-form__resend']"
               @click="resendCode()"
@@ -128,6 +128,7 @@ export default {
       emailErrorMessages: null,
       otp: '',
       otpId: '',
+      deliveryFrom: '',
       otpProcessing: false,
       otpErrorMessages: null,
     }
@@ -157,11 +158,13 @@ export default {
         this.emailProcessing = true
         try {
           const { identifier } = this.$store.state
-          this.otpId = await this.$store.dispatch('account/requestDemoOtp', {
+          const r = await this.$store.dispatch('account/requestOtpSignup', {
             email: this.email,
             type: 'web',
             identifier,
           })
+          this.otpId = r.otp_id
+          this.deliveryFrom = r.delivery_from || ''
         } catch (e) {
           this.emailErrorMessages = this.$_errors_parse(e)
         } finally {
@@ -177,7 +180,7 @@ export default {
       if (this.$refs['verification-form'].validate()) {
         this.otpProcessing = true
         try {
-          const token = await this.$store.dispatch('account/verifyOtp', {
+          const token = await this.$store.dispatch('account/requestOtpVerify', {
             otp_id: this.otpId,
             code: this.otp,
           })
@@ -200,11 +203,13 @@ export default {
         this.emailProcessing = true
         try {
           const { identifier } = this.$store.state
-          this.otpId = await this.$store.dispatch('account/requestDemoOtp', {
+          const r = await this.$store.dispatch('account/requestOtpSignup', {
             email: this.email,
             type: 'web',
             identifier,
           })
+          this.otpId = r.otp_id
+          this.deliveryFrom = r.delivery_from || ''
           this.otp = ''
           await this.snackbarShow({ message: this.$t('login.New code') })
         } catch (e) {
@@ -213,6 +218,10 @@ export default {
           this.emailProcessing = false
         }
       }
+    },
+    deliveryFromString() {
+      if (this.deliveryFrom.length === 0) return ''
+      return [this.$i18n.t('login.From'), ' <', this.deliveryFrom, '>'].join('')
     },
     focusOnFirstInput() {
       this.$refs.firstField.$refs.input.focus()

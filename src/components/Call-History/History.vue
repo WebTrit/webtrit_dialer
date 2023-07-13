@@ -1,8 +1,10 @@
 <template>
   <div class="m-0 p-0 w-full h-full">
     <HistoryAppBar
-      @search-update="updateSearch($event)"
+      :headers="headers"
       @get-call-records="updateDate($event)"
+      @search-update="updateSearch($event)"
+      @sort-update="updateSort($event)"
     />
     <v-data-table
       v-if="!$vuetify.breakpoint.xs"
@@ -56,7 +58,16 @@
           {{ item | getDirectionIcon }}
         </v-icon>
         <span class="font-bold ml-4">
-          {{ $_calls_getInterlocutor(item) }}
+          {{ item.contactInfo.name }}
+        </span>
+      </template>
+
+      <template #[`item.number`]="{ item }">
+        <span
+          class="call-history__connect-time"
+          :class="[!$vuetify.breakpoint.xs? 'ml-5': 'ml-0']"
+        >
+          {{ item.contactInfo.number || item.contactInfo.number_ext }}
         </span>
       </template>
 
@@ -70,25 +81,34 @@
       </template>
 
       <template #[`item.duration`]="{ item }">
-        <span class="call-history__duration">
-          {{ item.duration | formatPrettySeconds }}
+        <span
+          class="call-history__duration"
+          v-if="item.duration > 0 && item.status === 'accepted'"
+        >
+          {{ $t('call.Duration') }}: {{ item.duration | formatPrettySeconds }}
+        </span>
+        <span
+          class="call-history__duration"
+          v-else
+        >
+          {{ item | getDirectionTitle }}
         </span>
       </template>
 
       <template #[`item.actions`]="{ item }">
         <v-progress-linear
-          v-if="item.call_recording_exist && !$_breakpoints_mobile"
-          :value="playProgress[item.id] || 0"
+          v-if="item.recording_id && !$_breakpoints_mobile"
+          :value="playProgress[item.recording_id] || 0"
           class="mr-4"
         />
         <PlayBtn
-          v-if="item.call_recording_exist"
-          :call-id="item.id"
+          v-if="item.recording_id"
+          :call-id="item.recording_id"
           @update-progress="updatePlayProgress($event)"
         />
         <DownloadBtn
-          v-if="item.call_recording_exist"
-          :call-id="item.id"
+          v-if="item.recording_id"
+          :call-id="item.recording_id"
           :filename="$_calls_getFilename(item)"
         />
         <AudioCallBtn
@@ -107,6 +127,7 @@
     <HistoryList
       v-else
       :items="callHistoryItems || []"
+      :sort="sort"
       :page-length="pageLength"
       :current-page="dataTableOptions.page"
       :loading="loading"
@@ -155,6 +176,7 @@ export default {
         itemsPerPageOptions,
       },
       date: null,
+      sort: '',
     }
   },
   computed: {
@@ -166,25 +188,30 @@ export default {
     headers() {
       return [
         {
-          text: this.$t('call.Name'),
+          text: this.$t('user.Name'),
           value: 'called_calling',
-          width: !this.$_breakpoints_mobile ? '25%' : '35%',
+          width: this.$_breakpoints_mobile ? '30%' : '20%',
+        },
+        {
+          text: this.$t('user.Number'),
+          value: 'number',
+          width: this.$_breakpoints_mobile ? '5%' : '5%',
         },
         {
           text: this.$t('call.Connect Time'),
           value: 'connect_time',
-          width: !this.$_breakpoints_mobile ? '20%' : '30%',
+          width: this.$_breakpoints_mobile ? '20%' : '20%',
         },
         {
-          text: this.$t('call.Duration'),
+          text: this.$t('call.Status'),
           value: 'duration',
-          width: '10%',
+          width: '15%',
         },
         {
           text: this.$t('call.Actions'),
           value: 'actions',
           align: 'end',
-          width: !this.$_breakpoints_mobile ? '35%' : '15%',
+          width: this.$_breakpoints_mobile ? '25%' : '30%',
           sortable: false,
         },
       ]
@@ -207,15 +234,14 @@ export default {
       this.loading = true
       try {
         this.fetchDataError = false
-        const params = this.getParams()
-        await this.fetchCallHistoryItems(params)
+        await this.fetchCallHistoryItems(this.getParams())
         this.createPlayProgress()
       } catch (err) {
         this.fetchDataError = err.response.status
         if (err.response.status !== 405 && err.response.status !== 401) {
           // 401 handled by error interceptor
           const code = this.$_errors_parse(err)
-          this.snackbarShow({
+          await this.snackbarShow({
             message: code,
           })
         }
@@ -225,10 +251,10 @@ export default {
     },
     getParams() {
       return {
-        dateTo: this.date?.dateTo,
-        dateFrom: this.date?.dateFrom,
+        time_to: this.date?.dateTo,
+        time_from: this.date?.dateFrom,
         page: this.dataTableOptions.page,
-        itemsPerPage: this.dataTableOptions.itemsPerPage,
+        items_per_page: this.dataTableOptions.itemsPerPage,
       }
     },
     updateSearch(val) {
@@ -240,13 +266,16 @@ export default {
       this.dataTableOptions.page = 1
       this.fetchData()
     },
+    updateSort(val) {
+      this.sort = val
+    },
     updatePage(val) {
       this.tmpDataTableOptions = { ...this.dataTableOptions, page: val }
       this.dataTableOptions = this.tmpDataTableOptions
     },
     createPlayProgress() {
       this.callHistoryItems.forEach((item) => {
-        this.playProgress[item.id] = 0
+        this.playProgress[item.recording_id] = 0
       })
     },
     updatePlayProgress({ percentage, id }) {
