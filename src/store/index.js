@@ -22,9 +22,8 @@ Vue.use(Vuex)
 const debug = process.env.NODE_ENV !== 'production'
 const IDENTIFIER_KEY = 'webtrit_ident'
 
-function generateIdentifier() {
+function generateRandomString(len = 16) {
   const charSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-  const len = 16
   let randomString = ''
   for (let i = 0; i < len; i += 1) {
     const randomPoz = Math.floor(Math.random() * charSet.length)
@@ -35,7 +34,7 @@ function generateIdentifier() {
 
 let identifier = window.localStorage.getItem(IDENTIFIER_KEY)
 if (identifier === null) {
-  identifier = generateIdentifier()
+  identifier = generateRandomString()
   window.localStorage.setItem(IDENTIFIER_KEY, identifier)
 }
 
