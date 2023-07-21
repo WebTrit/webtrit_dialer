@@ -44,3 +44,7 @@ export function getContact(data, rootGetters) {
   }
   return null
 }
+
+export function getReverseLocalHost() {
+  return window.location.host.split('').reverse().join('')
+}

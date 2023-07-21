@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-catch */
 /* eslint-disable no-shadow */
 import axios from 'axios'
-import { extendContactWithCalculatedProperties } from '@/store/helpers'
+import { extendContactWithCalculatedProperties, getReverseLocalHost } from '@/store/helpers'
 import { envConfig } from '@/env-config'
 
 const state = () => ({
@@ -65,12 +65,15 @@ const mutations = {
 
 const actions = {
   async requestOtpSignup(context, payload) {
+    payload.bundle_id = getReverseLocalHost()
     return axios.post('/user', payload)
   },
   async requestOtpSignIn(context, payload) {
+    payload.bundle_id = getReverseLocalHost()
     return axios.post('/session/otp-create', payload)
   },
   async requestSignIn(context, payload) {
+    payload.bundle_id = getReverseLocalHost()
     const r = await axios.post('/session', payload)
     return r.token
   },
