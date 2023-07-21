@@ -1,11 +1,23 @@
 import i18n from '@/plugins/i18n'
 import { getRegistrationStatusColor } from '@/store/modules/webrtc'
 
+function replaceEmptyObjectsWithNull(obj) {
+  Object.keys(obj).forEach((key) => {
+    if (typeof obj[key] === 'object' && obj[key] !== null) {
+      replaceEmptyObjectsWithNull(obj[key])
+      if (Object.keys(obj[key]).length === 0) {
+        obj[key] = null
+      }
+    }
+  })
+}
+
 export function pickOutInitials(name) {
   return name.split(' ', 3).map((n) => (n.length >= 1 ? n[0].toUpperCase() : '?')).join('')
 }
 
 export function extendContactWithCalculatedProperties(contact) {
+  replaceEmptyObjectsWithNull(contact)
   contact.name = (`${contact.first_name || ''} ${contact.last_name || ''}`).trim()
     || contact.sip?.display_name
     || contact.email

@@ -31,16 +31,18 @@ const getters = {
   },
   balance(state) {
     let sum = '-'
+    let type = '-'
     if (state.info && state.info.balance) {
       if (state.info.balance.balance_type === 'inapplicable') {
         sum = '∞'
       } else {
         sum = (`${state.info.balance.amount.toFixed(2) || ''} ${state.info.balance.currency || ''}`).trim()
       }
+      type = state.info.balance.balance_type
     }
     return {
       sum,
-      type: state.info.balance.balance_type,
+      type,
     }
   },
 }
