@@ -59,7 +59,6 @@ const axiosInitPlugin = (store) => {
   axios.interceptors.request.use(
     (config) => {
       config.headers.set(REQUEST_ID_HEADER_NAME, `${REQUEST_ID_PREFIX}/${generateRandomString(24)}`, false)
-      console.log('Request config :', config)
       return config
     },
     (error) => {
