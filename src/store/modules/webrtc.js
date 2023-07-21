@@ -18,6 +18,7 @@ const callStates = {
 }
 
 const SLOWLINK_POOR_THRESHOLD = 30
+const WS_CLOSE_CODE_SESSION_MISSED = 4201
 const WS_CLOSE_CODE_UNREGISTER = 4302
 const WS_CLOSE_CODE_MISSED_CREDENTIALS = 4412
 const WS_CLOSE_CODE_ATTACH_ERROR = 4431
@@ -477,7 +478,7 @@ const actions = {
           console.log(`Disconnect handling in callback with code: ${code}; reason: ${reason}`)
           webtritSignalingClient.disconnect()
           handleCleanEvent({ commit }, getters.getCallId)
-          if (code !== WS_CLOSE_CODE_UNREGISTER) {
+          if (![WS_CLOSE_CODE_UNREGISTER, WS_CLOSE_CODE_SESSION_MISSED].includes(code)) {
             if (getters.isRegistered && (code === WS_CLOSE_CODE_ATTACH_ERROR)) {
               reason = i18n.t('errors.already opened')
             } else if (code === WS_CLOSE_CODE_MISSED_CREDENTIALS) {
