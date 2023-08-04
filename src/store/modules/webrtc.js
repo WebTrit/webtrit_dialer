@@ -32,6 +32,7 @@ const WS_CLOSE_CODE_ATTACH_ERROR = 4431
 export function getRegistrationStatusColor(status) {
   switch (status) {
     case 'unregistered':
+    case 'notregistered':
     case 'registration_failed':
       return 'red'
     case 'unregistering':
