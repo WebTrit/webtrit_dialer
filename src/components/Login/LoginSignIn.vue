@@ -87,7 +87,7 @@ export default {
     loginRules() {
       return [
         (v) => !!v || this.$i18n.t('login.Login required'),
-        (v) => /^\+?[a-zA-Z0-9@]{1,64}$/.test(v) || this.$i18n.t('login.From-to contain', { field: this.$i18n.t('login.Login'), from: 1, to: 64 }),
+        (v) => /^\+?[a-zA-Z0-9@._]{1,64}$/.test(v) || this.$i18n.t('login.From-to contain', { field: this.$i18n.t('login.Login'), from: 1, to: 64 }),
       ]
     },
     passwordRules() {

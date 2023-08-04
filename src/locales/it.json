@@ -22,13 +22,14 @@
     "Italian": "Italiana",
     "system": "Sistema",
     "adapter additional": "Parametri aggiuntivi dell'adattatore",
+    "gorush additional": "Informazioni sul server(s) delle notifiche push",
     "systemInfo": {
       "porta": "PortaSwitch",
       "janus": "WebTrit Janus",
       "postgres": "Postgres",
       "core": "WebTrit Core",
       "adapter": "Adattatore PBX ospitato",
-      "gorush": "Server di notifiche push"
+      "gorush": "Server(s) di notifiche push"
     }
   },
   "status": {
@@ -213,7 +214,7 @@
     "Demo": "Registrati per la demo",
     "Phone required": "Il numero di telefono è obbligatorio",
     "Login required": "Il login è obbligatorio",
-    "From-to contain": "{field} deve contenere cifre, lettere e deve avere una lunghezza compresa tra {from} e {to} caratteri",
+    "From-to contain": "{field} deve contenere cifre, lettere, punto, underscore e deve avere una lunghezza compresa tra {from} e {to} caratteri",
     "Password contain": "La password deve contenere cifre, lettere, simboli e deve essere inferiore a {to} caratteri",
     "Login": "Accesso",
     "Phone": "Telefono",

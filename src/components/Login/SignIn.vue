@@ -134,7 +134,7 @@ export default {
     phoneNumberRules() {
       return [
         (v) => !!v || this.$i18n.t('login.Phone required'),
-        (v) => /^\+?[a-zA-Z0-9@.]{1,64}$/.test(v) || this.$i18n.t('login.From-to contain', { field: this.$i18n.t('login.Phone'), from: 1, to: 64 }),
+        (v) => /^\+?[a-zA-Z0-9@._]{1,64}$/.test(v) || this.$i18n.t('login.From-to contain', { field: this.$i18n.t('login.Phone'), from: 1, to: 64 }),
       ]
     },
     otpRules() {
