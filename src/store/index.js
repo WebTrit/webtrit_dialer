@@ -72,9 +72,7 @@ const axiosInitPlugin = (store) => {
       return response.status === 204 ? response.status : response.data
     },
     (error) => {
-      console.log('Get error:', error)
-      console.log('Get error1:', error.message)
-      console.log('Get error2:', error.response)
+      console.error('Response Error:', error.message, error.response)
       const router = require('@/router').default
       if (error.response !== undefined) {
         switch (error.response.status) {
