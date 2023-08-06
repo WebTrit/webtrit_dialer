@@ -145,6 +145,16 @@ export default {
   },
   methods: {
     ...mapActions('snackbar', { snackbarShow: 'show' }),
+    async executeRequest() {
+      const { identifier } = this.$store.state
+      const r = await this.$store.dispatch('account/requestOtpSignIn', {
+        user_ref: this.phoneNumber,
+        type: 'web',
+        identifier,
+      })
+      this.otpId = r.otp_id
+      this.deliveryFrom = r.delivery_from || ''
+    },
     async providePhoneNumber() {
       if (this.otpId || this.phoneNumberProcessing || this.phoneNumber.length < 1) {
         return
@@ -153,14 +163,7 @@ export default {
       if (this.$refs['sign-in-form'].validate()) {
         this.phoneNumberProcessing = true
         try {
-          const { identifier } = this.$store.state
-          const r = await this.$store.dispatch('account/requestOtpSignIn', {
-            user_ref: this.phoneNumber,
-            type: 'web',
-            identifier,
-          })
-          this.otpId = r.otp_id
-          this.deliveryFrom = r.delivery_from || ''
+          await this.executeRequest()
         } catch (e) {
           this.phoneNumberErrorMessages = this.$_errors_parse(e)
         } finally {
@@ -198,14 +201,7 @@ export default {
       if (this.$refs['sign-in-form'].validate()) {
         this.phoneNumberProcessing = true
         try {
-          const { identifier } = this.$store.state
-          const r = await this.$store.dispatch('account/requestOtpSignIn', {
-            user_ref: this.phoneNumber,
-            type: 'web',
-            identifier,
-          })
-          this.otpId = r.otp_id
-          this.deliveryFrom = r.delivery_from || ''
+          await this.executeRequest()
           this.otp = ''
           await this.snackbarShow({ message: this.$t('login.New code') })
         } catch (e) {
