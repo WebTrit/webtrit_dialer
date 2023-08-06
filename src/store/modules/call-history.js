@@ -93,8 +93,7 @@ const actions = {
     context.commit('setPagination', r.pagination)
   },
   async getCallRecord(context, id) {
-    const r = await axios.get(`/user/recordings/${id}`, { responseType: 'blob' })
-    return r
+    return axios.get(`/user/recordings/${id}`, { responseType: 'blob' })
   },
 }
 
