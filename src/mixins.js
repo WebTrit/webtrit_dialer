@@ -85,7 +85,7 @@ export const errors = {
   methods: {
     $_errors_parse(err) {
       let code = ''
-      const error = err.response.data
+      const error = err.response?.data
       if (error) {
         if (error.code === 'parameters_validate_issue') {
           const details = error.refining || error.details || []
