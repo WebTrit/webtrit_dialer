@@ -1,11 +1,12 @@
 /* eslint-disable no-useless-catch */
 /* eslint-disable no-shadow */
 import axios from 'axios'
-import { extendContactWithCalculatedProperties, getReverseLocalHost } from '@/store/helpers'
+import { extendContactWithCalculatedProperties } from '@/store/helpers'
 import { envConfig } from '@/env-config'
 
 const state = () => ({
   token: null,
+  tenant_id: null,
   info: null,
   updateInterval: null,
 })
@@ -13,6 +14,9 @@ const state = () => ({
 const getters = {
   token(state) {
     return state.token
+  },
+  tenant_id(state) {
+    return state.tenant_id
   },
   isLogin(state) {
     return !!state.token
@@ -51,6 +55,9 @@ const mutations = {
   updateToken(state, token) {
     state.token = token
   },
+  updateTenantId(state, tenant_id) {
+    state.tenant_id = tenant_id
+  },
   updateInfo(state, info) {
     state.info = info && extendContactWithCalculatedProperties(info)
   },
@@ -65,26 +72,27 @@ const mutations = {
   },
 }
 
+async function post_request(url, payload) {
+  payload.bundle_id = null // getReverseLocalHost()
+  return axios.post(url, payload)
+}
+
 const actions = {
   async requestOtpSignup(context, payload) {
-    payload.bundle_id = getReverseLocalHost()
-    return axios.post('/user', payload)
+    return post_request('/user', payload)
   },
   async requestOtpSignIn(context, payload) {
-    payload.bundle_id = getReverseLocalHost()
-    return axios.post('/session/otp-create', payload)
+    return post_request('/session/otp-create', payload)
   },
   async requestSignIn(context, payload) {
-    payload.bundle_id = getReverseLocalHost()
-    const r = await axios.post('/session', payload)
-    return r.token
+    return post_request('/session', payload)
   },
   async requestOtpVerify(context, payload) {
-    const r = await axios.post('/session/otp-verify', payload)
-    return r.token
+    return post_request('/session/otp-verify', payload)
   },
-  async storeToken(context, token) {
-    context.commit('updateToken', token)
+  async storeAccessCredentials(context, data) {
+    context.commit('updateToken', data.token)
+    context.commit('updateTenantId', data.tenant_id)
   },
   async logout({ commit, dispatch }) {
     commit('clearUpdateInterval')
@@ -97,6 +105,7 @@ const actions = {
       commit('callHistory/setItems', null, { root: true })
       commit('contacts/setItems', null, { root: true })
       commit('updateToken', null)
+      commit('updateTenantId', null)
       commit('updateInfo', null)
     }
   },

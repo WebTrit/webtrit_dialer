@@ -183,11 +183,11 @@ export default {
       if (this.$refs['verification-form'].validate()) {
         this.otpProcessing = true
         try {
-          const token = await this.$store.dispatch('account/requestOtpVerify', {
+          const data = await this.$store.dispatch('account/requestOtpVerify', {
             otp_id: this.otpId,
             code: this.otp,
           })
-          await this.$store.dispatch('account/storeToken', token)
+          await this.$store.dispatch('account/storeAccessCredentials', data)
           await this.$router.push({ name: 'Home' })
           await this.$_contacts_getContacts()
         } catch (e) {

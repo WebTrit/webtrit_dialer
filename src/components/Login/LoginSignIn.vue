@@ -111,13 +111,13 @@ export default {
         this.loginProcessing = true
         try {
           const { identifier } = this.$store.state
-          const token = await this.$store.dispatch('account/requestSignIn', {
+          const data = await this.$store.dispatch('account/requestSignIn', {
             login: this.login,
             password: this.password,
             type: 'web',
             identifier,
           })
-          await this.$store.dispatch('account/storeToken', token)
+          await this.$store.dispatch('account/storeAccessCredentials', data)
           await this.$router.push({ name: 'Home' })
           await this.$_contacts_getContacts()
         } catch (e) {

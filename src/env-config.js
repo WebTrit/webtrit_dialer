@@ -23,14 +23,7 @@ const envConfig = {
   ),
 
   get webtritCoreApiUrl() {
-    const url = new URL(this.webtritCoreUrl)
-    return `${url}api/v1`
-  },
-
-  get webtritCoreSignalingUrl() {
-    const url = new URL(this.webtritCoreUrl)
-    url.protocol = url.protocol.endsWith('s:') ? 'wss:' : 'ws:'
-    return `${url}signaling/v1`
+    return new URL(this.webtritCoreUrl)
   },
 }
 

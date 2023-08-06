@@ -66,6 +66,16 @@ export function getErrorCode(code) {
   }
 }
 
+function webtritCoreSignalingUrl(tenant_id) {
+  const CORE_SIGNALING_PREFIX = 'signaling/v1'
+  const url = envConfig.webtritCoreApiUrl
+  url.protocol = url.protocol.endsWith('s:') ? 'wss:' : 'ws:'
+  if (tenant_id) {
+    return `${url}tenant/${tenant_id}/${CORE_SIGNALING_PREFIX}`
+  }
+  return `${url}${CORE_SIGNALING_PREFIX}`
+}
+
 /**
  * Show badge with message
  * @param dispatch function
@@ -413,8 +423,9 @@ const actions = {
   async connect({
     rootGetters, getters, commit, dispatch,
   }) {
-    const url = envConfig.webtritCoreSignalingUrl
     const token = rootGetters['account/token']
+    const tenant_id = rootGetters['account/tenant_id']
+    const url = webtritCoreSignalingUrl(tenant_id)
     let promiseResolve
     let promiseReject
     const promise = new Promise((resolve, reject) => {
