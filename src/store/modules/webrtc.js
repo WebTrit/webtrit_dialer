@@ -450,7 +450,7 @@ const actions = {
               handleHangupCall({ commit, dispatch, event })
               break
             case eventType.Session:
-              handleState({ commit, event })
+              handleState({ commit, dispatch, event })
               break
             case eventType.Line:
               handleIceEvent({ commit, dispatch, event })
