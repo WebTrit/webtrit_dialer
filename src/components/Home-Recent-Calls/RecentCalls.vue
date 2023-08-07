@@ -16,9 +16,7 @@
       />
     </template>
 
-    <template
-      #loading
-    >
+    <template #loading>
       <div
         :class="[!$_breakpoints_mobile? 'calls__loading' : 'calls__loading--mobile']"
       >
@@ -52,7 +50,7 @@
         </v-btn>
       </v-container>
       <EmptyContent
-        :title="$t('errors.call_history_empty')"
+        :title="supported ? $t('errors.call_history_empty') : $t('errors.not_supported_by_bss')"
         v-else
       />
     </template>
@@ -72,14 +70,16 @@
       <RecentCallsList :items="[item]" />
     </template>
 
-    <template #footer>
+    <template
+      #footer
+      v-if="supported"
+    >
       <p class="calls__footer">
         {{ $t('call.Last') }}
       </p>
     </template>
   </v-data-table>
 </template>
-
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import { breakpoints } from '@/mixins'
@@ -94,6 +94,9 @@ export default {
     EmptyContent,
   },
   mixins: [breakpoints],
+  props: {
+    supported: Boolean,
+  },
   data() {
     return {
       filter: 'all',
@@ -111,7 +114,11 @@ export default {
     },
   },
   created() {
-    this.fetchData()
+    if (this.supported) {
+      this.fetchData()
+    } else {
+      this.fetchDataError = false
+    }
   },
   methods: {
     ...mapActions('callHistory', {

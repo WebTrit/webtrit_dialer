@@ -62,6 +62,7 @@
     "not_allowed_data": "Al momento non hai accesso a questi dati",
     "contact_not_found": "Contatto non trovato",
     "call_history_empty": "La cronologia delle chiamate è vuota",
+    "not_supported_by_bss": "Non supportato dal sistema",
     "contacts_empty": "I contatti sono vuoti",
     "not_allowed_page": {
       "description": "Al momento non hai accesso a questa pagina.",
