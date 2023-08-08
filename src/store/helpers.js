@@ -23,7 +23,7 @@ export function extendContactWithCalculatedProperties(contact) {
     || contact.email
     || i18n.t('user.Unknown')
   contact.initials = pickOutInitials(contact.name)
-  contact.number = contact.numbers?.main || contact.sip?.login
+  contact.number = contact.numbers?.main || i18n.t('user.Unknown')
   contact.number_ext = contact.numbers?.ext
   contact.mobile = contact.numbers?.additional && contact.numbers?.additional.length > 0
     ? contact.numbers?.additional.join(', ') : null
