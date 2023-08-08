@@ -44,21 +44,32 @@ const storePersist = new VuexPersistence({
   key: 'webtrit_dialer',
   storage: window.localStorage,
   reducer: (state) => ({
-    account: { token: state.account.token },
+    account: {
+      token: state.account.token,
+      tenant_id: state.account.tenant_id,
+    },
     settings: state.settings,
   }),
   filter: (mutation) => (
     mutation.type === 'account/updateToken'
+    || mutation.type === 'account/updateTenantId'
     || mutation.type.startsWith('settings')
   ),
 })
 
 const axiosInitPlugin = (store) => {
-  axios.defaults.baseURL = envConfig.webtritCoreApiUrl
+  const CORE_API_PREFIX = 'api/v1'
+  const baseUrl = envConfig.webtritCoreApiUrl
 
   axios.interceptors.request.use(
     (config) => {
       config.headers.set(REQUEST_ID_HEADER_NAME, `${REQUEST_ID_PREFIX}/${generateRandomString(24)}`, false)
+      const { tenant_id } = store.state.account
+      if (tenant_id) {
+        config.baseURL = `${baseUrl}tenant/${tenant_id}/${CORE_API_PREFIX}`
+      } else {
+        config.baseURL = `${baseUrl}${CORE_API_PREFIX}`
+      }
       return config
     },
     (error) => {
@@ -72,9 +83,7 @@ const axiosInitPlugin = (store) => {
       return response.status === 204 ? response.status : response.data
     },
     (error) => {
-      console.log('Get error:', error)
-      console.log('Get error1:', error.message)
-      console.log('Get error2:', error.response)
+      console.error('Response Error:', error.message, error.response)
       const router = require('@/router').default
       if (error.response !== undefined) {
         switch (error.response.status) {

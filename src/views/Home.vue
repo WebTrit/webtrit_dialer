@@ -10,7 +10,9 @@
       >
         <v-row>
           <v-col class="container__inner-col">
-            <Contacts />
+            <Contacts
+              :supported="isSupportedContacts"
+            />
           </v-col>
           <router-view
             v-if="!callsSubRoute()"
@@ -25,7 +27,9 @@
       >
         <v-row>
           <v-col class="container__inner-col">
-            <RecentCalls />
+            <RecentCalls
+              :supported="isSupportedCallHistory"
+            />
           </v-col>
           <router-view
             v-if="callsSubRoute() && itemsLoaded"
@@ -55,7 +59,9 @@
           flat
         >
           <v-card-text>
-            <Contacts />
+            <Contacts
+              :supported="isSupportedContacts"
+            />
             <router-view
               v-if="!callsSubRoute()"
               class="container__inner-col"
@@ -69,7 +75,9 @@
           flat
         >
           <v-card-text>
-            <RecentCalls />
+            <RecentCalls
+              :supported="isSupportedCallHistory"
+            />
             <router-view
               v-if="callsSubRoute() && itemsLoaded"
               class="container__inner-col"
@@ -111,6 +119,10 @@ export default {
     ...mapGetters('contacts', {
       contactsItems: 'items',
     }),
+    ...mapGetters('system', [
+      'isSupportedCallHistory',
+      'isSupportedContacts',
+    ]),
     itemsLoaded() {
       return this.callHistoryItems && this.callHistoryItems.length > 0
       && this.contactsItems && this.contactsItems.length > 0

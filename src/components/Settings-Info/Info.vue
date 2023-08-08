@@ -101,6 +101,8 @@
           </tbody>
         </template>
       </v-simple-table>
+    </v-row>
+    <v-row>
       <v-simple-table
         class="w-full mt-9"
         dense
@@ -127,6 +129,39 @@
               </td>
               <td v-if="key !== 'version'">
                 {{ val && val || '-' }}
+              </td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+    </v-row>
+    <v-row>
+      <v-simple-table
+        class="w-full mt-9"
+        dense
+      >
+        <template #default>
+          <thead>
+            <tr>
+              <th
+                class="settings-info__header"
+                colspan="2"
+              >
+                {{ $t('settings.gorush additional') }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="val in info.gorush && info.gorush.servers_info"
+              :key="val.bundle_id"
+              class="settings-info__row"
+            >
+              <td>
+                {{ val.bundle_id }}
+              </td>
+              <td>
+                {{ val.url || '-' }}
               </td>
             </tr>
           </tbody>

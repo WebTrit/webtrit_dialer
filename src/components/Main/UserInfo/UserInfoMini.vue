@@ -7,7 +7,7 @@
       <AvatarBadge
         :initials="info.initials"
         :email="info.email"
-        :status="info.registration_color"
+        :status="registrationStatusColor"
       />
     </v-list-item>
     <v-list-item
@@ -30,6 +30,7 @@ export default {
   },
   computed: {
     ...mapGetters('account', ['info', 'balance']),
+    ...mapGetters('webrtc', ['registrationStatusColor']),
   },
 }
 </script>

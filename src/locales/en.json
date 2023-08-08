@@ -22,13 +22,14 @@
     "Italian": "Italian",
     "system": "System",
     "adapter additional": "Additional adapter parameters",
+    "gorush additional": "Push notification server(s) information",
     "systemInfo": {
       "porta": "PortaSwitch",
       "janus": "WebTrit Janus",
       "postgres": "Postgres",
       "core": "WebTrit Core",
       "adapter": "Hosted PBX adapter",
-      "gorush": "Push notification server"
+      "gorush": "Push notification server(s)"
     }
   },
   "status": {
@@ -61,6 +62,7 @@
     "not_allowed_data": "Currently you don’t have access to this data",
     "contact_not_found": "Contact not found",
     "call_history_empty": "Call history is empty",
+    "not_supported_by_bss": "Not supported by the system",
     "contacts_empty": "Contacts are empty",
     "not_allowed_page": {
       "description": "You don't have access to this page at the moment.",
@@ -214,7 +216,7 @@
     "Demo": "Sign up for demo",
     "Phone required": "The phone number is required",
     "Login required": "The login is required",
-    "From-to contain": "{field} must contain digit, letter, and it must be {from}-{to} characters long",
+    "From-to contain": "{field} must contain digit, letter, dot, underscore and it must be {from}-{to} characters long",
     "Password contain": "Password must contain digit, letter, symbol and it must be less than {to} characters long",
     "Login": "Login",
     "Phone": "Phone",

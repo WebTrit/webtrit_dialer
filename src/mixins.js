@@ -85,13 +85,16 @@ export const errors = {
   methods: {
     $_errors_parse(err) {
       let code = ''
-      const error = err.response.data
-      if (err.response.data.code === 'parameters_validate_issue') {
-        error.refining.forEach((item) => {
-          code += `${this.$t(`errors.${error.code}.${item.path}.${item.reason}`)}\n`
-        })
-      } else {
-        code = this.$t(`errors.${error.code}`)
+      const error = err.response?.data
+      if (error) {
+        if (error.code === 'parameters_validate_issue') {
+          const details = error.refining || error.details || []
+          details.forEach((item) => {
+            code += `${this.$t(`errors.${error.code}.${item.path}.${item.reason}`)}\n`
+          })
+        } else {
+          code = this.$t(`errors.${error.code}`)
+        }
       }
       return code
     },

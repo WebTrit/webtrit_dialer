@@ -149,6 +149,16 @@ export default {
   },
   methods: {
     ...mapActions('snackbar', { snackbarShow: 'show' }),
+    async executeRequest() {
+      const { identifier } = this.$store.state
+      const r = await this.$store.dispatch('account/requestOtpSignup', {
+        email: this.email,
+        type: 'web',
+        identifier,
+      })
+      this.otpId = r.otp_id
+      this.deliveryFrom = r.delivery_from || ''
+    },
     async provideEmail() {
       if (this.otpId || this.emailProcessing || this.email.length < 1) {
         return
@@ -157,14 +167,7 @@ export default {
       if (this.$refs['signup-form'].validate()) {
         this.emailProcessing = true
         try {
-          const { identifier } = this.$store.state
-          const r = await this.$store.dispatch('account/requestOtpSignup', {
-            email: this.email,
-            type: 'web',
-            identifier,
-          })
-          this.otpId = r.otp_id
-          this.deliveryFrom = r.delivery_from || ''
+          await this.executeRequest()
         } catch (e) {
           this.emailErrorMessages = this.$_errors_parse(e)
         } finally {
@@ -180,11 +183,11 @@ export default {
       if (this.$refs['verification-form'].validate()) {
         this.otpProcessing = true
         try {
-          const token = await this.$store.dispatch('account/requestOtpVerify', {
+          const data = await this.$store.dispatch('account/requestOtpVerify', {
             otp_id: this.otpId,
             code: this.otp,
           })
-          await this.$store.dispatch('account/storeToken', token)
+          await this.$store.dispatch('account/storeAccessCredentials', data)
           await this.$router.push({ name: 'Home' })
           await this.$_contacts_getContacts()
         } catch (e) {
@@ -202,14 +205,7 @@ export default {
       if (this.$refs['signup-form'].validate()) {
         this.emailProcessing = true
         try {
-          const { identifier } = this.$store.state
-          const r = await this.$store.dispatch('account/requestOtpSignup', {
-            email: this.email,
-            type: 'web',
-            identifier,
-          })
-          this.otpId = r.otp_id
-          this.deliveryFrom = r.delivery_from || ''
+          await this.executeRequest()
           this.otp = ''
           await this.snackbarShow({ message: this.$t('login.New code') })
         } catch (e) {

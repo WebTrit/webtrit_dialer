@@ -114,11 +114,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('system', {
-      info: 'info',
-    }),
+    ...mapGetters('system', { system_info: 'info' }),
     isSupported() {
-      return (item) => !!(this.info && this.info.adapter?.supported?.includes(item.support))
+      return (item) => !!(this.system_info && this.system_info.adapter?.supported?.includes(item.support))
     },
     getTabs() {
       return this.tabs.filter(this.isSupported)

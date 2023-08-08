@@ -32,6 +32,7 @@ const WS_CLOSE_CODE_ATTACH_ERROR = 4431
 export function getRegistrationStatusColor(status) {
   switch (status) {
     case 'unregistered':
+    case 'notregistered':
     case 'registration_failed':
       return 'red'
     case 'unregistering':
@@ -63,6 +64,16 @@ export function getErrorCode(code) {
   } else {
     return typeof code === 'string' ? code : code.toString()
   }
+}
+
+function webtritCoreSignalingUrl(tenant_id) {
+  const CORE_SIGNALING_PREFIX = 'signaling/v1'
+  const url = envConfig.webtritCoreApiUrl
+  url.protocol = url.protocol.endsWith('s:') ? 'wss:' : 'ws:'
+  if (tenant_id) {
+    return `${url}tenant/${tenant_id}/${CORE_SIGNALING_PREFIX}`
+  }
+  return `${url}${CORE_SIGNALING_PREFIX}`
 }
 
 /**
@@ -412,8 +423,9 @@ const actions = {
   async connect({
     rootGetters, getters, commit, dispatch,
   }) {
-    const url = envConfig.webtritCoreSignalingUrl
     const token = rootGetters['account/token']
+    const tenant_id = rootGetters['account/tenant_id']
+    const url = webtritCoreSignalingUrl(tenant_id)
     let promiseResolve
     let promiseReject
     const promise = new Promise((resolve, reject) => {
@@ -438,7 +450,7 @@ const actions = {
               handleHangupCall({ commit, dispatch, event })
               break
             case eventType.Session:
-              handleState({ commit, event })
+              handleState({ commit, dispatch, event })
               break
             case eventType.Line:
               handleIceEvent({ commit, dispatch, event })

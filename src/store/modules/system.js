@@ -6,9 +6,19 @@ const state = () => ({
   info: null,
 })
 
+function isSupported(list, param) {
+  return list ? !!(list.adapter?.supported?.includes(param)) : true
+}
+
 const getters = {
   info(state) {
     return state.info
+  },
+  isSupportedCallHistory(state) {
+    return isSupported(state.info, 'callHistory')
+  },
+  isSupportedContacts(state) {
+    return isSupported(state.info, 'extensions')
   },
 }
 

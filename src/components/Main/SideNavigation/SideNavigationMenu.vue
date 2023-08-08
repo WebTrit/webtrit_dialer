@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { breakpoints } from '@/mixins'
 import LogoutBtn from '@/components/Main/SideNavigation/LogoutBtn.vue'
 
@@ -35,29 +36,38 @@ export default {
     LogoutBtn,
   },
   computed: {
+    ...mapGetters('system', [
+      'isSupportedCallHistory',
+      'isSupportedContacts',
+    ]),
     navigationItems() {
-      return [
+      const items = [
         {
           title: `${this.$t('menu.Home')}`,
           to: { name: 'Home' },
           icon: '$home',
+          show: true,
         },
         {
           title: `${this.$t('menu.Call History')}`,
           to: { name: 'CallHistory' },
           icon: '$call-history',
+          show: this.isSupportedCallHistory,
         },
         {
           title: `${this.$t('menu.Contacts')}`,
           to: { name: 'Contacts' },
           icon: '$user',
+          show: this.isSupportedContacts,
         },
         {
           title: `${this.$t('menu.Settings')}`,
           to: { name: 'Settings' },
           icon: '$settings',
+          show: true,
         },
       ]
+      return items.filter((item) => item.show)
     },
   },
 }

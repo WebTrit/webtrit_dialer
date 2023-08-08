@@ -19,7 +19,7 @@ export function pickOutInitials(name) {
 export function extendContactWithCalculatedProperties(contact) {
   replaceEmptyObjectsWithNull(contact)
   contact.name = (`${contact.first_name || ''} ${contact.last_name || ''}`).trim()
-    || contact.sip?.display_name
+    || contact.alias_name
     || contact.email
     || i18n.t('user.Unknown')
   contact.initials = pickOutInitials(contact.name)
@@ -27,7 +27,7 @@ export function extendContactWithCalculatedProperties(contact) {
   contact.number_ext = contact.numbers?.ext
   contact.mobile = contact.numbers?.additional && contact.numbers?.additional.length > 0
     ? contact.numbers?.additional.join(', ') : null
-  contact.registration_color = contact.sip?.status ? getRegistrationStatusColor(contact.sip.status) : 'green'
+  contact.registration_color = getRegistrationStatusColor(contact.sip_status)
   return contact
 }
 

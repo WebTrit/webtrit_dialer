@@ -43,7 +43,7 @@
           {{ $t('button.Refresh') }}
         </v-btn>
         <EmptyContent
-          :title="$t('errors.contacts_empty')"
+          :title="supported ? $t('errors.contacts_empty') : $t('errors.not_supported_by_bss')"
           v-else
         />
       </div>
@@ -79,6 +79,9 @@ export default {
     EmptyContent,
   },
   mixins: [contacts, breakpoints],
+  props: {
+    supported: Boolean,
+  },
   data: () => ({
     search: '',
     filter: 'all',

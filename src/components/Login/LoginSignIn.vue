@@ -87,7 +87,7 @@ export default {
     loginRules() {
       return [
         (v) => !!v || this.$i18n.t('login.Login required'),
-        (v) => /^\+?[a-zA-Z0-9@]{1,64}$/.test(v) || this.$i18n.t('login.From-to contain', { field: this.$i18n.t('login.Login'), from: 1, to: 64 }),
+        (v) => /^\+?[a-zA-Z0-9@._]{1,64}$/.test(v) || this.$i18n.t('login.From-to contain', { field: this.$i18n.t('login.Login'), from: 1, to: 64 }),
       ]
     },
     passwordRules() {
@@ -111,13 +111,13 @@ export default {
         this.loginProcessing = true
         try {
           const { identifier } = this.$store.state
-          const token = await this.$store.dispatch('account/requestSignIn', {
+          const data = await this.$store.dispatch('account/requestSignIn', {
             login: this.login,
             password: this.password,
             type: 'web',
             identifier,
           })
-          await this.$store.dispatch('account/storeToken', token)
+          await this.$store.dispatch('account/storeAccessCredentials', data)
           await this.$router.push({ name: 'Home' })
           await this.$_contacts_getContacts()
         } catch (e) {
