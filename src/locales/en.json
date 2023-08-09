@@ -48,16 +48,16 @@
     }
   },
   "errors": {
-    "account_session_issue": "Your session is invalid",
-    "not_found": "Your account has not been found",
     "account.call_history.parameters_invalid": "Provided filters cannot be processed",
     "account.update_info.parameters_invalid": "Provided data is invalid",
     "phone_not_found": "Phone has not been found",
     "empty_email": "Email has not been provided",
-    "otp_id_not_found": "OTP has not been provided for verification",
-    "otp_id_verified": "OTP verification failed",
-    "code_incorrect": "Code verification failed",
-    "account_not_found": "Your account has not been found",
+    "otp_not_found": "OTP is not registered in the system",
+    "otp_already_verified": "OTP already verified",
+    "otp_verification_attempts_exceeded": "OTP verification attempts exceeded",
+    "otp_expired": "OTP expired",
+    "incorrect_otp_code": "Code verification failed",
+    "user_not_found": "Your account has not been found",
     "external_api_issue": "Server error",
     "not_allowed_data": "Currently you don’t have access to this data",
     "contact_not_found": "Contact not found",
@@ -102,14 +102,13 @@
     },
     "parameters_apply_issue": "Input data can't be processed",
     "not_authorized": "Your session expired, please log in",
-    "otp_id_verify_attempts_exceeded": "Attempts exceeded, please press 'Resend code' below",
     "ice_slowlink": {
       "weak": "Connection is weak",
       "poor": "Connection is poor"
     },
     "already opened": "It looks like the Dialer has already been opened in another tab. \n Please go to the previously open one. \n If you are sure that all tabs are closed please contact your administrator.",
     "undefined": "Undefined error",
-    "invalid_credentials": "Login or password incorrect",
+    "incorrect_credentials": "Login or password incorrect",
     "credentials missed": "Billing account credentials missed. \n Please contact your administrator to solve the issue."
   },
   "menu": {
