@@ -190,7 +190,6 @@ async function handleAcceptedCall({ commit, dispatch, event }) {
       call_state: callStates.ACCEPTED,
       call_id: event.call_id,
     })
-    dispatch('ringtones/stop', null, { root: true })
   } catch (e) {
     console.error('handleAcceptedCall', e)
     snackbarShow(dispatch, `${(e.code || 'null')} - ${e.description || e.message}`)
@@ -205,7 +204,6 @@ function handleHangupCall({ commit, dispatch, event }) {
       call_state: callStates.NONE,
       call_id: event.call_id,
     })
-    dispatch('ringtones/stop', null, { root: true })
     dispatch('account/initGetAccountInfo', null, { root: true })
     handleCleanEvent({ commit }, event.call_id)
   }
@@ -235,15 +233,22 @@ function handleState({ commit, dispatch, event }) {
 function handleIceEvent({ dispatch, event }) {
   console.log('Event handling in a [handleIceEvent] function')
   let message = ''
-  if (event.event === 'ice_slowlink') {
-    if (event.lost > 0 && event.lost <= SLOWLINK_POOR_THRESHOLD) {
-      message = i18n.t('errors.ice_slowlink.weak')
-    } else if (event.lost > SLOWLINK_POOR_THRESHOLD) {
-      message = i18n.t('errors.ice_slowlink.poor')
-    }
-    if (message.length > 0) {
-      snackbarShow(dispatch, message)
-    }
+  switch (event.event) {
+    case 'ice_slowlink':
+      if (event.lost > 0 && event.lost <= SLOWLINK_POOR_THRESHOLD) {
+        message = i18n.t('errors.ice_slowlink.weak')
+      } else if (event.lost > SLOWLINK_POOR_THRESHOLD) {
+        message = i18n.t('errors.ice_slowlink.poor')
+      }
+      if (message.length > 0) {
+        snackbarShow(dispatch, message)
+      }
+      break
+    case 'ice_media':
+    case 'ice_hangup':
+      dispatch('ringtones/stop', null, { root: true })
+      break
+    default:
   }
 }
 
@@ -571,7 +576,6 @@ const actions = {
           call_id,
         })
         commit('setLocalCallMediaType', !!video)
-        dispatch('ringtones/stop', null, { root: true })
       }
     } catch (e) {
       console.error(e)
