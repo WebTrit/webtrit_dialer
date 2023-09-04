@@ -66,10 +66,10 @@ const axiosInitPlugin = (store) => {
       config.headers.set(REQUEST_ID_HEADER_NAME, `${REQUEST_ID_PREFIX}/${generateRandomString(24)}`, false)
       const { tenant_id } = store.state.account
       if (tenant_id) {
-        config.baseURL = `${baseUrl}tenant/${tenant_id}/${CORE_API_PREFIX}`
-      } else {
-        config.baseURL = `${baseUrl}${CORE_API_PREFIX}`
+        const pattern = new RegExp('(tenant)\\/([^$\\/]*)')
+        baseUrl.pathname = baseUrl.pathname.replace(pattern, `$1/${tenant_id}/`)
       }
+      config.baseURL = `${baseUrl}${CORE_API_PREFIX}`
       return config
     },
     (error) => {
