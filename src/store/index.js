@@ -94,6 +94,7 @@ const axiosInitPlugin = (store) => {
           case 401:
             if (router.currentRoute.name !== 'Login' && !store.state.got401error) {
               store.commit('set401error', true)
+              store.dispatch('account/logout', { }, { root: true })
               router.push({ name: 'Login' })
               store.dispatch('snackbar/show',
                 { message: i18n.t('errors["not_authorized"]') },
