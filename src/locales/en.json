@@ -263,6 +263,7 @@
     "Calling": "Calling...",
     "Unknown": "Unknown...",
     "Accepted": "Accepted",
+    "Progress": "Accepted",
     "Hangup": "Hangup",
     "Audio Call": "Audio call with",
     "keypad": "keypad",

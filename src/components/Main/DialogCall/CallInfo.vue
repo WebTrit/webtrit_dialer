@@ -58,6 +58,7 @@ export default {
       'isCallIncoming',
       'isCallOutgoing',
       'isCallAccepted',
+      'isCallProgress',
     ]),
     callState() {
       if (this.isCallInitiating) {
@@ -70,6 +71,8 @@ export default {
         }
       } else if (this.isCallAccepted) {
         return this.$t('modal.Accepted')
+      } else if (this.isCallProgress) {
+        return this.$t('modal.Progress')
       } else {
         return this.$t('modal.Hangup')
       }

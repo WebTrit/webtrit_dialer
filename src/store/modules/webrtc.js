@@ -15,6 +15,7 @@ const callStates = {
   INCOMING: 10,
   OUTGOING: 20,
   ACCEPTED: 30,
+  PROGRESS: 40,
 }
 
 const SLOWLINK_POOR_THRESHOLD = 30
@@ -191,10 +192,17 @@ async function handleAcceptedCall({ commit, dispatch, event }) {
       await peerConnection.setRemoteDescription(event.jsep)
       commit('setRemoteCallMediaType', event.jsep)
     }
-    commit('setCallState', {
-      call_state: callStates.ACCEPTED,
-      call_id: event.call_id,
-    })
+    if (event.event === 'accepted') {
+      commit('setCallState', {
+        call_state: callStates.ACCEPTED,
+        call_id: event.call_id,
+      })
+    } else {
+      commit('setCallState', {
+        call_state: callStates.PROGRESS,
+        call_id: event.call_id,
+      })
+    }
   } catch (e) {
     console.error('handleAcceptedCall', e)
     snackbarShow(dispatch, `${(e.code || 'null')} - ${e.description || e.message}`)
@@ -342,6 +350,9 @@ const getters = {
   },
   isCallAccepted(state) {
     return state.callState[state.callId] === callStates.ACCEPTED
+  },
+  isCallProgress(state) {
+    return state.callState[state.callId] === callStates.PROGRESS
   },
   localStreamHasVideo(state) {
     return state.localStream && state.localStream.getVideoTracks().length > 0
