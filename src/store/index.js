@@ -67,7 +67,11 @@ const axiosInitPlugin = (store) => {
       const { tenant_id } = store.state.account
       if (tenant_id) {
         const pattern = new RegExp('(tenant)\\/([^$\\/]*)')
-        baseUrl.pathname = baseUrl.pathname.replace(pattern, `$1/${tenant_id}/`)
+        if (pattern.test(baseUrl.pathname)) {
+          baseUrl.pathname = baseUrl.pathname.replace(pattern, `$1/${tenant_id}/`)
+        } else {
+          baseUrl.pathname = `tenant/${tenant_id}${baseUrl.pathname}`
+        }
       }
       config.baseURL = `${baseUrl}${CORE_API_PREFIX}`
       return config

@@ -72,7 +72,11 @@ function webtritCoreSignalingUrl(tenant_id) {
   url.protocol = url.protocol.endsWith('s:') ? 'wss:' : 'ws:'
   if (tenant_id) {
     const pattern = new RegExp('(tenant)\\/([^$\\/]*)')
-    url.pathname = url.pathname.replace(pattern, `$1/${tenant_id}/`)
+    if (pattern.test(url.pathname)) {
+      url.pathname = url.pathname.replace(pattern, `$1/${tenant_id}/`)
+    } else {
+      url.pathname = `tenant/${tenant_id}${url.pathname}`
+    }
   }
   return `${url}${CORE_SIGNALING_PREFIX}`
 }
