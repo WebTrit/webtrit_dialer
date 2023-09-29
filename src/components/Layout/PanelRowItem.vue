@@ -37,7 +37,7 @@ export default {
       this.selectedItem = num
     },
     getContactId(contact) {
-      return this.linkName === 'ContactDetails' ? contact.number : contact.id
+      return this.linkName === 'ContactDetails' ? contact.number : contact.index
     },
   },
 }
