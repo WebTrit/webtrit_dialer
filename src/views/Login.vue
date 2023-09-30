@@ -24,10 +24,14 @@ export default {
   },
   mixins: [breakpoints],
   props: {
-    demoEmail: {
+    tenant: {
       type: String,
       default: null,
     },
+  },
+
+  async created() {
+    await this.$store.dispatch('account/storeTenantId', this.tenant)
   },
 }
 </script>

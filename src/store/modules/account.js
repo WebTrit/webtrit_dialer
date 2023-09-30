@@ -91,8 +91,11 @@ const actions = {
     return post_request('/session/otp-verify', payload)
   },
   async storeAccessCredentials(context, data) {
-    context.commit('updateToken', data.token)
-    context.commit('updateTenantId', data.tenant_id)
+    data.token && context.commit('updateToken', data.token)
+    data.tenant_id && context.commit('updateTenantId', data.tenant_id)
+  },
+  async storeTenantId(context, tenant_id) {
+    tenant_id && context.commit('updateTenantId', tenant_id)
   },
   async logout({ commit, dispatch }) {
     commit('clearUpdateInterval')

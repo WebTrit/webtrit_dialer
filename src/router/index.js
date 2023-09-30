@@ -13,22 +13,11 @@ import store from '@/store'
 Vue.use(VueRouter)
 
 function loginQueryToProps(route) {
-  let demoEmail = null
-  if (route.query.tryDemoEmail) {
-    demoEmail = route.query.tryDemoEmail
-  } else if (route.query.tryDemoCode) {
-    try {
-      demoEmail = atob(route.query.tryDemoCode)
-    } catch (e) {
-      console.warn('can\'t decode "tryDemoCode" query parameter with value:', route.query.tryDemoCode)
-      demoEmail = ''
-    }
-  } else if (route.query.tryDemo !== undefined) {
-    demoEmail = ''
+  let tenant = null
+  if (route.query.tenant) {
+    tenant = route.query.tenant
   }
-  return {
-    demoEmail,
-  }
+  return { tenant }
 }
 
 const routes = [

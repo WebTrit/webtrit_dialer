@@ -85,12 +85,6 @@ import { mapGetters } from 'vuex'
 
 export default {
   mixins: [breakpoints],
-  props: {
-    demoEmail: {
-      type: String,
-      default: null,
-    },
-  },
   data() {
     return {
       activeTab: 0,
