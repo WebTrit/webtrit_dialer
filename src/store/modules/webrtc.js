@@ -72,7 +72,7 @@ function webtritCoreSignalingUrl(tenant_id) {
   const url = envConfig.webtritCoreApiUrl
   url.protocol = url.protocol.endsWith('s:') ? 'wss:' : 'ws:'
   if (tenant_id) {
-    const pattern = new RegExp('(tenant)\\/([^$\\/]*)')
+    const pattern = new RegExp('(tenant)\\/([^$\\/]*)/?')
     if (pattern.test(url.pathname)) {
       url.pathname = url.pathname.replace(pattern, `$1/${tenant_id}/`)
     } else {
