@@ -80,16 +80,32 @@ export default {
       'getCallRecord',
     ]),
     async download() {
+      function download_link(filename, blob) {
+        const link = document.createElement('a')
+        link.href = URL.createObjectURL(blob)
+        link.download = filename
+        link.click()
+        URL.revokeObjectURL(link.href)
+      }
       this.state = State.DOWNLOADING
       try {
         const data = await this.getCallRecord(this.callId)
-
-        const blob = new Blob([data], { type: 'audio/mpeg' })
-        const link = document.createElement('a')
-        link.href = URL.createObjectURL(blob)
-        link.download = `${this.filename}.mp3`
-        link.click()
-        URL.revokeObjectURL(link.href)
+        switch (data.type) {
+          case 'audio/mpeg':
+            download_link(
+              `${this.filename}.mp3`,
+              new Blob([data], { type: 'audio/mpeg' }),
+            )
+            break
+          case 'application/zip':
+            download_link(
+              `${this.filename}.zip`,
+              new Blob([data], { type: 'application/zip' }),
+            )
+            break
+          default:
+            console.log('Unsupported file type', data)
+        }
       } catch (err) {
         this.state = State.ERROR
         this.lastErrorMessage = this.$t(`errors["${err.code}"]`)
