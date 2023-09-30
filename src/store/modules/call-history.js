@@ -28,11 +28,12 @@ const getters = {
         item.index = index + 1
         const interlocutor = getInterlocutor(item)
         if (!interlocutor || interlocutor.number === null) {
+          const name = interlocutor.display_name || i18n.t('call.Unknown')
           item.contactInfo = {
             number: '',
             number_ext: '',
-            name: i18n.t('call.Unknown'),
-            initials: '?',
+            name,
+            initials: pickOutInitials(name),
             registration_color: 'gray',
           }
         } else {
@@ -40,10 +41,11 @@ const getters = {
           if (contact) {
             item.contactInfo = extendContactWithCalculatedProperties(contact)
           } else {
-            const name = interlocutor.display_name || i18n.t('call.Unknown')
+            const name = interlocutor.display_name || interlocutor.number
+            const number = interlocutor.display_name ? interlocutor.number : ''
             item.contactInfo = {
-              number: interlocutor.number || '',
-              number_ext: interlocutor.number_ext || '',
+              number,
+              number_ext: '',
               name,
               initials: pickOutInitials(name),
               registration_color: 'gray',
