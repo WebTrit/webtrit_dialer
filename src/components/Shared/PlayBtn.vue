@@ -111,13 +111,17 @@ export default {
         this.state = State.DOWNLOADING
         try {
           const data = await this.getCallRecord(this.callId)
-          const blob = new Blob([data], { type: 'audio/mpeg' })
-          audioPlayer.src = URL.createObjectURL(blob)
+          if (data.type === 'audio/mpeg') {
+            const blob = new Blob([data], { type: 'audio/mpeg' })
+            audioPlayer.src = URL.createObjectURL(blob)
 
-          audioPlayer.addEventListener('timeupdate', this._handleTimeupdate)
-          audioPlayer.addEventListener('pause', this._handlePause)
-          audioPlayer.addEventListener('play', this._handlePlay)
-          audioPlayer.addEventListener('ended', this._handleEnded)
+            audioPlayer.addEventListener('timeupdate', this._handleTimeupdate)
+            audioPlayer.addEventListener('pause', this._handlePause)
+            audioPlayer.addEventListener('play', this._handlePlay)
+            audioPlayer.addEventListener('ended', this._handleEnded)
+          } else {
+            this.lastErrorMessage = this.$t('errors.unsupported_audio_type')
+          }
         } catch (err) {
           this.state = State.ERROR
           if (err.response.status === 405) {
