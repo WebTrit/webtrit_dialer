@@ -47,7 +47,11 @@ const actions = {
 
     newAudio.loop = true
     context.commit('incPreparingToPlay')
-    await newAudio.play()
+    try {
+      await newAudio.play()
+    } catch (e) {
+      console.warn('Autoplay was prevented', e)
+    }
     context.commit('decPreparingToPlay')
 
     if (context.getters.isNeedToStop) {
