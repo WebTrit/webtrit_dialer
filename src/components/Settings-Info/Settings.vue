@@ -97,8 +97,8 @@ export default {
       notificationsEnabled: undefined,
       soundEnabled: undefined,
       actionBtnsDisabled: true,
-      languages: [{ lang: `${this.$t('settings.English')}`, locale: 'en' },
-        { lang: `${this.$t('settings.Italian')}`, locale: 'it' }],
+      languages: [{ lang: `${this.$t('settings.languages.English')}`, locale: 'en' },
+        { lang: `${this.$t('settings.languages.Italian')}`, locale: 'it' }],
       selectedLang: {},
     }
   },
@@ -140,13 +140,13 @@ export default {
     applyLang() {
       switch (this.currentLocale) {
         case 'it':
-          this.selectedLang = { lang: this.$t('settings.Italian'), locale: 'it' }
+          this.selectedLang = { lang: this.$t('settings.languages.Italian'), locale: 'it' }
           break
         case 'en':
-          this.selectedLang = { lang: this.$t('settings.English'), locale: 'en' }
+          this.selectedLang = { lang: this.$t('settings.languages.English'), locale: 'en' }
           break
         default:
-          this.selectedLang = { lang: this.$t('settings.English'), locale: 'en' }
+          this.selectedLang = { lang: this.$t('settings.languages.English'), locale: 'en' }
       }
     },
   },

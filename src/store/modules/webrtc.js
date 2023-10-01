@@ -88,9 +88,11 @@ function webtritCoreSignalingUrl(tenant_id) {
  * @param message string
  */
 function snackbarShow(dispatch, message) {
-  dispatch('snackbar/show',
-    { message },
-    { root: true })
+  if (message && message.length > 0) {
+    dispatch('snackbar/show',
+      { message },
+      { root: true })
+  }
 }
 
 /**
@@ -295,14 +297,13 @@ async function handleChangeCall({ event }, callId) {
 function handleNotifyEvent({ dispatch, event }) {
   console.log('Event handling in a [handleNotifyEvent] function')
   const [, code] = event.content.split(' ')
-  let message
-  if (i18n.getLocaleMessage(i18n.locale)?.call_msgs
-      && i18n.getLocaleMessage(i18n.locale).call_msgs[code]) {
-    message = i18n.getLocaleMessage(i18n.locale).call_msgs[code]
-  } else if (typeof i18n.fallbackLocale === 'string' && i18n.getLocaleMessage(i18n.fallbackLocale).call_msgs[code]) {
-    message = i18n.getLocaleMessage(i18n.fallbackLocale).call_msgs[code]
+  let message = ''
+  if (i18n.te(`call.message["${code}"]`)) {
+    message = i18n.t(`call.messages["${code}"]`)
+  } else if (i18n.te(`call.messages["${code}"]`)) {
+    message = i18n.t(`call.errors["${getErrorCode(code)}"]`)
   } else {
-    message = i18n.t(`call_errors["${getErrorCode(+code)}"]`)
+    console.warn('Unhandled message', code)
   }
   if (+code !== 100) {
     dispatch('webrtc/hold', { active: false }, { root: true })

@@ -140,10 +140,9 @@ export default {
         })
       } catch (err) {
         this.fetchDataError = err.response.status
-        if (err.response.status !== 405 && err.response.status !== 401) {
-          // 401 handled by error interceptor
-          await this.snackbarShow({ message: this.$t(`errors["${err.code}"]`) })
-        }
+        await this.snackbarShow({
+          message: this.$_errors_parse(err),
+        })
       } finally {
         this.loading = false
       }

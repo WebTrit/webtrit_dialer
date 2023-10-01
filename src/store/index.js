@@ -89,29 +89,20 @@ const axiosInitPlugin = (store) => {
     (error) => {
       console.error('Response Error:', error.message, error.response)
       const router = require('@/router').default
-      if (error.response !== undefined) {
-        switch (error.response.status) {
-          case 401:
-            if (router.currentRoute.name !== 'Login' && !store.state.got401error) {
-              store.commit('set401error', true)
-              store.dispatch('account/logout', { }, { root: true })
-              router.push({ name: 'Login' })
-              store.dispatch('snackbar/show',
-                { message: i18n.t('errors["not_authorized"]') },
-                { root: true })
-            }
-            break
-          case 405:
-            break
-          case 422:
-            break
-          case 500:
-            break
-          default:
-            console.info('Error message:', error.message)
-        }
+      switch (error.response?.status) {
+        case 401:
+          if (router.currentRoute.name !== 'Login' && !store.state.got401error) {
+            store.commit('set401error', true)
+            store.dispatch('account/logout', { }, { root: true })
+            router.push({ name: 'Login' })
+            store.dispatch('snackbar/show',
+              { message: i18n.t('errors.not_authorized') },
+              { root: true })
+          }
+          break
+        default:
+          throw error
       }
-      throw error
     },
   )
 

@@ -84,19 +84,19 @@ export const calls = {
 export const errors = {
   methods: {
     $_errors_parse(err) {
-      let code = ''
+      let error_message = ''
       const error = err.response?.data
       if (error) {
         if (error.code === 'parameters_validate_issue') {
           const details = error.refining || error.details || []
           details.forEach((item) => {
-            code += `${this.$t(`errors.${error.code}.${item.path}.${item.reason}`)}\n`
+            error_message += `${this.$t(`errors.parameters_validate_issue.${item.path}.${item.reason}`)}\n`
           })
         } else {
-          code = this.$t(`errors.${error.code}`)
+          error_message = this.$t(`errors.${error.code}`)
         }
       }
-      return code
+      return error_message
     },
   },
 }
