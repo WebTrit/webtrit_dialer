@@ -191,7 +191,7 @@ export default class PeerConnection {
       this._isNoErrors = false
       const fn = this._errorCallback
       if (fn != null && typeof fn === 'function') {
-        fn(new Error(e.message))
+        fn(e)
       }
     }
   }

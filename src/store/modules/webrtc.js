@@ -120,6 +120,17 @@ function handleCleanEvent({ commit }, call_id) {
   }
 }
 
+function composeErrorMessage(error) {
+  let err_msg = null
+  if (error.code) {
+    err_msg = `${error.code}`
+  }
+  if (error.message) {
+    err_msg = err_msg ? `${err_msg} - ${error.message}` : `${error.message}`
+  }
+  return err_msg
+}
+
 function initPeerConnection({ commit, dispatch, call_id }) {
   const pc = new PeerConnection({
     iceCandidateCallback: async (candidate) => {
@@ -134,13 +145,16 @@ function initPeerConnection({ commit, dispatch, call_id }) {
     },
     errorCallback: (error) => {
       console.log('[PC] Error event handling:', error)
-      if (error.fatal) {
-        webtritSignalingClient.disconnect(error.code)
-        handleCleanEvent({ commit }, call_id)
-        commit('setSessionError', `${error.code} - ${error.message}`)
-      } else {
-        if (![701].includes(error.code)) {
-          snackbarShow(dispatch, `${error.code} - ${error.message}`)
+      const err_msg = composeErrorMessage(error)
+      if (err_msg) {
+        if (error.fatal) {
+          webtritSignalingClient.disconnect(error.code)
+          handleCleanEvent({ commit }, call_id)
+          commit('setSessionError', err_msg)
+        } else {
+          if (![701].includes(error.code)) {
+            snackbarShow(dispatch, err_msg)
+          }
         }
       }
     },
@@ -499,12 +513,15 @@ const actions = {
         },
         errorCallback: (error) => {
           console.log('Error handling in callback:', error)
-          if (error.fatal) {
-            webtritSignalingClient.disconnect(error.code)
-            handleCleanEvent({ commit }, getters.getCallId)
-            commit('setSessionError', error.message)
-          } else {
-            snackbarShow(dispatch, error.message)
+          const err_msg = composeErrorMessage(error)
+          if (err_msg) {
+            if (error.fatal) {
+              webtritSignalingClient.disconnect(error.code)
+              handleCleanEvent({ commit }, getters.getCallId)
+              commit('setSessionError', err_msg)
+            } else {
+              snackbarShow(dispatch, err_msg)
+            }
           }
           promiseReject()
         },
@@ -513,7 +530,7 @@ const actions = {
           webtritSignalingClient.disconnect()
           handleCleanEvent({ commit }, getters.getCallId)
           if (![WS_CLOSE_CODE_UNREGISTER, WS_CLOSE_CODE_SESSION_MISSED].includes(code)) {
-            if (getters.isRegistered && (code === WS_CLOSE_CODE_ATTACH_ERROR)) {
+            if (code === WS_CLOSE_CODE_ATTACH_ERROR) {
               reason = i18n.t('errors.already opened')
             } else if (code === WS_CLOSE_CODE_MISSED_CREDENTIALS) {
               reason = i18n.t('errors.credentials missed')
