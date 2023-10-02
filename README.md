@@ -53,7 +53,7 @@ npm run lint
 
 WebTrit Dialer docker image is NGINX Web server with built WebTrit Dialer code.
 
-### Configuration
+### Configuration via environment variables
 
 Env variables descriptions:
 * `VUE_APP_PUBLIC_PATH` - optional application bundle base URL (without `/` at the end) (examples: `/sub-path`)
@@ -78,11 +78,13 @@ Env variable of the set color palette. Specified through HEX color. Some colors 
 * `VUE_APP_COLOR_WARNING`
 * `VUE_APP_COLOR_ANCHOR`
 
-#### Runtime
+### Configuration via query parameters
 
-Add to query parameter `mode` to activate additional functionality.
+* Add to query parameter `mode` to activate additional functionality.
 Currently, it supports the following values:
-* `mst` - activate configuration related to _Microsoft Teams_ (such as prevent navigation drawer minimization), ex.: `dailer.webtrit.com?mode=mst`;
+   * `mst` - activate configuration related to _Microsoft Teams_ (such as prevent navigation drawer minimization), ex.: `dailer.webtrit.com?mode=mst`;
+* Add to query parameter `tenant` with value of `tenant_id` to choose another **Adaptee** to dialer communicate, ex.: `dailer.webtrit.com?tenant=special_adapter`;
+
 
 ### Run
 
