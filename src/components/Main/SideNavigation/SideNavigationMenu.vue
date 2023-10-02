@@ -1,6 +1,5 @@
 <template>
   <v-list
-    :style="$_breakpoints_mobile ? 'margin-top: 35%' : ''"
     class="sidebar__list"
   >
     <v-list-item

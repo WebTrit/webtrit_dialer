@@ -25,6 +25,17 @@
     >
       $close
     </v-icon>
+    <div
+      class="tenant-title__text tenant-title_wrapper"
+      :style="$_breakpoints_mobile ? 'margin-top: 56px' : ''"
+    >
+      <div
+        v-if="tenant_id"
+        class="tenant-title"
+      >
+        <p>tenant: <span class="font-weight-bold"> {{ tenant_id }} </span></p>
+      </div>
+    </div>
     <userInfo v-if="!this.miniVariant && !$_breakpoints_mobile" />
     <userInfoMini v-else-if="this.miniVariant && !$_breakpoints_mobile" />
     <sideNavigationMenu />
@@ -55,6 +66,7 @@ import userInfo from '@/components/Main/UserInfo/UserInfo.vue'
 import userInfoMini from '@/components/Main/UserInfo/UserInfoMini.vue'
 import appTitle from '@/components/Main/AppTitle.vue'
 import sideNavigationMenu from '@/components/Main/SideNavigation/SideNavigationMenu.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -76,6 +88,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('account', ['tenant_id']),
     isHidden() {
       return this.$route.meta?.hiddenFeatures?.navigationDrawer
     },
@@ -130,5 +143,24 @@ export default {
 
 .sidebar__signature-link {
   @apply font-bold no-underline text-black #{!important};
+}
+
+.tenant-title_wrapper {
+  @apply flex flex-wrap justify-center items-center text-center;
+}
+
+.tenant-title {
+  @apply flex text-xs px-2;
+  @apply text-white no-underline #{!important};
+}
+
+.mini {
+  .tenant-title {
+    @apply mr-0;
+  }
+
+  .tenant-title__text {
+    @apply hidden;
+  }
 }
 </style>
