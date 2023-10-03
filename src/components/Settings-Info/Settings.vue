@@ -97,8 +97,11 @@ export default {
       notificationsEnabled: undefined,
       soundEnabled: undefined,
       actionBtnsDisabled: true,
-      languages: [{ lang: `${this.$t('settings.languages.English')}`, locale: 'en' },
-        { lang: `${this.$t('settings.languages.Italian')}`, locale: 'it' }],
+      languages: [
+        { lang: `${this.$t('settings.languages.English')}`, locale: 'en' },
+        { lang: `${this.$t('settings.languages.Italian')}`, locale: 'it' },
+        { lang: `${this.$t('settings.languages.Spanish')}`, locale: 'sp' },
+      ],
       selectedLang: {},
     }
   },
@@ -144,6 +147,9 @@ export default {
           break
         case 'en':
           this.selectedLang = { lang: this.$t('settings.languages.English'), locale: 'en' }
+          break
+        case 'sp':
+          this.selectedLang = { lang: this.$t('settings.languages.Spanish'), locale: 'sp' }
           break
         default:
           this.selectedLang = { lang: this.$t('settings.languages.English'), locale: 'en' }

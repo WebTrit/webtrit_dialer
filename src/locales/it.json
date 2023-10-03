@@ -85,9 +85,13 @@
     "record_not_found": "Non è stato trovato il record della chiamata",
     "signup_disabled": "La registrazione è bloccata dall'amministratore",
     "signup_limit_reached": "Limite di registrazione raggiunto",
+    "unknown error": "Si è verificato un errore durante la connessione al punto di segnalazione del server remoto",
     "unsupported_audio_type": "Tipo di audio non supportato",
     "unconfigured_bundle_id": "Identificatore di applicazione non supportato (bundle ID)",
     "user_not_found": "L'utente non può essere individuato. Controlla i dati inseriti",
+    "code": {
+      "ERR_NETWORK": "L'errore si è verificato durante la connessione al server remoto. Riprova più tardi"
+    },
     "ice_slowlink": {
       "weak": "La connessione è debole",
       "poor": "La connessione è scarsa"
@@ -198,7 +202,8 @@
     "gorush additional": "Informazioni sul server(s) delle notifiche push",
     "languages": {
       "English": "English",
-      "Italian": "Italiana"
+      "Italian": "Italiana",
+      "Spanish": "Spagnolo"
     },
     "snackbar": {
       "applied": "Impostazioni applicate"

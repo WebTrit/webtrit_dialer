@@ -1,0 +1,263 @@
+{
+  "button": {
+    "Call back": "Devolver llamada",
+    "Refresh": "Actualizar",
+    "OK": "Aceptar",
+    "Cancel": "Cancelar",
+    "Proceed": "Proceder",
+    "Verify": "Verificar",
+    "Resend": "Reenviar código",
+    "Copy": "Copiar al portapapeles",
+    "Apply": "Aplicar",
+    "Return": "Volver",
+    "Transfer": "Transferir"
+  },
+  "call": {
+    "Connect Time": "Hora de conexión",
+    "Duration": "Duración",
+    "Actions": "Acciones",
+    "Last": "Últimas 10 llamadas realizadas",
+    "Incoming": "Llamada entrante",
+    "Incoming missed": "Llamada entrante perdida",
+    "Incoming declined": "Llamada entrante rechazada",
+    "Incoming failed": "Llamada entrante fallida",
+    "Outgoing": "Llamada saliente",
+    "Outgoing missed": "Llamada saliente no respondida",
+    "Outgoing declined": "Llamada saliente rechazada",
+    "Outgoing failed": "Llamada saliente fallida",
+    "Forwarded": "Llamada transferida",
+    "Forwarded missed": "Llamada transferida no respondida",
+    "Forwarded declined": "Llamada transferida rechazada",
+    "Forwarded failed": "Llamada transferida fallida",
+    "Status": "Estado",
+    "Unknown": "Desconocido",
+    "messages": {
+      "100": "Realizando transferencia",
+      "200": "Transferencia exitosa",
+      "486": "El destinatario rechazó la llamada"
+    },
+    "errors": {
+      "400": "Error debido a un problema de protocolo",
+      "401": "Solicitud no autorizada",
+      "480": "El destinatario no está disponible en este momento",
+      "486": "El destinatario está ocupado",
+      "603": "Error de transferencia",
+      "4000": "Se ha perdido la conexión debido a un problema de señalización",
+      "1011": "Se ha perdido la conexión debido a un problema de señalización",
+      "open_err": "Error al conectarse a un servidor de señalización",
+      "media": "Error al acceder a los dispositivos multimedia",
+      "remote_desc": "Error al establecer la descripción remota"
+    }
+  },
+  "connection": {
+    "lost": "La conexión con el servidor se ha perdido",
+    "restored": "La conexión con el servidor se ha restaurado"
+  },
+  "data": {
+    "No results": "No se encontraron resultados coincidentes"
+  },
+  "datetime": {
+    "Today": "Hoy",
+    "Yesterday": "Ayer",
+    "lastDay": "Ayer a las %LT%",
+    "sameDay": "Hoy a las %LT%",
+    "lastWeek": "La semana pasada a las %LT%",
+    "oldDay": "%LT%, %L%",
+    "hour": "h",
+    "minute": "min",
+    "second": "seg"
+  },
+  "errors": {
+    "already opened": "Parece que el Marcador ya se ha abierto en otra pestaña. \n Por favor, vaya a la que estaba abierta anteriormente. \n Si está seguro de que todas las pestañas están cerradas, póngase en contacto con su administrador.",
+    "call_history_empty": "El historial de llamadas está vacío",
+    "contact_not_found": "Contacto no encontrado",
+    "contacts_empty": "Los contactos están vacíos",
+    "credentials missed": "Faltan credenciales de la cuenta de facturación. \n Por favor, póngase en contacto con su administrador para resolver el problema.",
+    "date": "La fecha desde debe ser menor que la fecha hasta",
+    "empty_email": "No se ha proporcionado un correo electrónico",
+    "external_api_issue": "Error del servidor externo",
+    "illegal_type": "Tipo de aplicación no admitido",
+    "not_authorized": "Su sesión ha caducado, inicie sesión nuevamente",
+    "not_supported_by_bss": "No es compatible con el sistema",
+    "otp_not_found": "El OTP no está registrado en el sistema",
+    "parameters_apply_issue": "No se pueden procesar los datos de entrada",
+    "phone_not_found": "Número de teléfono no encontrado",
+    "record_not_found": "No se encontró el registro de llamadas",
+    "signup_disabled": "El registro está bloqueado por el administrador",
+    "signup_limit_reached": "Se ha alcanzado el límite de registro",
+    "unknown error": "Se produjo un error al conectar con el punto de señalización del servidor remoto",
+    "unsupported_audio_type": "Tipo de audio no admitido",
+    "unconfigured_bundle_id": "Identificador de aplicación no configurado (ID de paquete)",
+    "user_not_found": "No se pudo encontrar al usuario. Verifique los datos ingresados",
+    "code": {
+      "ERR_NETWORK": "Se produjo un error al conectarse al servidor remoto. Por favor, inténtelo de nuevo más tarde"
+    },
+    "ice_slowlink": {
+      "weak": "La conexión es débil",
+      "poor": "La conexión es mala"
+    },
+    "not_allowed_page": {
+      "description": "No tiene acceso a esta página en este momento.",
+      "hint": "Por favor, contacte a su administrador para resolver el problema."
+    },
+    "parameters_validate_issue": {
+      "page": {
+        "minimum": "El número de página no puede ser menor que 1",
+        "invalid_type": "El número de página debe ser un entero"
+      },
+      "items_per_page": {
+        "minimum": "El número de elementos por página no puede ser menor que 1",
+        "invalid_type": "El número de elementos por página debe ser un entero"
+      }
+    }
+  },
+  "label": {
+    "Sort": "Ordenar",
+    "Date from": "Fecha desde",
+    "Date to": "Fecha hasta",
+    "Phone": "Introduzca su número de teléfono",
+    "Verification": "Introduzca el código de verificación",
+    "Email": "Introduzca su correo electrónico",
+    "Online": "En línea",
+    "Offline": "Fuera de línea",
+    "Login": "Introduzca el usuario de inicio de sesión",
+    "Password": "Introduzca la contraseña del usuario"
+  },
+  "login": {
+    "Sign in": "Iniciar sesión",
+    "OTP Sign in": "Iniciar sesión con OTP",
+    "Demo": "Registrarse para demostración",
+    "Phone required": "Se requiere el número de teléfono",
+    "Login required": "Se requiere el inicio de sesión",
+    "From-to contain": "{field} debe contener dígito, letra, punto, guión bajo y debe tener de {from} a {to} caracteres de largo",
+    "Password contain": "La contraseña debe contener dígito, letra, símbolo y debe tener menos de {to} caracteres de largo",
+    "Login": "Inicio de sesión",
+    "Phone": "Teléfono",
+    "If exist account": "Si tiene una cuenta.",
+    "If no account": "Si aún no tiene una cuenta, esta se creará automáticamente para usted.",
+    "OTP will be sent signup": "Le enviaremos un código de verificación al correo electrónico que proporcionó.",
+    "OTP will be sent sign in": "Le enviaremos un código de verificación a la dirección de correo electrónico vinculada a su número de teléfono.",
+    "Check spam or": "Si no ve un correo electrónico {from} en su bandeja de entrada, asegúrese de revisar su carpeta de correo no deseado o",
+    "Verification": "Código de verificación",
+    "Verification required": "Se requiere el código de verificación",
+    "Get started": "Comience con",
+    "Verification message": "Se ha enviado un código de verificación",
+    "Email required": "Se requiere el correo electrónico",
+    "E-mail valid": "El correo electrónico debe ser válido",
+    "New code": "Se ha enviado un nuevo código",
+    "From": "de"
+  },
+  "menu": {
+    "Account": "Cuenta",
+    "Info": "Información",
+    "Call info": "Información de la llamada",
+    "Contacts": "Contactos",
+    "Recent Calls": "Llamadas recientes",
+    "Settings": "Ajustes",
+    "Home": "Inicio",
+    "Call History": "Historial de llamadas",
+    "Call Record": "Registro de llamadas",
+    "All": "Todos",
+    "Missed": "Perdidas",
+    "Favorites": "Favoritas",
+    "Logout": "Cerrar sesión"
+  },
+  "modal": {
+    "Balance": "Su saldo",
+    "Phone": "Número de teléfono",
+    "Video Call": "Video llamada con",
+    "Incoming": "Entrante...",
+    "Calling": "Llamando...",
+    "Unknown": "Desconocido...",
+    "Accepted": "Aceptada",
+    "Progress": "Progreso",
+    "Hangup": "Colgar",
+    "Audio Call": "Llamada de audio con",
+    "keypad": "teclado",
+    "transfer": "transferencia",
+    "hold": "en espera",
+    "resume call": "reanudar",
+    "mute": "silenciar",
+    "unmute": "activar sonido",
+    "stop video": "detener",
+    "start video": "iniciar",
+    "time": "tiempo",
+    "end call": "finalizar llamada",
+    "On hold": "En espera",
+    "accept": "aceptar",
+    "decline": "rechazar"
+  },
+  "placeholder": {
+    "Name or number": "Escriba un nombre o número para encontrar el contacto"
+  },
+  "settings": {
+    "title": "es la aplicación SPA con funcionalidad WebRTC.",
+    "Notifications": "Notificaciones",
+    "Notification enable": "Notificarme sobre nuevas funciones",
+    "Sound enable": "Reproducir tonos de llamada en llamadas entrantes y salientes",
+    "Language": "Idioma de la interfaz",
+    "system": "Sistema",
+    "adapter additional": "Parámetros adicionales del adaptador",
+    "gorush additional": "Información del servidor de notificaciones push",
+    "languages": {
+      "English": "Inglés",
+      "Italian": "Italiano",
+      "Spanish": "Español"
+    },
+    "snackbar": {
+      "applied": "Configuración aplicada"
+    },
+    "systemInfo": {
+      "porta": "PortaSwitch",
+      "janus": "WebTrit Janus",
+      "postgres": "Postgres",
+      "core": "WebTrit Core",
+      "adapter": "Adaptador de PBX alojado",
+      "gorush": "Servidor de notificaciones push"
+    }
+  },
+  "status": {
+    "account": {
+      "blocked": "La cuenta está bloqueada. Contacte a su administrador de empresa.",
+      "limited": "La cuenta está inactiva. La funcionalidad del marcador es limitada. Contacte a su administrador de empresa.",
+      "limit_removed": "Las restricciones de la cuenta se han eliminado. Puede utilizar la funcionalidad completa."
+    },
+    "registration": {
+      "unknown": "desconocido",
+      "registering": "registrando",
+      "registration_failed": "error de registro",
+      "registered": "registrado",
+      "unregistering": "desregistrando",
+      "unregistered": "desregistrado"
+    }
+  },
+  "slides": {
+    "How to call": "Cómo hacer una llamada:",
+    "Select contact": "Seleccione una persona de la lista de contactos",
+    "Video call": "Haga clic para entrar en el menú Info y haga clic en Video llamada",
+    "Quick call": "Llamada rápida en un solo clic",
+    "Call record": "Cómo obtener un registro de llamadas:",
+    "Info menu": "1 - Desde el menú Info",
+    "Call history": "2 - Desde el historial de llamadas",
+    "Missed call": "Cómo saber quién llamó mientras estaba ausente:",
+    "Recent Calls": "En el panel derecho encontrará 'Llamadas recientes', y un icono rojo indica una llamada perdida"
+  },
+  "user": {
+    "Status": "Estado",
+    "Extension": "Extensión",
+    "Number": "Número",
+    "Balance": "Saldo",
+    "Balance type": "Tipo de saldo",
+    "About": "Acerca de",
+    "Ext": "Ext",
+    "Email": "Correo electrónico",
+    "Mobile": "Móvil",
+    "Company": "Empresa",
+    "Name": "Nombre",
+    "Actions": "Acciones",
+    "First Name": "Nombre",
+    "Last Name": "Apellido",
+    "Registration Status": "Estado de registro",
+    "Unknown": "Desconocido"
+  }
+}
