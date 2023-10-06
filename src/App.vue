@@ -94,7 +94,7 @@ export default {
       'isActive',
     ]),
     ...mapState('webrtc', ['sessionError']),
-    ...mapGetters('webrtc', ['isRegistered']),
+    ...mapGetters('webrtc', ['isSignalingConnected', 'isRegistered']),
     snackbarShowing: {
       get() {
         return this.snackbarVisible
@@ -112,12 +112,27 @@ export default {
     this.watchConnection()
   },
 
-  async beforeMount() {
-    await this.$store.dispatch('system/getInfo')
-  },
-
   async mounted() {
-    this.isLogin && await this.$_contacts_getContacts()
+    await this.$store.dispatch('system/getInfo')
+      .then(
+        async () => {
+          if (this.isLogin) {
+            await this.$_contacts_getContacts()
+            await this.connect()
+              .then(
+                () => {
+                  console.log('Successfully connected to signaling socket')
+                },
+                (error) => {
+                  console.error('Error connected to signaling socket', error)
+                },
+              )
+          }
+        },
+        async (error) => {
+          await this.$store.dispatch('webrtc/setSessionError', this.$t(`errors.code.${error.code}`))
+        },
+      )
   },
 
   methods: {
@@ -175,7 +190,17 @@ export default {
           if (this.isLogin && !this.info) {
             try {
               await this.$store.dispatch('account/initGetAccountInfo')
-              await this.connect()
+              if (!this.isSignalingConnected) {
+                await this.connect()
+                  .then(
+                    () => {
+                      console.log('Successfully connected to signaling socket')
+                    },
+                    (error) => {
+                      console.error('Error connected to signaling socket', error)
+                    },
+                  )
+              }
             } catch (error) {
               console.error('Connection error:', error)
             }

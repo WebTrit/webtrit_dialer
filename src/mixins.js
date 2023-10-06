@@ -51,12 +51,9 @@ export const contacts = {
       this.updateFetchError(false)
       try {
         await this.fetchContactsItems({})
-      } catch (err) {
+      } catch (e) {
         this.updateFetchError(true)
-        if (err.response.status !== 401) {
-          // 401 handled by error interceptor
-          await this.snackbarShow({ message: this.$t(`errors["${err.code}"]`) })
-        }
+        if (e) console.error('On "$_contacts_getContacts" contacts', e)
       } finally {
         this.updateLoading(false)
       }
@@ -84,6 +81,7 @@ export const calls = {
 export const errors = {
   methods: {
     $_errors_parse(err) {
+      if (!err) return ''
       let error_message = ''
       const error = err.response?.data
       if (error) {

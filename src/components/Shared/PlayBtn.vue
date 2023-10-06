@@ -124,10 +124,10 @@ export default {
           }
         } catch (err) {
           this.state = State.ERROR
-          if (err.response.status === 405) {
+          if (err.response?.status === 405) {
             this.lastErrorMessage = this.$t('errors.not_allowed_data')
           } else {
-            this.lastErrorMessage = this.$t(`errors["${err.code}"]`)
+            this.lastErrorMessage = err ? this.$t(`errors.${err.code}`) : ''
           }
           return
         }

@@ -69,8 +69,8 @@ export default {
         number: this.tel,
         video: false,
       })
-        .catch((e) => {
-          const error = this.$t(`errors["${e.code}"]`)
+        .catch((err) => {
+          const error = err ? this.$t(`errors.${err.code}`) : ''
           this.$emit('phone-error', error)
         })
     },

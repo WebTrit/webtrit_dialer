@@ -19,10 +19,14 @@ const callStates = {
 }
 
 const SLOWLINK_POOR_THRESHOLD = 30
+const WS_CLOSE_CODE_WEBSOCKET_CLOSE = 1006
 const WS_CLOSE_CODE_SESSION_MISSED = 4201
 const WS_CLOSE_CODE_UNREGISTER = 4302
+const WS_CLOSE_CODE_CONTROLLER_EXIT = 4402
 const WS_CLOSE_CODE_MISSED_CREDENTIALS = 4412
+const WS_CLOSE_CODE_WEBRTC_CONNECTION_ERROR = 4420
 const WS_CLOSE_CODE_ATTACH_ERROR = 4431
+const WS_CLOSE_CODE_UNKNOWN_ERROR = 4600
 
 /**
  * This function takes the user registration status on a SIP server as input and
@@ -338,9 +342,13 @@ const state = () => ({
   incomingCallJsep: null,
   audioEnabled: true,
   videoEnabled: true,
+  signalingConnected: false,
 })
 
 const getters = {
+  isSignalingConnected(state) {
+    return state.signalingConnected
+  },
   isRegistered(state) {
     return state.registrationStatus === 'registered'
   },
@@ -400,6 +408,12 @@ const getters = {
 }
 
 const mutations = {
+  setSignalingConnected(state) {
+    state.signalingConnected = true
+  },
+  setSignalingDisconnected(state) {
+    state.signalingConnected = false
+  },
   setRegistrationStatus(state, status) {
     state.registrationStatus = status
   },
@@ -513,33 +527,62 @@ const actions = {
         },
         errorCallback: (error) => {
           console.log('Error handling in callback:', error)
-          const err_msg = composeErrorMessage(error)
-          if (err_msg) {
+          let error_message
+          switch (error.code) {
+            case WS_CLOSE_CODE_UNKNOWN_ERROR:
+              error_message = i18n.t('errors.unknown error')
+              break
+            default:
+              error_message = composeErrorMessage(error)
+          }
+          if (error_message) {
             if (error.fatal) {
               webtritSignalingClient.disconnect(error.code)
               handleCleanEvent({ commit }, getters.getCallId)
-              commit('setSessionError', err_msg)
+
+              commit('setSessionError', error_message)
             } else {
-              snackbarShow(dispatch, err_msg)
+              snackbarShow(dispatch, error_message)
             }
           }
           promiseReject()
         },
         disconnectedCallback: (reason, code) => {
           console.log(`Disconnect handling in callback with code: ${code}; reason: ${reason}`)
+          commit('setSignalingDisconnected')
           webtritSignalingClient.disconnect()
           handleCleanEvent({ commit }, getters.getCallId)
           if (![WS_CLOSE_CODE_UNREGISTER, WS_CLOSE_CODE_SESSION_MISSED].includes(code)) {
-            if (code === WS_CLOSE_CODE_ATTACH_ERROR) {
-              reason = i18n.t('errors.already opened')
-            } else if (code === WS_CLOSE_CODE_MISSED_CREDENTIALS) {
-              reason = i18n.t('errors.credentials missed')
+            let error_message
+            switch (code) {
+              case WS_CLOSE_CODE_ATTACH_ERROR:
+                error_message = i18n.t('errors.already opened')
+                break
+              case WS_CLOSE_CODE_WEBSOCKET_CLOSE:
+              case WS_CLOSE_CODE_CONTROLLER_EXIT:
+              case WS_CLOSE_CODE_WEBRTC_CONNECTION_ERROR:
+                error_message = i18n.t('errors.webrtc controller error')
+                break
+              case WS_CLOSE_CODE_MISSED_CREDENTIALS:
+                error_message = i18n.t('errors.credentials missed')
+                break
+              case WS_CLOSE_CODE_UNKNOWN_ERROR:
+                error_message = i18n.t('errors.unknown error')
+                break
+              default:
+                error_message = reason
             }
-            commit('setSessionError', reason)
+            commit('setSessionError', error_message)
           }
         },
         connectedCallback: (event) => {
-          event.type === 'open' ? promiseResolve() : promiseReject()
+          if (event.type === 'open') {
+            commit('setSignalingConnected')
+            promiseResolve()
+          } else {
+            commit('setSignalingDisconnected')
+            promiseReject()
+          }
         },
       })
       eventType = webtritSignalingClient.getEventTypes()
@@ -670,28 +713,39 @@ const actions = {
     handleCleanEvent({ commit }, null)
   },
   async register({ commit }) {
-    const r = await axios.patch('/app/status', {
-      register: true,
-    })
-    if (r === 204) {
-      commit('setRegistrationStatus', 'registered')
-      window.dispatchEvent(new Event('online'))
-    } else {
-      commit('setRegistrationStatus', 'unregistered')
-      window.dispatchEvent(new Event('offline'))
+    try {
+      const r = await axios.patch('/app/status', {
+        register: true,
+      })
+      if (r === 204) {
+        commit('setRegistrationStatus', 'registered')
+        window.dispatchEvent(new Event('online'))
+      } else {
+        commit('setRegistrationStatus', 'unregistered')
+        window.dispatchEvent(new Event('offline'))
+      }
+    } catch (e) {
+      if (e) console.error('On "register" webrtc', e)
     }
   },
   async unregister({ commit }) {
-    const r = await axios.patch('/app/status', {
-      register: false,
-    })
-    if (r === 204) {
-      commit('setRegistrationStatus', 'unregistered')
-      window.dispatchEvent(new Event('offline'))
-    } else {
-      commit('setRegistrationStatus', 'registered')
-      window.dispatchEvent(new Event('online'))
+    try {
+      const r = await axios.patch('/app/status', {
+        register: false,
+      })
+      if (r === 204) {
+        commit('setRegistrationStatus', 'unregistered')
+        window.dispatchEvent(new Event('offline'))
+      } else {
+        commit('setRegistrationStatus', 'registered')
+        window.dispatchEvent(new Event('online'))
+      }
+    } catch (e) {
+      if (e) console.error('On "unregister" webrtc', e)
     }
+  },
+  setSessionError({ commit }, reason) {
+    commit('setSessionError', reason)
   },
 }
 

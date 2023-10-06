@@ -99,16 +99,14 @@ const actions = {
   },
   async logout({ commit, dispatch }) {
     commit('clearUpdateInterval')
+    commit('updateToken', null)
+    commit('updateTenantId', null)
     try {
       await axios.delete('/session')
-    } catch (e) {
-      console.log(e.response.data)
     } finally {
       dispatch('webrtc/disconnect', { active: false }, { root: true })
       commit('callHistory/setItems', null, { root: true })
       commit('contacts/setItems', null, { root: true })
-      commit('updateToken', null)
-      commit('updateTenantId', null)
       commit('updateInfo', null)
     }
   },
@@ -121,8 +119,12 @@ const actions = {
     commit('setUpdateInterval', interval)
   },
   async getAccountInfo({ commit }) {
-    const r = await axios.get('/user')
-    commit('updateInfo', r)
+    try {
+      const r = await axios.get('/user')
+      commit('updateInfo', r)
+    } catch (e) {
+      if (e) console.error('On "getAccountInfo" account', e)
+    }
   },
 }
 

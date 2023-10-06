@@ -237,10 +237,12 @@ export default {
         await this.fetchCallHistoryItems(this.getParams())
         this.createPlayProgress()
       } catch (err) {
-        this.fetchDataError = err.response.status
-        await this.snackbarShow({
-          message: this.$_errors_parse(err),
-        })
+        if (err) {
+          this.fetchDataError = err.response.status
+          await this.snackbarShow({
+            message: this.$_errors_parse(err),
+          })
+        }
       } finally {
         this.loading = false
       }
