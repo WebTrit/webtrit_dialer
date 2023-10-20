@@ -118,15 +118,6 @@ export default {
         async () => {
           if (this.isLogin) {
             await this.$_contacts_getContacts()
-            await this.connect()
-              .then(
-                () => {
-                  console.log('Successfully connected to signaling socket')
-                },
-                (error) => {
-                  console.error('Error connected to signaling socket', error)
-                },
-              )
           }
         },
         async (error) => {
@@ -175,9 +166,17 @@ export default {
         this.snackbarShow({ message: this.$t('connection.lost') })
       }
     },
-    restartConnection() {
+    async restartConnection() {
       if (this.isLogin) {
-        this.connect()
+        await this.connect()
+          .then(
+            () => {
+              console.log('Successfully connected to signaling socket')
+            },
+            (error) => {
+              console.error('Error connected to signaling socket', error)
+            },
+          )
         this.snackbarShow({ message: this.$t('connection.restored') })
       }
     },
