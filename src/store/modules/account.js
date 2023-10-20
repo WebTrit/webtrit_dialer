@@ -99,10 +99,10 @@ const actions = {
   },
   async logout({ commit, dispatch }) {
     commit('clearUpdateInterval')
-    commit('updateToken', null)
-    commit('updateTenantId', null)
     try {
       await axios.delete('/session')
+      commit('updateToken', null)
+      commit('updateTenantId', null)
     } finally {
       dispatch('webrtc/disconnect', { active: false }, { root: true })
       commit('callHistory/setItems', null, { root: true })
