@@ -44,7 +44,7 @@
         icon-color="white"
         icon="$drop"
         color="red"
-        :text="$t('modal.end call')"
+        :text="$t('modal.end_call')"
         @click.native="drop()"
       />
     </v-row>
@@ -92,7 +92,7 @@
         icon-color="white"
         icon="$drop"
         color="red"
-        :text="$t('modal.end call')"
+        :text="$t('modal.end_call')"
         @click.native="drop()"
       />
     </v-row>

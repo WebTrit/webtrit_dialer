@@ -8,12 +8,12 @@
           class="user-info__row"
         >
           <td class="user-info__row-title--blue secondary--text">
-            {{ $t('user.About') }}
+            {{ $t('user.about') }}
           </td>
         </tr>
         <tr class="user-info__row">
           <td class="user-info__row-title">
-            {{ $t('user.Ext') }}:
+            {{ $t('user.ext') }}:
           </td>
           <td class="user-info__row-content">
             <Tooltip
@@ -25,7 +25,7 @@
         </tr>
         <tr class="user-info__row">
           <td class="user-info__row-title">
-            {{ $t('user.Number') }}:
+            {{ $t('user.number') }}:
           </td>
           <td class="user-info__row-content">
             <Tooltip
@@ -37,7 +37,7 @@
         </tr>
         <tr class="user-info__row">
           <td class="user-info__row-title">
-            {{ $t('user.Email') }}:
+            {{ $t('user.email') }}:
           </td>
           <td class="user-info__row-content">
             <Tooltip
@@ -49,7 +49,7 @@
         </tr>
         <tr class="user-info__row">
           <td class="user-info__row-title">
-            {{ $t('user.Mobile') }}:
+            {{ $t('user.mobile') }}:
           </td>
           <td class="user-info__row-content">
             <Tooltip
@@ -61,7 +61,7 @@
         </tr>
         <tr class="user-info__row">
           <td class="user-info__row-title">
-            {{ $t('user.Company') }}:
+            {{ $t('user.company') }}:
           </td>
           <td class="user-info__row-content">
             <Tooltip

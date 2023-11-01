@@ -1,6 +1,6 @@
 <template>
   <PanelAppBar
-    :title="!$_breakpoints_mobile? $t('menu.Recent Calls') : ''"
+    :title="!$_breakpoints_mobile? $t('menu.recent_calls') : ''"
     :has-tabs="true"
   >
     <template #tabs>
@@ -9,7 +9,7 @@
         :ripple="false"
         @click.native="filter('filter-all')"
       >
-        {{ $t('menu.All') }}
+        {{ $t('menu.all') }}
       </v-tab>
 
       <v-tab
@@ -17,7 +17,7 @@
         :ripple="false"
         @click.native="filter('filter-missed')"
       >
-        {{ $t('menu.Missed') }}
+        {{ $t('menu.missed') }}
       </v-tab>
     </template>
   </PanelAppBar>

@@ -2,10 +2,10 @@
   <v-container class="login-slides__slide">
     <v-container class="login-slides__text">
       <v-row>
-        {{ $t('slides.Missed call') }}
+        {{ $t('slides.missed_call') }}
       </v-row>
       <v-row>
-        {{ $t('slides.Recent Calls') }}
+        {{ $t('slides.recent_calls') }}
       </v-row>
     </v-container>
     <img :src="img">

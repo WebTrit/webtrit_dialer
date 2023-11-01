@@ -5,7 +5,7 @@
   >
     <v-row>
       <PanelAppBar
-        :title="$t('menu.Info')"
+        :title="$t('menu.info')"
       />
     </v-row>
     <v-row class="mb-6">
@@ -114,7 +114,7 @@
                 class="settings-info__header"
                 colspan="2"
               >
-                {{ $t('settings.adapter additional') }}
+                {{ $t('settings.adapter_additional') }}
               </th>
             </tr>
           </thead>
@@ -147,7 +147,7 @@
                 class="settings-info__header"
                 colspan="2"
               >
-                {{ $t('settings.gorush additional') }}
+                {{ $t('settings.gorush_additional') }}
               </th>
             </tr>
           </thead>
@@ -175,7 +175,7 @@
           color="secondary"
           @click="copy()"
         >
-          {{ $t('button.Copy') }}
+          {{ $t('button.copy') }}
         </v-btn>
       </v-col>
     </v-row>

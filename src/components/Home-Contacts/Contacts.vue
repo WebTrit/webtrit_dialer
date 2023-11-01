@@ -40,7 +40,7 @@
           <v-icon left>
             $refresh
           </v-icon>
-          {{ $t('button.Refresh') }}
+          {{ $t('button.refresh') }}
         </v-btn>
         <EmptyContent
           :title="supported ? $t('errors.contacts_empty') : $t('errors.not_supported_by_bss')"
@@ -52,7 +52,7 @@
     <template #no-results>
       <div :class="[!$_breakpoints_mobile? 'contacts__no-data' : 'contacts__no-data--mobile']">
         <p class="contacts__message">
-          {{ $t('data.No results') }}
+          {{ $t('data.no_results') }}
         </p>
       </div>
     </template>

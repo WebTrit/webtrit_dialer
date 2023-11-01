@@ -20,8 +20,8 @@ export default {
     ...mapGetters('webrtc', ['isRegistered']),
     userOnline() {
       return this.isRegistered
-        ? this.$t('label.Online')
-        : this.$t('label.Offline')
+        ? this.$t('label.online')
+        : this.$t('label.offline')
     },
   },
 }

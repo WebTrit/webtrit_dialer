@@ -6,7 +6,7 @@
     >
       <p
         class="login-sign-in-form__title mt-9 text-gray-600"
-        v-html="$t('login.If exist account')"
+        v-html="$t('login.if_exist_account')"
       />
       <v-row :class="{ 'login-sign-in-form__content--mobile' : $vuetify.breakpoint.xs }">
         <v-col>
@@ -16,7 +16,7 @@
             v-model.trim="login"
             color="secondary"
             :rules="loginRules"
-            :label="$t('label.Login')"
+            :label="$t('label.login')"
             :error-messages="loginErrorMessages"
             ref="firstField"
             outlined
@@ -33,7 +33,7 @@
             v-model.trim="password"
             color="secondary"
             :rules="passwordRules"
-            :label="$t('label.Password')"
+            :label="$t('label.password')"
             :error-messages="passwordErrorMessages"
             :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
             :type="show ? 'text' : 'password'"
@@ -59,7 +59,7 @@
             height="40"
             @click="provideLoginPassword()"
           >
-            {{ $t('button.Apply') }}
+            {{ $t('button.apply') }}
           </v-btn>
         </v-col>
       </v-row>
@@ -86,15 +86,15 @@ export default {
   computed: {
     loginRules() {
       return [
-        (v) => !!v || this.$i18n.t('login.Login required'),
-        (v) => /^\+?[a-zA-Z0-9@._]{1,64}$/.test(v) || this.$i18n.t('login.From-to contain', { field: this.$i18n.t('login.Login'), from: 1, to: 64 }),
+        (v) => !!v || this.$i18n.t('login.login_required'),
+        (v) => /^\+?[a-zA-Z0-9@._]{1,64}$/.test(v) || this.$i18n.t('login.from_to_contain', { field: this.$i18n.t('login.login'), from: 1, to: 64 }),
       ]
     },
     passwordRules() {
       return [
         (v) => {
           const pattern = new RegExp('^[\\d\\w\\(\\)\\[\\]\\$\\^\\*\\+\\?\\!\\.\\|<>`~,;:@#%&=-]{0,32}$')
-          return pattern.test(v) || this.$i18n.t('login.Password contain', { from: 0, to: 32 })
+          return pattern.test(v) || this.$i18n.t('login.password_contain', { from: 0, to: 32 })
         },
       ]
     },

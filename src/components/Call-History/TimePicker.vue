@@ -37,14 +37,14 @@
         color="secondary"
         @click="close()"
       >
-        {{ $t('button.Cancel') }}
+        {{ $t('button.cancel') }}
       </v-btn>
       <v-btn
         text
         color="secondary"
         @click="save()"
       >
-        {{ $t('button.OK') }}
+        {{ $t('button.ok') }}
       </v-btn>
     </v-date-picker>
   </v-dialog>

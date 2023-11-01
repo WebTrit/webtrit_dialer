@@ -69,7 +69,7 @@ export const calls = {
       } else if (item.direction === 'outgoing') {
         return item.callee
       } else {
-        return i18n.t('call.Unknown')
+        return i18n.t('call.unknown')
       }
     },
     $_calls_getFilename(item) {

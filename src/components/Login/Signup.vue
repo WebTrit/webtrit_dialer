@@ -6,7 +6,7 @@
     >
       <p
         class="signup-form__title mt-9 text-gray-600"
-        v-html="$t('login.If no account')"
+        v-html="$t('login.if_no_account')"
       />
       <v-row :class="{ 'signup-form__content--mobile' : $vuetify.breakpoint.xs }">
         <v-col>
@@ -16,7 +16,7 @@
             v-model.trim="email"
             color="secondary"
             :rules="emailRules"
-            :label="$t('label.Email')"
+            :label="$t('label.email')"
             :error-messages="emailErrorMessages"
             ref="firstField"
             outlined
@@ -36,12 +36,12 @@
             height="40"
             @click="provideEmail()"
           >
-            {{ $t('button.Proceed') }}
+            {{ $t('button.proceed') }}
           </v-btn>
           <span
             v-else
             class="signup-form__msg"
-          > {{ $t('login.Verification message') }} </span>
+          > {{ $t('login.verification_message') }} </span>
         </v-col>
       </v-row>
       <v-row
@@ -50,7 +50,7 @@
         <v-col>
           <p
             class="signup-form__msg"
-            v-html="$t('login.OTP will be sent signup')"
+            v-html="$t('login.otp_sent_signup')"
           />
         </v-col>
       </v-row>
@@ -68,7 +68,7 @@
             v-model.trim="otp"
             color="secondary"
             :rules="otpRules"
-            :label="$t('label.Verification')"
+            :label="$t('label.verification')"
             :error-messages="otpErrorMessages"
             outlined
             dense
@@ -86,7 +86,7 @@
             height="40"
             @click="verifyReceivedOtp()"
           >
-            {{ $t('button.Verify') }}
+            {{ $t('button.verify') }}
           </v-btn>
         </v-col>
       </v-row>
@@ -95,12 +95,12 @@
       >
         <v-col>
           <p class="signup-form__msg">
-            {{ $t('login.Check spam or', { from: deliveryFromString()}) }} <span
+            {{ $t('login.check_spam_or', { from: deliveryFromString()}) }} <span
               class="signup-form__resend"
               :class="[ $vuetify.breakpoint.xs ? 'signup-form__resend--mobile' : 'signup-form__resend']"
               @click="resendCode()"
             >
-              {{ $t('button.Resend') }}
+              {{ $t('button.resend') }}
             </span>.
           </p>
         </v-col>
@@ -136,14 +136,14 @@ export default {
   computed: {
     emailRules() {
       return [
-        (v) => !!v || this.$i18n.t('login.Email required'),
+        (v) => !!v || this.$i18n.t('login.email_required'),
         (v) => /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(v)
-            || this.$i18n.t('login.E-mail valid'),
+            || this.$i18n.t('login.email_valid'),
       ]
     },
     otpRules() {
       return [
-        (v) => !!v || this.$i18n.t('login.Verification required'),
+        (v) => !!v || this.$i18n.t('login.verification_required'),
       ]
     },
   },
@@ -207,7 +207,7 @@ export default {
         try {
           await this.executeRequest()
           this.otp = ''
-          await this.snackbarShow({ message: this.$t('login.New code') })
+          await this.snackbarShow({ message: this.$t('login.new_code') })
         } catch (e) {
           this.emailErrorMessages = this.$_errors_parse(e)
         } finally {
@@ -217,7 +217,7 @@ export default {
     },
     deliveryFromString() {
       if (this.deliveryFrom.length === 0) return ''
-      return [this.$i18n.t('login.From'), ' <', this.deliveryFrom, '>'].join('')
+      return [this.$i18n.t('login.from'), ' <', this.deliveryFrom, '>'].join('')
     },
     focusOnFirstInput() {
       this.$refs.firstField.$refs.input.focus()

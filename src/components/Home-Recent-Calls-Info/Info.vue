@@ -4,7 +4,7 @@
       <v-container>
         <v-row>
           <PanelAppBar
-            :title="$t('menu.Call info')"
+            :title="$t('menu.call_info')"
           >
             <template #close>
               <v-icon
@@ -42,7 +42,7 @@
           v-if="call && call.recording_id"
         >
           <PanelAppBar
-            :title="$t('menu.Call Record')"
+            :title="$t('menu.call_record')"
           />
           <v-row>
             <CallRecord
@@ -69,7 +69,7 @@
   >
     <PanelAppBar
       class="contact__dialog-appbar"
-      :title="$t('menu.Info')"
+      :title="$t('menu.info')"
     >
       <template #close>
         <v-icon
@@ -98,7 +98,7 @@
     </v-row>
     <PanelAppBar
       class="contact__dialog-appbar"
-      :title="$t('menu.Call Record')"
+      :title="$t('menu.call_record')"
       v-if="call && call.call_recording_exist"
     />
     <v-row

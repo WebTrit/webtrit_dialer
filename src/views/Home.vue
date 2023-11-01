@@ -109,7 +109,7 @@ export default {
   mixins: [breakpoints],
   data() {
     return {
-      tabs: [`${this.$t('menu.Contacts')}`, `${this.$t('menu.Recent Calls')}`],
+      tabs: [`${this.$t('menu.contacts')}`, `${this.$t('menu.recent_calls')}`],
     }
   },
   computed: {

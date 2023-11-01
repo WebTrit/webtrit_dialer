@@ -6,29 +6,29 @@
   >
     <v-row :class="{ 'edit-user__row--mobile' : $vuetify.breakpoint.xs}">
       <v-col class="user-account__info">
-        <span class="user-account__info-title">{{ $t('user.First Name') }}:</span>
+        <span class="user-account__info-title">{{ $t('user.first_name') }}:</span>
         <span class="user-account__info-content secondary--text"> {{ userData.first_name || "-" }} </span>
       </v-col>
       <v-col class="user-account__info">
-        <span class="user-account__info-title">{{ $t('user.Last Name') }}:</span>
+        <span class="user-account__info-title">{{ $t('user.last_name') }}:</span>
         <span class="user-account__info-content secondary--text"> {{ userData.last_name || "-" }} </span>
       </v-col>
     </v-row>
     <v-row :class="{ 'edit-user__row--mobile' : $vuetify.breakpoint.xs}">
       <v-col class="user-account__info">
-        <span class="user-account__info-title">{{ $t('user.Email') }}:</span>
+        <span class="user-account__info-title">{{ $t('user.email') }}:</span>
         <span class="user-account__info-content secondary--text"> {{ userData.email || "-" }} </span>
       </v-col>
     </v-row>
     <v-row :class="{ 'edit-user__row--mobile' : $vuetify.breakpoint.xs}">
       <v-col class="user-account__info">
-        <span class="user-account__info-title">{{ $t('user.Mobile') }}:</span>
+        <span class="user-account__info-title">{{ $t('user.mobile') }}:</span>
         <span class="user-account__info-content secondary--text"> {{ userData.mobile || "-" }} </span>
       </v-col>
     </v-row>
     <v-row :class="{ 'edit-user__row--mobile' : $vuetify.breakpoint.xs}">
       <v-col class="user-account__info">
-        <span class="user-account__info-title">{{ $t('user.Company') }}:</span>
+        <span class="user-account__info-title">{{ $t('user.company') }}:</span>
         <span class="user-account__info-content secondary--text"> {{ userData.company_name || "-" }} </span>
       </v-col>
     </v-row>

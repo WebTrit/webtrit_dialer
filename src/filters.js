@@ -72,38 +72,38 @@ Vue.filter('getDirectionTitle', (item) => {
     case 'incoming':
       switch (item.status) {
         case 'accepted':
-          return i18n.t('call.Incoming')
+          return i18n.t('call.incoming')
         case 'declined':
-          return i18n.t('call.Incoming declined')
+          return i18n.t('call.incoming_declined')
         case 'missed':
-          return i18n.t('call.Incoming missed')
+          return i18n.t('call.incoming_missed')
         default:
-          return i18n.t('call.Incoming failed')
+          return i18n.t('call.incoming_failed')
       }
     case 'outgoing':
       switch (item.status) {
         case 'accepted':
-          return i18n.t('call.Outgoing')
+          return i18n.t('call.outgoing')
         case 'declined':
-          return i18n.t('call.Outgoing declined')
+          return i18n.t('call.outgoing_declined')
         case 'missed':
-          return i18n.t('call.Outgoing missed')
+          return i18n.t('call.outgoing_missed')
         default:
-          return i18n.t('call.Outgoing failed')
+          return i18n.t('call.outgoing_failed')
       }
     case 'forwarded':
       switch (item.status) {
         case 'accepted':
-          return i18n.t('call.Forwarded')
+          return i18n.t('call.forwarded')
         case 'declined':
-          return i18n.t('call.Forwarded declined')
+          return i18n.t('call.forwarded_declined')
         case 'missed':
-          return i18n.t('call.Forwarded missed')
+          return i18n.t('call.forwarded_missed')
         default:
-          return i18n.t('call.Forwarded failed')
+          return i18n.t('call.forwarded_failed')
       }
     default:
-      return i18n.t('call.Unknown')
+      return i18n.t('call.unknown')
   }
 })
 
@@ -177,16 +177,16 @@ Vue.filter('convertToCalendar', (dateTime) => {
   let str
   switch (true) {
     case diff === 0:
-      str = i18n.t('datetime.sameDay')
+      str = i18n.t('datetime.same_day')
       break
     case diff === 1:
-      str = i18n.t('datetime.lastDay')
+      str = i18n.t('datetime.last_day')
       break
     case diff < 7:
-      str = i18n.t('datetime.lastWeek')
+      str = i18n.t('datetime.last_week')
       break
     default:
-      str = i18n.t('datetime.oldDay')
+      str = i18n.t('datetime.old_day')
   }
   return replaceValues(str, replacements)
 })
@@ -196,9 +196,9 @@ Vue.filter('convertToCalendarDay', (datetime) => {
   const diff = getDiffOnDaysFromNow(date)
   switch (true) {
     case diff === 0:
-      return i18n.t('datetime.Today')
+      return i18n.t('datetime.today')
     case diff === 1:
-      return i18n.t('datetime.Yesterday')
+      return i18n.t('datetime.yesterday')
     default:
       return date.toLocaleDateString(i18n.locale)
   }

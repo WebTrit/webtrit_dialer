@@ -5,19 +5,19 @@
   >
     <v-row>
       <PanelAppBar
-        :title="$t('menu.Settings')"
+        :title="$t('menu.settings')"
       />
     </v-row>
     <v-row>
       <v-col class="settings__title">
-        {{ $t('settings.Notifications') }}:
+        {{ $t('settings.notifications') }}:
       </v-col>
     </v-row>
     <v-row>
       <v-col class="settings__checkbox">
         <v-checkbox
           v-model="notificationsEnabled"
-          :label="$t('settings.Notification enable')"
+          :label="$t('settings.notification_enable')"
           color="secondary"
           @change="actionBtnsDisabled = false"
         />
@@ -28,7 +28,7 @@
         <v-checkbox
           class="mt-0"
           v-model="soundEnabled"
-          :label="$t('settings.Sound enable')"
+          :label="$t('settings.sound_enable')"
           color="secondary"
           @change="actionBtnsDisabled = false"
         />
@@ -36,7 +36,7 @@
     </v-row>
     <v-row>
       <v-col class="settings__title pt-5">
-        {{ $t('settings.Language') }}:
+        {{ $t('settings.language') }}:
       </v-col>
     </v-row>
     <v-row>
@@ -65,7 +65,7 @@
           :disabled="actionBtnsDisabled"
           @click="cancel()"
         >
-          {{ $t('button.Cancel') }}
+          {{ $t('button.cancel') }}
         </v-btn>
       </v-col>
       <v-col class="settings__btn">
@@ -75,7 +75,7 @@
           :disabled="actionBtnsDisabled"
           @click="apply()"
         >
-          {{ $t('button.Apply') }}
+          {{ $t('button.apply') }}
         </v-btn>
       </v-col>
     </v-row>
@@ -98,9 +98,9 @@ export default {
       soundEnabled: undefined,
       actionBtnsDisabled: true,
       languages: [
-        { lang: `${this.$t('settings.languages.English')}`, locale: 'en' },
-        { lang: `${this.$t('settings.languages.Italian')}`, locale: 'it' },
-        { lang: `${this.$t('settings.languages.Spanish')}`, locale: 'sp' },
+        { lang: `${this.$t('settings.languages.english')}`, locale: 'en' },
+        { lang: `${this.$t('settings.languages.italian')}`, locale: 'it' },
+        { lang: `${this.$t('settings.languages.spanish')}`, locale: 'es' },
       ],
       selectedLang: {},
     }
@@ -143,16 +143,16 @@ export default {
     applyLang() {
       switch (this.currentLocale) {
         case 'it':
-          this.selectedLang = { lang: this.$t('settings.languages.Italian'), locale: 'it' }
+          this.selectedLang = { lang: this.$t('settings.languages.italian'), locale: 'it' }
           break
         case 'en':
-          this.selectedLang = { lang: this.$t('settings.languages.English'), locale: 'en' }
+          this.selectedLang = { lang: this.$t('settings.languages.english'), locale: 'en' }
           break
-        case 'sp':
-          this.selectedLang = { lang: this.$t('settings.languages.Spanish'), locale: 'sp' }
+        case 'es':
+          this.selectedLang = { lang: this.$t('settings.languages.spanish'), locale: 'es' }
           break
         default:
-          this.selectedLang = { lang: this.$t('settings.languages.English'), locale: 'en' }
+          this.selectedLang = { lang: this.$t('settings.languages.english'), locale: 'en' }
       }
     },
   },

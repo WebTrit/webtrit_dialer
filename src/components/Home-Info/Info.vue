@@ -4,7 +4,7 @@
       <v-container>
         <v-row>
           <PanelAppBar
-            :title="$t('menu.Info')"
+            :title="$t('menu.info')"
           >
             <template #close>
               <v-icon
@@ -43,7 +43,7 @@
   >
     <PanelAppBar
       class="contact__dialog-appbar"
-      :title="$t('menu.Info')"
+      :title="$t('menu.info')"
     >
       <template #close>
         <v-icon

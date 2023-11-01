@@ -1,6 +1,6 @@
 <template>
   <v-text-field
-    :label="$t('modal.Phone')"
+    :label="$t('modal.phone')"
     color="secondary"
     v-model="phoneNumber"
     autocomplete="off"

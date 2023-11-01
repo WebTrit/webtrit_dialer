@@ -1,6 +1,6 @@
 <template>
   <PanelAppBar
-    :title="$t('menu.Contacts')"
+    :title="$t('menu.contacts')"
     :class="[!$_breakpoints_desktop?
       'contacts__appbar--mobile': 'contacts__appbar']"
     :has-tabs="true"
@@ -12,14 +12,14 @@
         :ripple="false"
         @click.native="$emit('filter-all')"
       >
-        {{ $t('menu.All') }}
+        {{ $t('menu.all') }}
       </v-tab>
       <v-tab
         class="panel__tab"
         :ripple="false"
         @click.native="$emit('filter-favorites')"
       >
-        {{ $t('menu.Favorites') }}
+        {{ $t('menu.favorites') }}
       </v-tab>
     </template>
     <template #search>
@@ -33,7 +33,7 @@
         flat
         hide-details
         prepend-inner-icon="$search"
-        :placeholder="$t('placeholder.Name or number')"
+        :placeholder="$t('placeholder.name_or_number')"
       />
       <v-select
         v-if="!$_breakpoints_desktop"
@@ -43,7 +43,7 @@
         item-value="value"
         item-color="secondary"
         :items="options"
-        :label="$t('label.Sort')"
+        :label="$t('label.sort')"
         dense
         outlined
       />

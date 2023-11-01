@@ -62,7 +62,7 @@ export default {
   mixins: [breakpoints],
   data() {
     return {
-      tabs: [`${this.$t('menu.Account')}`, `${this.$t('menu.Info')}`],
+      tabs: [`${this.$t('menu.account')}`, `${this.$t('menu.info')}`],
     }
   },
 }

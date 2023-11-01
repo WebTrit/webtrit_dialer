@@ -12,7 +12,7 @@
       <v-list-item-title
         class="sidebar_list-item-title"
       >
-        {{ $t('menu.Logout') }}
+        {{ $t('menu.logout') }}
       </v-list-item-title>
     </v-list-item-content>
   </v-list-item>

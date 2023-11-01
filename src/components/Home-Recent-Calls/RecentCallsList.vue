@@ -24,7 +24,7 @@
               class="container__item-sub-name"
               v-if="scopedSlots.contact.duration > 0 && scopedSlots.contact.status === 'accepted'"
             >
-              {{ $t('call.Duration') }}: <span> {{ scopedSlots.contact.duration | formatPrettySeconds }} </span>
+              {{ $t('call.duration') }}: <span> {{ scopedSlots.contact.duration | formatPrettySeconds }} </span>
             </span>
             <span
               class="container__item-sub-name"
@@ -56,7 +56,7 @@
             outlined
             @click.prevent="makeCall(scopedSlots.contact.contactInfo)"
           >
-            {{ $t('button.Call back') }}
+            {{ $t('button.call_back') }}
           </v-btn>
         </v-row>
       </v-col>

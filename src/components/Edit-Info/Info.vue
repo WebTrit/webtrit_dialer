@@ -4,11 +4,11 @@
     v-if="!$_breakpoints_mobile"
   >
     <PanelAppBar
-      :title="$t('menu.Info')"
+      :title="$t('menu.info')"
     />
     <v-row>
       <v-col class="text-sm text-light-grey">
-        {{ $t('user.Registration Status') }}:
+        {{ $t('user.registration_status') }}:
       </v-col>
     </v-row>
     <v-row>
@@ -23,7 +23,7 @@
   >
     <v-row class="edit-user__row">
       <v-col class="edit-user__col--title">
-        {{ $t('user.Registration Status') }}:
+        {{ $t('user.registration_status') }}:
       </v-col>
       <v-col class="edit-user__col--content">
         <RegistrationSwitch class="edit-user__switch" />

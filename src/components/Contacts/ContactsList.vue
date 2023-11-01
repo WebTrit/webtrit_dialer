@@ -32,7 +32,7 @@
                 class="container__item-name mb-2 text-gray-400"
                 v-else
               >
-                {{ $t('user.Unknown') }}
+                {{ $t('user.unknown') }}
               </v-col>
             </v-row>
             <v-row class="container__inner-row">

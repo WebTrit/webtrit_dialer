@@ -7,7 +7,7 @@
       <tbody>
         <tr class="user-info__row">
           <td class="user-info__row-title py-4">
-            {{ $t('user.Status') }}:
+            {{ $t('user.status') }}:
           </td>
           <td class="user-info__row-content--status py-4 secondary--text">
             <Tooltip
@@ -19,7 +19,7 @@
         </tr>
         <tr class="user-info__row">
           <td class="user-info__row-title pb-1">
-            {{ $t('user.Extension') }}:
+            {{ $t('user.extension') }}:
           </td>
           <td class="user-info__row-content pb-1 font-bold secondary--text">
             <Tooltip
@@ -31,7 +31,7 @@
         </tr>
         <tr class="user-info__row">
           <td class="user-info__row-title">
-            {{ $t('user.Number') }}:
+            {{ $t('user.number') }}:
           </td>
           <td class="user-info__row-content font-bold secondary--text">
             <Tooltip
@@ -46,7 +46,7 @@
           v-if="balance"
         >
           <td class="user-info__row-title pt-4">
-            {{ $t('user.Balance') }}:
+            {{ $t('user.balance') }}:
           </td>
           <td class="user-info__row-content--blue pt-4 secondary--text">
             <Tooltip

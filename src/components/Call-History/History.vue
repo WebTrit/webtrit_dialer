@@ -36,7 +36,7 @@
           <v-icon left>
             $refresh
           </v-icon>
-          {{ $t('button.Refresh') }}
+          {{ $t('button.refresh') }}
         </v-btn>
         <EmptyContent
           :title="$t('errors.call_history_empty')"
@@ -46,7 +46,7 @@
 
       <template #no-results>
         <p class="contacts__message">
-          {{ $t('data.No results') }}
+          {{ $t('data.no_results') }}
         </p>
       </template>
 
@@ -85,7 +85,7 @@
           class="call-history__duration"
           v-if="item.duration > 0 && item.status === 'accepted'"
         >
-          {{ $t('call.Duration') }}: {{ item.duration | formatPrettySeconds }}
+          {{ $t('call.duration') }}: {{ item.duration | formatPrettySeconds }}
         </span>
         <span
           class="call-history__duration"
@@ -188,27 +188,27 @@ export default {
     headers() {
       return [
         {
-          text: this.$t('user.Name'),
+          text: this.$t('user.name'),
           value: 'called_calling',
           width: this.$_breakpoints_mobile ? '30%' : '20%',
         },
         {
-          text: this.$t('user.Number'),
+          text: this.$t('user.number'),
           value: 'number',
           width: this.$_breakpoints_mobile ? '5%' : '5%',
         },
         {
-          text: this.$t('call.Connect Time'),
+          text: this.$t('call.connect_time'),
           value: 'connect_time',
           width: this.$_breakpoints_mobile ? '20%' : '20%',
         },
         {
-          text: this.$t('call.Status'),
+          text: this.$t('call.status'),
           value: 'duration',
           width: '15%',
         },
         {
-          text: this.$t('call.Actions'),
+          text: this.$t('call.actions'),
           value: 'actions',
           align: 'end',
           width: this.$_breakpoints_mobile ? '25%' : '30%',

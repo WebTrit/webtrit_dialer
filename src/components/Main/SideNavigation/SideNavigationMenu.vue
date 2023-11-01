@@ -42,25 +42,25 @@ export default {
     navigationItems() {
       const items = [
         {
-          title: `${this.$t('menu.Home')}`,
+          title: `${this.$t('menu.home')}`,
           to: { name: 'Home' },
           icon: '$home',
           show: true,
         },
         {
-          title: `${this.$t('menu.Call History')}`,
+          title: `${this.$t('menu.call_history')}`,
           to: { name: 'CallHistory' },
           icon: '$call-history',
           show: this.isSupportedCallHistory,
         },
         {
-          title: `${this.$t('menu.Contacts')}`,
+          title: `${this.$t('menu.contacts')}`,
           to: { name: 'Contacts' },
           icon: '$user',
           show: this.isSupportedContacts,
         },
         {
-          title: `${this.$t('menu.Settings')}`,
+          title: `${this.$t('menu.settings')}`,
           to: { name: 'Settings' },
           icon: '$settings',
           show: true,

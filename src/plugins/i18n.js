@@ -32,6 +32,7 @@ export function supportedLanguages() {
 
 export function getMainLocale() {
   const supported = supportedLanguages()
+  console.log('LOCALES:', supported)
   return process.env.VUE_APP_I18N_LOCALE && supported.includes(process.env.VUE_APP_I18N_LOCALE)
     ? process.env.VUE_APP_I18N_LOCALE : defaultLanguage
 }

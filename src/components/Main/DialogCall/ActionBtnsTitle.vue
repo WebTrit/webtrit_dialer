@@ -2,13 +2,13 @@
   <v-col
     class="dialog-call__name"
   >
-    <span v-if="videoCall"> {{ $t('modal.Video Call') }} </span>
-    <span v-else> {{ $t('modal.Audio Call') }} </span>
+    <span v-if="videoCall"> {{ $t('modal.video_call') }} </span>
+    <span v-else> {{ $t('modal.audio_call') }} </span>
     <span class="font-bold"> {{ callDescription }} </span>
     <span
       v-if="holdActive"
       class="text-red-500"
-    > {{ $t('modal.On hold') }} </span>
+    > {{ $t('modal.on_hold') }} </span>
     <Timer
       v-if="$vuetify.breakpoint.xs"
     />

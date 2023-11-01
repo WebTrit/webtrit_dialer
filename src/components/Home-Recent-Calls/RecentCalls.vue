@@ -46,7 +46,7 @@
           <v-icon left>
             $refresh
           </v-icon>
-          {{ $t('button.Refresh') }}
+          {{ $t('button.refresh') }}
         </v-btn>
       </v-container>
       <EmptyContent
@@ -57,7 +57,7 @@
 
     <template #no-results>
       <p class="calls__message">
-        {{ $t('data.No results') }}
+        {{ $t('data.no_results') }}
       </p>
     </template>
 
@@ -75,7 +75,7 @@
       v-if="supported"
     >
       <p class="calls__footer">
-        {{ $t('call.Last') }}
+        {{ $t('call.last') }}
       </p>
     </template>
   </v-data-table>

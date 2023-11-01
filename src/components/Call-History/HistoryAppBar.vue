@@ -1,6 +1,6 @@
 <template>
   <PanelAppBar
-    :title="$t('menu.Call History')"
+    :title="$t('menu.call_history')"
     :class="[$vuetify.breakpoint.xs?
       'history__appbar--mobile': 'history__appbar']"
     :has-tabs="true"
@@ -11,16 +11,16 @@
         class="panel__tab cursor-default"
         :ripple="false"
       >
-        {{ $t('menu.All') }}
+        {{ $t('menu.all') }}
       </v-tab>
     </template>
     <template #datepicker>
       <TimePicker
-        :title="$t('label.Date from')"
+        :title="$t('label.date_from')"
         @update-date="updateFromDate($event)"
       />
       <TimePicker
-        :title="$t('label.Date to')"
+        :title="$t('label.date_to')"
         @update-date="updateToDate($event)"
       />
     </template>

@@ -544,7 +544,7 @@ const actions = {
           let error_message
           switch (error.code) {
             case WS_CLOSE_CODE_UNKNOWN_ERROR:
-              error_message = i18n.t('errors.unknown error')
+              error_message = i18n.t('errors.unknown_error')
               break
             default:
               error_message = composeErrorMessage(error)
@@ -570,18 +570,18 @@ const actions = {
             let error_message
             switch (code) {
               case WS_CLOSE_CODE_ATTACH_ERROR:
-                error_message = i18n.t('errors.already opened')
+                error_message = i18n.t('errors.already_opened')
                 break
               case WS_CLOSE_CODE_WEBSOCKET_CLOSE:
               case WS_CLOSE_CODE_CONTROLLER_EXIT:
               case WS_CLOSE_CODE_WEBRTC_CONNECTION_ERROR:
-                error_message = i18n.t('errors.webrtc controller error')
+                error_message = i18n.t('errors.webrtc_controller_error')
                 break
               case WS_CLOSE_CODE_MISSED_CREDENTIALS:
-                error_message = i18n.t('errors.credentials missed')
+                error_message = i18n.t('errors.credentials_missed')
                 break
               case WS_CLOSE_CODE_UNKNOWN_ERROR:
-                error_message = i18n.t('errors.unknown error')
+                error_message = i18n.t('errors.unknown_error')
                 break
               default:
                 error_message = reason

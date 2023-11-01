@@ -29,7 +29,7 @@
           <v-icon left>
             $refresh
           </v-icon>
-          {{ $t('button.Refresh') }}
+          {{ $t('button.refresh') }}
         </v-btn>
         <EmptyContent
           :title="$t('errors.contacts_empty')"
@@ -39,7 +39,7 @@
 
       <template #no-results>
         <p class="contacts__message">
-          {{ $t('data.No results') }}
+          {{ $t('data.no_results') }}
         </p>
       </template>
 
@@ -63,7 +63,7 @@
           class="font-bold text-gray-400"
           v-else
         >
-          {{ $t('user.Unknown') }}
+          {{ $t('user.unknown') }}
         </span>
       </template>
 
@@ -208,37 +208,37 @@ export default {
     headers() {
       return [
         {
-          text: this.$t('user.Name'),
+          text: this.$t('user.name'),
           value: 'name',
           width: '20%',
         },
         {
-          text: this.$t('user.Extension'),
+          text: this.$t('user.extension'),
           value: 'number_ext',
           width: '10%',
         },
         {
-          text: this.$t('user.Number'),
+          text: this.$t('user.number'),
           value: 'number',
           width: '15%',
         },
         {
-          text: this.$t('user.Email'),
+          text: this.$t('user.email'),
           value: 'email',
           width: '15%',
         },
         {
-          text: this.$t('user.Mobile'),
+          text: this.$t('user.mobile'),
           value: 'mobile',
           width: '15%',
         },
         {
-          text: this.$t('user.Company'),
+          text: this.$t('user.company'),
           value: 'company_name',
           width: '15%',
         },
         {
-          text: this.$t('user.Actions'),
+          text: this.$t('user.actions'),
           value: 'actions',
           align: 'end',
           sortable: false,

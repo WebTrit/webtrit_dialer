@@ -134,7 +134,7 @@ const axiosInitPlugin = (store) => {
 
           default:
             store.dispatch('snackbar/show',
-              { message: i18n.t('errors.unknown error') },
+              { message: i18n.t('errors.unknown_error') },
               { root: true })
         }
         // eslint-disable-next-line prefer-promise-reject-errors

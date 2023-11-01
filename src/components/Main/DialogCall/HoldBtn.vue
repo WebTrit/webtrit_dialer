@@ -8,7 +8,7 @@
   <ActionBtn
     v-else
     icon="$audio"
-    :text="$t('modal.resume call')"
+    :text="$t('modal.resume_call')"
     @click.native="holdCall()"
   />
 </template>

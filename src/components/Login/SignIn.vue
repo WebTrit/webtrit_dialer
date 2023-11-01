@@ -6,7 +6,7 @@
     >
       <p
         class="sign-in-form__title mt-9 text-gray-600"
-        v-html="$t('login.If exist account')"
+        v-html="$t('login.if_exist_account')"
       />
       <v-row :class="{ 'sign-in-form__content--mobile' : $vuetify.breakpoint.xs }">
         <v-col>
@@ -16,7 +16,7 @@
             v-model.trim="phoneNumber"
             color="secondary"
             :rules="phoneNumberRules"
-            :label="$t('label.Phone')"
+            :label="$t('label.phone')"
             :error-messages="phoneNumberErrorMessages"
             ref="firstField"
             outlined
@@ -36,12 +36,12 @@
             height="40"
             @click="providePhoneNumber()"
           >
-            {{ $t('button.Proceed') }}
+            {{ $t('button.proceed') }}
           </v-btn>
           <span
             v-else
             class="sign-in-form__msg"
-          > {{ $t('login.Verification message') }} </span>
+          > {{ $t('login.verification_message') }} </span>
         </v-col>
       </v-row>
       <v-row
@@ -50,7 +50,7 @@
         <v-col>
           <p
             class="sign-in-form__msg"
-            v-html="$t('login.OTP will be sent sign in')"
+            v-html="$t('login.otp_sent_sign_in')"
           />
         </v-col>
       </v-row>
@@ -61,7 +61,7 @@
       @submit.prevent
     >
       <p class="sign-in-form__title mt-3">
-        {{ $t('login.Verification') }}
+        {{ $t('login.verification') }}
       </p>
       <v-row :class="{ 'sign-in-form__content--mobile' : $vuetify.breakpoint.xs }">
         <v-col>
@@ -71,7 +71,7 @@
             v-model.trim="otp"
             color="secondary"
             :rules="otpRules"
-            :label="$t('label.Verification')"
+            :label="$t('label.verification')"
             :error-messages="otpErrorMessages"
             outlined
             dense
@@ -89,7 +89,7 @@
             height="40"
             @click="verifyReceivedOtp()"
           >
-            {{ $t('button.Verify') }}
+            {{ $t('button.verify') }}
           </v-btn>
         </v-col>
       </v-row>
@@ -98,12 +98,12 @@
       >
         <v-col>
           <p class="sign-in-form__msg">
-            {{ $t('login.Check spam or', { from: deliveryFromString()}) }} <span
+            {{ $t('login.check_spam_or', { from: deliveryFromString()}) }} <span
               class="sign-in-form__resend"
               :class="[ $vuetify.breakpoint.xs ? 'sign-in-form__resend--mobile' : 'sign-in-form__resend']"
               @click="resendCode()"
             >
-              {{ $t('button.Resend') }}
+              {{ $t('button.resend') }}
             </span>.
           </p>
         </v-col>
@@ -133,13 +133,13 @@ export default {
   computed: {
     phoneNumberRules() {
       return [
-        (v) => !!v || this.$i18n.t('login.Phone required'),
-        (v) => /^\+?[a-zA-Z0-9@._]{1,64}$/.test(v) || this.$i18n.t('login.From-to contain', { field: this.$i18n.t('login.Phone'), from: 1, to: 64 }),
+        (v) => !!v || this.$i18n.t('login.phone_required'),
+        (v) => /^\+?[a-zA-Z0-9@._]{1,64}$/.test(v) || this.$i18n.t('login.from_to_contain', { field: this.$i18n.t('login.phone'), from: 1, to: 64 }),
       ]
     },
     otpRules() {
       return [
-        (v) => !!v || this.$i18n.t('login.Verification required'),
+        (v) => !!v || this.$i18n.t('login.verification_required'),
       ]
     },
   },
@@ -203,7 +203,7 @@ export default {
         try {
           await this.executeRequest()
           this.otp = ''
-          await this.snackbarShow({ message: this.$t('login.New code') })
+          await this.snackbarShow({ message: this.$t('login.new_code') })
         } catch (e) {
           this.phoneNumberErrorMessages = this.$_errors_parse(e)
         } finally {
@@ -213,7 +213,7 @@ export default {
     },
     deliveryFromString() {
       if (this.deliveryFrom.length === 0) return ''
-      return [this.$i18n.t('login.From'), ' <', this.deliveryFrom, '>'].join('')
+      return [this.$i18n.t('login.from'), ' <', this.deliveryFrom, '>'].join('')
     },
     focusOnFirstInput() {
       this.$refs.firstField.$refs.input.focus()

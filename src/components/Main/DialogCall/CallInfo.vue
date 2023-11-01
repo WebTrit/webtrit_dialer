@@ -63,18 +63,18 @@ export default {
     callState() {
       if (this.isCallInitiating) {
         if (this.isCallIncoming) {
-          return this.$t('modal.Incoming')
+          return this.$t('modal.incoming')
         } else if (this.isCallOutgoing) {
-          return this.$t('modal.Calling')
+          return this.$t('modal.calling')
         } else {
-          return this.$t('modal.Unknown')
+          return this.$t('modal.unknown')
         }
       } else if (this.isCallAccepted) {
-        return this.$t('modal.Accepted')
+        return this.$t('modal.accepted')
       } else if (this.isCallProgress) {
-        return this.$t('modal.Progress')
+        return this.$t('modal.progress')
       } else {
-        return this.$t('modal.Hangup')
+        return this.$t('modal.hangup')
       }
     },
   },

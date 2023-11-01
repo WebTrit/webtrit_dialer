@@ -18,14 +18,14 @@ export function pickOutInitials(name) {
 
 export function extendContactWithCalculatedProperties(contact) {
   replaceEmptyObjectsWithNull(contact)
-  contact.number = contact.numbers?.main || i18n.t('user.Unknown')
+  contact.number = contact.numbers?.main || i18n.t('user.unknown')
   contact.number_ext = contact.numbers?.ext
   contact.name = (`${contact.first_name || ''} ${contact.last_name || ''}`).trim()
     || contact.alias_name
     || contact.number
     || contact.number_ext
     || contact.email
-    || i18n.t('user.Unknown')
+    || i18n.t('user.unknown')
   contact.initials = pickOutInitials(contact.name)
   contact.mobile = contact.numbers?.additional && contact.numbers?.additional.length > 0
     ? contact.numbers?.additional.join(', ') : null

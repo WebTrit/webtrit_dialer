@@ -2,11 +2,11 @@
   <div>
     <v-row class="user-account__info-row">
       <v-col class="user-account__info">
-        <span class="user-account__info-title">{{ $t('user.Extension') }}:</span>
+        <span class="user-account__info-title">{{ $t('user.extension') }}:</span>
         <span class="user-account__info-content secondary--text"> {{ user.number_ext }} </span>
       </v-col>
       <v-col class="user-account__info">
-        <span class="user-account__info-title">{{ $t('user.Number') }}:</span>
+        <span class="user-account__info-title">{{ $t('user.number') }}:</span>
         <span class="user-account__info-content secondary--text"> {{ user.number }} </span>
       </v-col>
     </v-row>
@@ -15,11 +15,11 @@
       v-if="balance"
     >
       <v-col class="user-account__info">
-        <span class="user-account__info-title">{{ $t('user.Balance') }}:</span>
+        <span class="user-account__info-title">{{ $t('user.balance') }}:</span>
         <span class="user-account__info-content secondary--text"> {{ balance.sum }} </span>
       </v-col>
       <v-col class="user-account__info">
-        <span class="user-account__info-title">{{ $t('user.Balance type') }}:</span>
+        <span class="user-account__info-title">{{ $t('user.balance_type') }}:</span>
         <span class="user-account__info-content secondary--text"> {{ balance.type }} </span>
       </v-col>
     </v-row>

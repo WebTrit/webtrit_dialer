@@ -26,12 +26,12 @@
             class="container__item-name text-gray-400"
             v-else
           >
-            {{ $t('user.Unknown') }}
+            {{ $t('user.unknown') }}
           </v-col>
         </v-row>
         <v-row class="container__inner-row">
           <v-col class="container__item-sub-name contacts__list-ext">
-            {{ $t('user.Ext') }}: <span> {{ scopedSlots.contact.number_ext }} </span>
+            {{ $t('user.ext') }}: <span> {{ scopedSlots.contact.number_ext }} </span>
           </v-col>
           <v-col class="container__item-sub-name">
             <span> {{ scopedSlots.contact.number }} </span>

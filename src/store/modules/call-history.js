@@ -28,7 +28,7 @@ const getters = {
         item.index = index + 1
         const interlocutor = getInterlocutor(item)
         if (!interlocutor || interlocutor.number === null) {
-          const name = interlocutor.display_name || i18n.t('call.Unknown')
+          const name = interlocutor.display_name || i18n.t('call.unknown')
           item.contactInfo = {
             number: '',
             number_ext: '',

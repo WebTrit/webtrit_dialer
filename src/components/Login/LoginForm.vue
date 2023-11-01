@@ -10,7 +10,7 @@
           class="login-form__inner-col"
           :class="[ $vuetify.breakpoint.xs? 'login-form__title--mobile' : 'login-form__title']"
         >
-          <span class="font-bold"> {{ $t('login.Get started') }} </span>
+          <span class="font-bold"> {{ $t('login.get_started') }} </span>
           <span class="secondary--text font-bold"> {{ appName }} </span>
           <span class="secondary--text"> {{ appSubname }} </span>
         </v-col>
@@ -90,17 +90,17 @@ export default {
       activeTab: 0,
       tabs: [
         {
-          title: this.$i18n.t('login.Demo'),
+          title: this.$i18n.t('login.demo'),
           component: Signup,
           support: 'signup',
         },
         {
-          title: this.$i18n.t('login.OTP Sign in'),
+          title: this.$i18n.t('login.otp_sign_in'),
           component: SignIn,
           support: 'otpSignin',
         },
         {
-          title: this.$i18n.t('login.Sign in'),
+          title: this.$i18n.t('login.sign_in'),
           component: LoginSignIn,
           support: 'passwordSignin',
         },

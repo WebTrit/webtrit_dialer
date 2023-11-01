@@ -5,13 +5,13 @@
       dark
       @click.native="$emit('close-transfer-popup')"
     >
-      {{ $t('button.Return') }}
+      {{ $t('button.return') }}
     </v-btn>
     <v-btn
       color="success"
       @click.native="$emit('transfer-call')"
     >
-      {{ $t('button.Transfer') }}
+      {{ $t('button.transfer') }}
     </v-btn>
   </v-row>
 </template>

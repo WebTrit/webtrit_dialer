@@ -2,13 +2,13 @@
   <ActionBtn
     v-if="videoEnabled"
     icon="$video"
-    :text="$t('modal.stop video')"
+    :text="$t('modal.stop_video')"
     @click.native="mute({ enabled: false, video: true })"
   />
   <ActionBtn
     v-else
     icon="$video-off"
-    :text="$t('modal.start video')"
+    :text="$t('modal.start_video')"
     @click.native="mute({ enabled: true, video: true })"
   />
 </template>

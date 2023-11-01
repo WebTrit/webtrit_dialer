@@ -2,16 +2,16 @@
   <v-container class="login-slides__slide">
     <v-container class="login-slides__text">
       <v-row>
-        {{ $t('slides.How to call') }}
+        {{ $t('slides.how_to_call') }}
       </v-row>
       <v-row>
-        {{ $t('slides.Select contact') }}
+        {{ $t('slides.select_contact') }}
       </v-row>
       <v-row>
-        {{ $t('slides.Video call') }}
+        {{ $t('slides.video_call') }}
       </v-row>
       <v-row>
-        {{ $t('slides.Quick call') }}
+        {{ $t('slides.quick_call') }}
       </v-row>
     </v-container>
     <img :src="img">

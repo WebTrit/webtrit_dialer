@@ -4,7 +4,7 @@
     v-if="info && !$_breakpoints_mobile"
   >
     <PanelAppBar
-      :title="$t('menu.Account')"
+      :title="$t('menu.account')"
     />
     <v-row class="user-account__avatar">
       <Avatar

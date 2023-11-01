@@ -2,13 +2,13 @@
   <v-container class="login-slides__slide">
     <v-container class="login-slides__text">
       <v-row>
-        {{ $t('slides.Call record') }}
+        {{ $t('slides.call_record') }}
       </v-row>
       <v-row>
-        {{ $t('slides.Info menu') }}
+        {{ $t('slides.info_menu') }}
       </v-row>
       <v-row>
-        {{ $t('slides.Call history') }}
+        {{ $t('slides.call_history') }}
       </v-row>
     </v-container>
     <img :src="img">
