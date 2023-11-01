@@ -208,9 +208,13 @@ async function handleAcceptedCall({ commit, dispatch, event }) {
   commit('setCallId', event.call_id)
   try {
     if (event.jsep) {
-      // Handle `answer` SDP
-      await peerConnection.setRemoteDescription(event.jsep)
-      commit('setRemoteCallMediaType', event.jsep)
+      if (event.jsep.type === 'answer') {
+        // Handle `answer` SDP
+        await peerConnection.setRemoteDescription(event.jsep)
+        commit('setRemoteCallMediaType', event.jsep)
+      } else {
+        console.warn('Expected jsep type `answer` received other type:', event.jsep.type)
+      }
     }
     if (event.event === 'accepted') {
       commit('setCallState', {
