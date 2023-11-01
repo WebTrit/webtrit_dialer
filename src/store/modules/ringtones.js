@@ -3,6 +3,7 @@ const state = () => ({
   currentAudio: null,
   preparingPlayCounter: 0,
   needToStopCounter: 0,
+  played: false,
 })
 
 const getters = {
@@ -14,6 +15,9 @@ const getters = {
   },
   isNeedToStop(state) {
     return state.needToStopCounter !== 0
+  },
+  isPlayed(state) {
+    return state.played
   },
 }
 
@@ -33,6 +37,12 @@ const mutations = {
   decNeedToStop(state) {
     state.needToStopCounter -= 1
   },
+  startPlayRingtone(state) {
+    state.played = true
+  },
+  stopPlayRingtone(state) {
+    state.played = false
+  },
 }
 
 const actions = {
@@ -43,11 +53,16 @@ const actions = {
     await context.dispatch('play', new Audio(require('@/assets/ringtones/outgoing-call-1.mp3')))
   },
   async play(context, newAudio) {
+    // Check ringtone disable on settings
     if (!context.rootGetters['settings/isSoundEnabled']) return
+    const { isPlayed } = context.getters
+    // Check ringtone already played
+    if (isPlayed) return
 
     newAudio.loop = true
     context.commit('incPreparingToPlay')
     try {
+      context.commit('startPlayRingtone')
       await newAudio.play()
     } catch (e) {
       console.warn('Autoplay was prevented', e)
@@ -56,6 +71,7 @@ const actions = {
 
     if (context.getters.isNeedToStop) {
       newAudio.pause()
+      context.commit('stopPlayRingtone')
       context.commit('decNeedToStop')
     } else {
       await context.dispatch('stop') // stop currentAudio if any
@@ -66,6 +82,7 @@ const actions = {
     const { currentAudio } = context.getters
     if (currentAudio) {
       currentAudio.pause()
+      context.commit('stopPlayRingtone')
       context.commit('updateCurrentAudio', null)
     } else if (context.getters.isPreparingToPlay) {
       context.commit('incNeedToStop')

@@ -9,6 +9,7 @@ import PeerConnection from './webrtc_pc'
 let webtritSignalingClient = null
 let peerConnection = null
 let eventType = null
+let blockPlayRingtone = false
 
 const callStates = {
   NONE: 0,
@@ -199,7 +200,9 @@ async function handleIncomingCall({ commit, dispatch, event }, isCallActive) {
       call_state: callStates.INCOMING,
       call_id: event.call_id,
     })
-    dispatch('ringtones/playIncoming', null, { root: true })
+    if (!blockPlayRingtone) {
+      dispatch('ringtones/playIncoming', null, { root: true })
+    }
   }
 }
 
@@ -243,6 +246,7 @@ function handleHangupCall({ commit, dispatch, event }) {
     })
     dispatch('account/initGetAccountInfo', null, { root: true })
     handleCleanEvent({ commit }, event.call_id)
+    blockPlayRingtone = false
   }
   if (event.reason) {
     if (event.code) {
@@ -255,7 +259,9 @@ function handleHangupCall({ commit, dispatch, event }) {
 
 function handleOutgoingCall({ dispatch }) {
   console.log('Event handling in a [handleOutgoingCall] function')
-  dispatch('ringtones/playOutgoing', null, { root: true })
+  if (!blockPlayRingtone) {
+    dispatch('ringtones/playOutgoing', null, { root: true })
+  }
 }
 
 function handleState({ commit, dispatch, event }) {
@@ -282,8 +288,12 @@ function handleIceEvent({ dispatch, event }) {
       }
       break
     case 'ice_media':
+      blockPlayRingtone = true
+      dispatch('ringtones/stop', null, { root: true })
+      break
     case 'ice_hangup':
       dispatch('ringtones/stop', null, { root: true })
+      blockPlayRingtone = false
       break
     default:
   }
