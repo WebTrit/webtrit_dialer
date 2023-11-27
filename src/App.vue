@@ -227,7 +227,7 @@ export default {
       } else {
         if (this.info) {
           if (this.info.status === 'blocked') {
-            await this.logout()
+            await this.logout({ force: false })
             await this.$router.push({ name: 'Login' })
             this.snackbarShow({ message: this.$t('status.account.blocked') })
           } else if (this.info.status === 'limited') {

@@ -30,8 +30,11 @@ export default {
       snackbarShow: 'show',
     }),
     async logoutUser() {
-      await this.logout()
-      await this.$router.push({ name: 'Login' })
+      try {
+        await this.logout({ force: false })
+      } finally {
+        await this.$router.push({ name: 'Login' })
+      }
     },
   },
 }
