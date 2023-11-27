@@ -49,8 +49,10 @@
         <v-row class="container__inner-row justify-end">
           <v-btn
             class="recent-calls-callback-btn elevation-0"
-            :disabled="!(isRegistered && (scopedSlots.contact.contactInfo.number.length > 0
-              || scopedSlots.contact.contactInfo.number_ext.length > 0))"
+            :disabled="!(isRegistered
+              && ((scopedSlots.contact.contactInfo.number && scopedSlots.contact.contactInfo.number.length > 0)
+                || (scopedSlots.contact.contactInfo.number_ext
+                  && scopedSlots.contact.contactInfo.number_ext.length > 0)))"
             color="accent"
             small
             outlined
