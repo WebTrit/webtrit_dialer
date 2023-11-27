@@ -9,6 +9,7 @@ const state = () => ({
   tenant_id: null,
   info: null,
   updateInterval: null,
+  logout: false,
 })
 
 const getters = {
@@ -20,6 +21,9 @@ const getters = {
   },
   isLogin(state) {
     return !!state.token
+  },
+  isLogout(state) {
+    return state.logout
   },
   isActive(state) {
     return state.info === null || state.info.status === undefined ? true : state.info.status === 'active'
@@ -70,6 +74,12 @@ const mutations = {
       state.updateInterval = null
     }
   },
+  setLogoutState(state) {
+    state.logout = true
+  },
+  clearLogoutState(state) {
+    state.logout = false
+  },
 }
 
 async function post_request(url, payload) {
@@ -97,17 +107,22 @@ const actions = {
   async storeTenantId(context, tenant_id) {
     tenant_id && context.commit('updateTenantId', tenant_id)
   },
-  async logout({ commit, dispatch }) {
+  async logout({ commit, dispatch }, { force }) {
     commit('clearUpdateInterval')
+    commit('setLogoutState')
     try {
-      await axios.delete('/session')
+      console.log('Force: ', force)
+      if (!force) {
+        await axios.delete('/session')
+      }
+    } finally {
       commit('updateToken', null)
       commit('updateTenantId', null)
-    } finally {
       dispatch('webrtc/disconnect', { active: false }, { root: true })
       commit('callHistory/setItems', null, { root: true })
       commit('contacts/setItems', null, { root: true })
       commit('updateInfo', null)
+      commit('clearLogoutState')
     }
   },
   async initGetAccountInfo({ commit, dispatch }) {

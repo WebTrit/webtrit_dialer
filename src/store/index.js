@@ -94,7 +94,7 @@ const axiosInitPlugin = (store) => {
           case 401:
           case 404:
             if (!store.state.got401error) {
-              if (router.currentRoute.name === 'Login') {
+              if (router.currentRoute.name === 'Login' || store.getters['account/isLogout']) {
                 // Send error to next error handler
                 // For errors: incorrect_credentials
                 return Promise.reject(error)
@@ -103,8 +103,8 @@ const axiosInitPlugin = (store) => {
                 // authorization_header_missing, bearer_credentials_missing,
                 // token_invalid, token_expired, session_missing, session_issue, unknown
                 store.commit('set401error', true)
-                await store.dispatch('account/logout', { }, { root: true })
-                router.push({ name: 'Login' })
+                await store.dispatch('account/logout', { force: true }, { root: true })
+                await router.push({ name: 'Login' })
                 store.dispatch('snackbar/show',
                   { message: i18n.t('errors.not_authorized') },
                   { root: true })
