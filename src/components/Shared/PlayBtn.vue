@@ -120,7 +120,9 @@ export default {
             audioPlayer.addEventListener('play', this._handlePlay)
             audioPlayer.addEventListener('ended', this._handleEnded)
           } else {
-            this.lastErrorMessage = this.$t('errors.unsupported_audio_type')
+            this.state = State.ERROR
+            this.lastErrorMessage = this.$i18n.t('errors.unsupported_audio_type')
+            return
           }
         } catch (err) {
           this.state = State.ERROR
