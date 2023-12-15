@@ -108,7 +108,7 @@ export default {
         }
       } catch (err) {
         this.state = State.ERROR
-        this.lastErrorMessage = err ? this.$t(`errors.${err.code}`) : ''
+        this.lastErrorMessage = err ? this.$i18n.t(`errors.${err.code}`) : ''
         return
       }
       this.state = State.EMPTY
