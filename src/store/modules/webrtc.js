@@ -46,6 +46,8 @@ export function getRegistrationStatusColor(status) {
       return 'yellow'
     case 'registered':
       return 'green'
+    case 'registration_limit':
+      return '#FFA07A'
     default:
       return 'grey'
   }
@@ -265,8 +267,16 @@ function handleOutgoingCall({ dispatch }) {
 }
 
 function handleState({ commit, dispatch, event }) {
+  let reg_state
   console.log('Event handling in a [handleState] function')
-  commit('setRegistrationStatus', event.event)
+  switch (event.phrase) {
+    case 'authorization_failure':
+      reg_state = 'registration_limit'
+      break
+    default:
+      reg_state = event.event
+  }
+  commit('setRegistrationStatus', reg_state)
   if (event.code) {
     const msg = event.reason || event.description || 'Unknown'
     snackbarShow(dispatch, `${event.code} - ${msg}`)
