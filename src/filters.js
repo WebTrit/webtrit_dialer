@@ -68,7 +68,7 @@ Vue.filter('formatDateTime', (datetime) => {
 
 Vue.filter('getDirectionTitle', (item) => {
   if (!item) return ''
-  switch (item.direction) {
+  switch (item.changed_direction || item.direction) {
     case 'incoming':
       switch (item.status) {
         case 'accepted':
@@ -109,7 +109,7 @@ Vue.filter('getDirectionTitle', (item) => {
 
 Vue.filter('getDirectionIcon', (item) => {
   if (!item) return ''
-  switch (item.direction) {
+  switch (item.changed_direction || item.direction) {
     case 'incoming':
       switch (item.status) {
         case 'accepted':
@@ -153,7 +153,7 @@ Vue.filter('getIconColor', (item) => {
   switch (item.status) {
     case 'declined':
     case 'accepted':
-      switch (item.direction) {
+      switch (item.changed_direction || item.direction) {
         case 'incoming':
           return '#1976D2'
         case 'outgoing':

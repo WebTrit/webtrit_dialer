@@ -26,7 +26,9 @@ const getters = {
         date.setHours(0, 0, 0, 0)
         item.date = date.toISOString()
         item.index = index + 1
-        const interlocutor = getInterlocutor(item)
+        const info = rootGetters['account/info']
+        const [interlocutor, changed_direction] = getInterlocutor(item, info)
+        item.changed_direction = changed_direction
         if (!interlocutor || interlocutor.number === null) {
           const name = interlocutor.display_name || i18n.t('call.unknown')
           item.contactInfo = {

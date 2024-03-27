@@ -33,7 +33,7 @@ export function extendContactWithCalculatedProperties(contact) {
   return contact
 }
 
-export function getInterlocutor(item) {
+export function getInterlocutor(item, info) {
   function getInterlocutorNumber(interlocutor) {
     const parsedInterlocutor = /^(?<number>\d+)? ?\(?(?<display_name>[^)]*)/.exec(interlocutor)
     if (parsedInterlocutor) {
@@ -42,11 +42,19 @@ export function getInterlocutor(item) {
     return null
   }
   if (item.direction === 'incoming' || item.direction === 'forwarded') {
-    return getInterlocutorNumber(item.caller)
+    return [getInterlocutorNumber(item.caller), null]
   } else if (item.direction === 'outgoing') {
-    return getInterlocutorNumber(item.callee)
+    return [getInterlocutorNumber(item.callee), null]
   } else {
-    return null
+    const caller = getInterlocutorNumber(item.caller)
+    const callee = getInterlocutorNumber(item.callee)
+    if (caller && caller.number && [info.number, info.number_ext].includes(caller.number)) {
+      return [callee, 'outgoing']
+    }
+    if (callee && callee.number && [info.number, info.number_ext].includes(callee.number)) {
+      return [caller, 'incoming']
+    }
+    return [null, null]
   }
 }
 
