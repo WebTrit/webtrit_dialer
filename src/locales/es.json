@@ -69,6 +69,7 @@
   "errors.incorrect_otp_code": "Código de verificación incorrecto",
   "errors.internal_api_issue": "El servicio interno responde con un error. Intente de nuevo más tarde",
   "errors.invalid_credentials": "Inicio de sesión de usuario o contraseña incorrectos",
+  "errors.login_or_password_required": "Tu inicio de sesión o contraseña de autoatención son incorrectos. Por favor, verifícalos usando tu self-care.\nHasta que se introduzca el inicio de sesión o contraseña correctos, el acceso al servicio será limitado.",
   "errors.method_not_allowed": "El uso de esta funcionalidad está bloqueado. Ponte en contacto con tu administrador",
   "errors.not_allowed_page.description": "No tiene acceso a esta página en este momento.",
   "errors.not_allowed_page.hint": "Por favor, contacte a su administrador para resolver el problema.",

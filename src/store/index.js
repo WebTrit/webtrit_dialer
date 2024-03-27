@@ -92,6 +92,7 @@ const axiosInitPlugin = (store) => {
       if (error.response) {
         switch (error.response.status) {
           case 401:
+          case 403:
           case 404:
             if (!store.state.got401error) {
               if (router.currentRoute.name === 'Login' || store.getters['account/isLogout']) {
@@ -105,9 +106,18 @@ const axiosInitPlugin = (store) => {
                 store.commit('set401error', true)
                 await store.dispatch('account/logout', { force: true }, { root: true })
                 await router.push({ name: 'Login' })
-                store.dispatch('snackbar/show',
-                  { message: i18n.t('errors.not_authorized') },
-                  { root: true })
+                let message
+                switch (error.response.data?.code) {
+                  case 'password_change_required':
+                    message = i18n.t('errors.password_has_expired')
+                    break
+                  case 'login_and_password_required':
+                    message = i18n.t('errors.login_or_password_required')
+                    break
+                  default:
+                    message = i18n.t('errors.not_authorized')
+                }
+                store.dispatch('snackbar/show', { message }, { root: true })
               }
             }
             break

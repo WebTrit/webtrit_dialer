@@ -69,6 +69,7 @@
   "errors.incorrect_otp_code": "Codice di verifica errato",
   "errors.internal_api_issue": "Il servizio interno risponde con un errore. Riprova più tardi",
   "errors.invalid_credentials": "Accesso utente o password errati",
+  "errors.login_or_password_required": "La tua login o password di self-care non sono corrette. Si prega di controllarle utilizzando il tuo self-care.\nFino a quando non verrà inserita la login o password corretta, l'accesso al servizio sarà limitato.",
   "errors.method_not_allowed": "L'uso di questa funzionalità è bloccato. Contatta il tuo amministratore",
   "errors.not_allowed_page.description": "Al momento non hai accesso a questa pagina.",
   "errors.not_allowed_page.hint": "Contatta il tuo amministratore per risolvere il problema.",

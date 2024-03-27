@@ -69,6 +69,7 @@
   "errors.incorrect_otp_code": "Verification code incorrect",
   "errors.internal_api_issue": "The internal service answers with an error. Try again later",
   "errors.invalid_credentials": "Incorrect user login or password",
+  "errors.login_or_password_required": "Your self-care login or password incorrect. Please check them using your self-care.\nUntil the correct login or password is entered, access to the service will be limited.",
   "errors.method_not_allowed": "Use of this functionality is blocked. Contact your administrator",
   "errors.not_allowed_page.description": "You don't have access to this page at the moment.",
   "errors.not_allowed_page.hint": "Please contact your administrator to solve the issue.",
