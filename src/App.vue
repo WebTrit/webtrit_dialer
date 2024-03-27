@@ -24,6 +24,17 @@
       :timeout="snackbarTimeout"
     >
       {{ snackbarMessage }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="white"
+          text
+          v-bind="attrs"
+          @click="snackbarShowing = false"
+        >
+          Close
+        </v-btn>
+      </template>
     </v-snackbar>
 
     <DialogCall />

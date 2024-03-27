@@ -1,7 +1,7 @@
 /* eslint-disable no-shadow */
 const state = () => ({
   visible: false,
-  timeout: 5000,
+  timeout: 7000,
   message: null,
 })
 
