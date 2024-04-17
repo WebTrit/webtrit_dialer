@@ -83,8 +83,10 @@ function webtritCoreSignalingUrl(tenant_id) {
     if (pattern.test(url.pathname)) {
       url.pathname = url.pathname.replace(pattern, `$1/${tenant_id}/`)
     } else {
-      url.pathname = `tenant/${tenant_id}${url.pathname}`
+      url.pathname = `${url.pathname.replace(/\/?$/, '/')}tenant/${tenant_id}/`
     }
+  } else {
+    url.pathname = url.pathname.replace(/\/?$/, '/')
   }
   return `${url}${CORE_SIGNALING_PREFIX}`
 }

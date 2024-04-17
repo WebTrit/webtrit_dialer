@@ -70,8 +70,10 @@ const axiosInitPlugin = (store) => {
         if (pattern.test(baseUrl.pathname)) {
           baseUrl.pathname = baseUrl.pathname.replace(pattern, `$1/${tenant_id}/`)
         } else {
-          baseUrl.pathname = `tenant/${tenant_id}${baseUrl.pathname}`
+          baseUrl.pathname = `${baseUrl.pathname.replace(/\/?$/, '/')}tenant/${tenant_id}/`
         }
+      } else {
+        baseUrl.pathname = baseUrl.pathname.replace(/\/?$/, '/')
       }
       config.baseURL = `${baseUrl}${CORE_API_PREFIX}`
       return config
