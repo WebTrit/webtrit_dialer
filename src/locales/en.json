@@ -169,6 +169,8 @@
   "settings.languages.english": "English",
   "settings.languages.italian": "Italian",
   "settings.languages.spanish": "Spanish",
+  "settings.languages.russian": "Russian",
+  "settings.languages.ukrainian": "Ukrainian",
   "settings.notification_enable": "Notify me about new features",
   "settings.notifications": "Notifications",
   "settings.snackbar.applied": "Settings applied",
