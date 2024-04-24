@@ -223,6 +223,14 @@ export default {
       this.$refs.firstField.$refs.input.focus()
     },
   },
+  created() {
+    const params = new URLSearchParams(document.location.search)
+    const email = params.get('email')
+    if (email) {
+      this.email = email
+      this.$nextTick(this.provideEmail)
+    }
+  },
   mounted() {
     this.$nextTick(this.focusOnFirstInput)
   },

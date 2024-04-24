@@ -219,6 +219,14 @@ export default {
       this.$refs.firstField.$refs.input.focus()
     },
   },
+  created() {
+    const params = new URLSearchParams(document.location.search)
+    const user_ref = params.get('user_ref')
+    if (user_ref) {
+      this.phoneNumber = user_ref
+      this.$nextTick(this.providePhoneNumber)
+    }
+  },
   mounted() {
     this.$nextTick(this.focusOnFirstInput)
   },
