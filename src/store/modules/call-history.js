@@ -44,7 +44,7 @@ const getters = {
             item.contactInfo = extendContactWithCalculatedProperties(contact)
           } else {
             const name = interlocutor.display_name || interlocutor.number
-            const number = interlocutor.display_name ? interlocutor.number : ''
+            const { number } = interlocutor
             item.contactInfo = {
               number,
               number_ext: '',
