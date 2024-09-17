@@ -35,7 +35,7 @@ export function extendContactWithCalculatedProperties(contact) {
 
 export function getInterlocutor(item, info) {
   function getInterlocutorNumber(interlocutor) {
-    const parsedInterlocutor = /^(?<number>\d+)? ?\(?(?<display_name>[^)]*)/.exec(interlocutor)
+    const parsedInterlocutor = /^(?<number>\S+)?(\s+\((?<display_name>\S+)\))?/.exec(interlocutor)
     if (parsedInterlocutor) {
       return parsedInterlocutor.groups
     }
