@@ -105,7 +105,7 @@
   "label.sort": "Sort",
   "label.verification": "Enter the verification code",
   "login.check_spam_or": "If you don't see an email {from} in your inbox, make sure to check your spam folder or",
-  "login.demo": "Sign up for demo",
+  "login.demo": "Sign up or sign in for demo",
   "login.email_required": "E-mail is required",
   "login.email_valid": "E-mail must be valid",
   "login.from": "from",
