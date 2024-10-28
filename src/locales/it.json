@@ -105,7 +105,7 @@
   "label.sort": "Ordinare",
   "label.verification": "Inserisci il codice di verifica",
   "login.check_spam_or": "Se non vedi un email {from} nella tua casella di posta, assicurati di controllare la cartella dello spam o",
-  "login.demo": "Registrati per la demo",
+  "login.demo": "Registrati o accedi per la demo",
   "login.email_required": "L'indirizzo email è obbligatorio",
   "login.email_valid": "L'indirizzo email deve essere valido",
   "login.from": "da",

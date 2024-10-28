@@ -105,7 +105,7 @@
   "label.sort": "Ordenar",
   "label.verification": "Introduzca el código de verificación",
   "login.check_spam_or": "Si no ve un correo electrónico {from} en su bandeja de entrada, asegúrese de revisar su carpeta de correo no deseado o",
-  "login.demo": "Registrarse para demostración",
+  "login.demo": "Regístrate o inicia sesión para la demostración",
   "login.email_required": "Se requiere el correo electrónico",
   "login.email_valid": "El correo electrónico debe ser válido",
   "login.from": "de",
