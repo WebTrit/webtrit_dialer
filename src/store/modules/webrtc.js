@@ -349,9 +349,6 @@ function handleNotifyEvent({ dispatch, event }) {
   } else {
     console.warn('Unhandled message', code)
   }
-  if (+code !== 100) {
-    dispatch('webrtc/hold', { active: false }, { root: true })
-  }
   snackbarShow(dispatch, message)
 }
 

@@ -79,14 +79,6 @@ export default {
       this.$emit('hide-transfer-popup')
     },
   },
-  watch: {
-    showTransfer() {
-      this.holdActive = !this.holdActive
-      if (this.holdActive) {
-        this.hold({ active: false })
-      }
-    },
-  },
 }
 </script>
 
