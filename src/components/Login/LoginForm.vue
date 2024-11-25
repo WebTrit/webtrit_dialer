@@ -44,6 +44,7 @@
                   ref="components"
                   :key="index"
                   v-bind="$props"
+                  :auto-submit="isSingleLoginMethod"
                 />
               </v-tab-item>
             </v-tabs-items>
@@ -111,6 +112,9 @@ export default {
     ...mapGetters('system', { system_info: 'info' }),
     isSupported() {
       return (item) => !!(this.system_info && this.system_info.adapter?.supported?.includes(item.support))
+    },
+    isSingleLoginMethod() {
+      return this.getTabs.length === 1
     },
     getTabs() {
       return this.tabs.filter(this.isSupported)

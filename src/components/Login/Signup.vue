@@ -120,6 +120,10 @@ export default {
       type: String,
       default: null,
     },
+    autoSubmit: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -228,7 +232,9 @@ export default {
     const email = params.get('email')
     if (email) {
       this.email = email
-      this.$nextTick(this.provideEmail)
+      if (this.autoSubmit) {
+        this.$nextTick(this.provideEmail)
+      }
     }
   },
   mounted() {

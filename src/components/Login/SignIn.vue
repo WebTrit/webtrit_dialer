@@ -118,6 +118,12 @@ import { contacts, errors } from '@/mixins'
 
 export default {
   mixins: [contacts, errors],
+  props: {
+    autoSubmit: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       phoneNumber: '',
@@ -221,10 +227,12 @@ export default {
   },
   created() {
     const params = new URLSearchParams(document.location.search)
-    const user_ref = params.get('user_ref')
-    if (user_ref) {
-      this.phoneNumber = user_ref
-      this.$nextTick(this.providePhoneNumber)
+    const email = params.get('email')
+    if (email) {
+      this.phoneNumber = email
+      if (this.autoSubmit) {
+        this.$nextTick(this.providePhoneNumber)
+      }
     }
   },
   mounted() {
