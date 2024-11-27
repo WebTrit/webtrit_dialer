@@ -109,7 +109,7 @@
   "login.email_required": "L'indirizzo email è obbligatorio",
   "login.email_valid": "L'indirizzo email deve essere valido",
   "login.from": "da",
-  "login.from_to_contain": "{field} deve contenere cifre, lettere, punto, underscore e deve avere una lunghezza compresa tra {from} e {to} caratteri",
+  "login.from_to_contain": "{field} può contenere solo lettere (a-z o A-Z), cifre (0-9), chiocciole (@), punti (.), trattini bassi (_) e trattini (-), con una lunghezza da 1 a 64 caratteri.",
   "login.get_started": "Inizia con",
   "login.if_exist_account": "Se hai un account:",
   "login.if_no_account": "Se non hai ancora un account, ne verrà creato automaticamente uno per te.",
