@@ -140,7 +140,7 @@ export default {
     phoneNumberRules() {
       return [
         (v) => !!v || this.$i18n.t('login.phone_required'),
-        (v) => /^\+?[a-zA-Z0-9@._]{1,64}$/.test(v) || this.$i18n.t('login.from_to_contain', { field: this.$i18n.t('login.phone'), from: 1, to: 64 }),
+        (v) => /^\+?[a-zA-Z0-9@._-]{1,64}$/.test(v) || this.$i18n.t('login.from_to_contain', { field: this.$i18n.t('login.phone'), from: 1, to: 64 }),
       ]
     },
     otpRules() {
