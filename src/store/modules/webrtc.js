@@ -341,11 +341,13 @@ async function handleChangeCall({ event }, callId) {
 function handleNotifyEvent({ dispatch, event }) {
   console.log('Event handling in a [handleNotifyEvent] function')
   const [, code] = event.content.split(' ')
-  let message = ''
-  if (i18n.te(`call.message["${code}"]`)) {
-    message = i18n.t(`call.messages["${code}"]`)
-  } else if (i18n.te(`call.messages["${code}"]`)) {
-    message = i18n.t(`call.errors["${getErrorCode(code)}"]`)
+  const message_key = `call.messages.${code}`
+  const error_key = `call.errors.${getErrorCode(code)}`
+  let message
+  if (i18n.te(message_key)) {
+    message = i18n.t(message_key)
+  } else if (i18n.te(error_key)) {
+    message = i18n.t(error_key)
   } else {
     console.warn('Unhandled message', code)
   }
