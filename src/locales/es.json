@@ -109,7 +109,7 @@
   "login.email_required": "Se requiere el correo electrónico",
   "login.email_valid": "El correo electrónico debe ser válido",
   "login.from": "de",
-  "login.from_to_contain": "{field} debe contener dígito, letra, punto, guión bajo y debe tener de {from} a {to} caracteres de largo",
+  "login.from_to_contain": "{field} solo puede contener letras (a-z o A-Z), dígitos (0-9), arrobas (@), puntos (.), guiones bajos (_) y guiones (-), con una longitud de 1 a 64 caracteres.",
   "login.get_started": "Comience con",
   "login.if_exist_account": "Si tiene una cuenta:",
   "login.if_no_account": "Si aún no tiene una cuenta, esta se creará automáticamente para usted.",

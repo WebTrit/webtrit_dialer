@@ -109,7 +109,7 @@
   "login.email_required": "E-mail is required",
   "login.email_valid": "E-mail must be valid",
   "login.from": "from",
-  "login.from_to_contain": "{field} must contain digit, letter, dot, underscore and it must be {from}-{to} characters long",
+  "login.from_to_contain": "{field} can only contain letters (a-z or A-Z), digits (0-9), at signs (@), dots (.), underscores (_), and dashes (-), and must be 1 to 64 characters long.",
   "login.get_started": "Get started with",
   "login.if_exist_account": "If you have an account:",
   "login.if_no_account": "If you do not have an account yet, it will be automatically created for you.",
