@@ -94,16 +94,24 @@ export default {
   beforeDestroy() {
     const { audioPlayer } = this.$refs
 
-    audioPlayer.removeEventListener('timeupdate', this._handleTimeupdate)
-    audioPlayer.removeEventListener('pause', this._handlePause)
-    audioPlayer.removeEventListener('play', this._handlePlay)
-    audioPlayer.removeEventListener('ended', this._handleEnded)
+    this.getEventHandlers().forEach(({ event, handler }) => {
+      audioPlayer.removeEventListener(event, handler)
+    })
   },
 
   methods: {
     ...mapActions('callHistory', [
       'getCallRecord',
     ]),
+    getEventHandlers() {
+      return [
+        { event: 'timeupdate', handler: this._handleTimeupdate },
+        { event: 'pause', handler: this._handlePause },
+        { event: 'play', handler: this._handlePlay },
+        { event: 'ended', handler: this._handleEnded },
+      ]
+    },
+
     async downloadPlayPause() {
       const { audioPlayer } = this.$refs
 
@@ -111,18 +119,16 @@ export default {
         this.state = State.DOWNLOADING
         try {
           const data = await this.getCallRecord(this.callId)
-          if (data.type === 'audio/mpeg') {
-            const blob = new Blob([data], { type: 'audio/mpeg' })
+          if (['audio/mpeg', 'audio/wav'].includes(data.type)) {
+            const blob = new Blob([data], { type: data.type })
             audioPlayer.src = URL.createObjectURL(blob)
 
-            audioPlayer.addEventListener('timeupdate', this._handleTimeupdate)
-            audioPlayer.addEventListener('pause', this._handlePause)
-            audioPlayer.addEventListener('play', this._handlePlay)
-            audioPlayer.addEventListener('ended', this._handleEnded)
+            this.getEventHandlers().forEach(({ event, handler }) => {
+              audioPlayer.addEventListener(event, handler)
+            })
           } else {
             this.state = State.ERROR
             this.lastErrorMessage = this.$i18n.t('errors.unsupported_audio_type')
-            return
           }
         } catch (err) {
           this.state = State.ERROR
@@ -137,7 +143,12 @@ export default {
       }
 
       if (audioPlayer.paused) {
-        audioPlayer.play()
+        try {
+          await audioPlayer.play()
+        } catch (err) {
+          this.state = State.ERROR
+          console.warn('Failed to play audio', err)
+        }
       } else {
         audioPlayer.pause()
       }
