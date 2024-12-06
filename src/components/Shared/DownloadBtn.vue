@@ -36,6 +36,12 @@ const State = Object.freeze({
   ERROR: 2,
 })
 
+const MimeTypeToExtension = Object.freeze({
+  'audio/mpeg': 'mp3',
+  'audio/wav': 'wav',
+  'application/zip': 'zip',
+})
+
 export default {
   name: 'DownloadBtn',
 
@@ -90,21 +96,12 @@ export default {
       this.state = State.DOWNLOADING
       try {
         const data = await this.getCallRecord(this.callId)
-        switch (data.type) {
-          case 'audio/mpeg':
-            download_link(
-              `${this.filename}.mp3`,
-              new Blob([data], { type: 'audio/mpeg' }),
-            )
-            break
-          case 'application/zip':
-            download_link(
-              `${this.filename}.zip`,
-              new Blob([data], { type: 'application/zip' }),
-            )
-            break
-          default:
-            console.log('Unsupported file type', data)
+        const extension = MimeTypeToExtension[data.type]
+
+        if (extension) {
+          download_link(`${this.filename}.${extension}`, new Blob([data], { type: data.type }))
+        } else {
+          console.warn('Unsupported file type', data)
         }
       } catch (err) {
         this.state = State.ERROR
