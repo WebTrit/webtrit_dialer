@@ -111,7 +111,6 @@ export default {
         { event: 'ended', handler: this._handleEnded },
       ]
     },
-
     async downloadPlayPause() {
       const { audioPlayer } = this.$refs
 

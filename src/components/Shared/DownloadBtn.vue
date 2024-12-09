@@ -97,7 +97,6 @@ export default {
       try {
         const data = await this.getCallRecord(this.callId)
         const extension = MimeTypeToExtension[data.type]
-
         if (extension) {
           download_link(`${this.filename}.${extension}`, new Blob([data], { type: data.type }))
         } else {
