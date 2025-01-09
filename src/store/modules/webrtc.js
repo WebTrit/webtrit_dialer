@@ -192,8 +192,7 @@ async function handleIncomingCall({ commit, dispatch, event }, isCallActive) {
   } else {
     const number = event.caller
     const initials = ''
-    const displayNameMatch = /^"?(?<name>[^@\n]*?)"?$/.exec(event.caller_display_name || '')
-    const { name } = displayNameMatch.groups
+    const name = event.caller_display_name
     commit('setCallInfo', { number, initials, name })
     if (event.jsep) {
       commit('setIncomingCallJsep', event.jsep)
