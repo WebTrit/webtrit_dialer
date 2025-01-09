@@ -135,7 +135,7 @@
         </template>
       </v-simple-table>
     </v-row>
-    <v-row>
+    <v-row v-if="info && info.gorush">
       <v-simple-table
         class="w-full mt-9"
         dense
