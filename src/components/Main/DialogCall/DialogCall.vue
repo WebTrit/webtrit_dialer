@@ -11,7 +11,7 @@
       <DialogCallInfo
         :initials="contactInfo.initials"
         :email="contactInfo.email"
-        :name="contactInfo.name || contactInfo.number_ext"
+        :name="contactInfo.name || contactInfo.number_ext || ''"
       />
       <div
         v-show="remoteStreamHasVideo"
