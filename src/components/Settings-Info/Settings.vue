@@ -18,9 +18,18 @@
         <v-checkbox
           v-model="notificationsEnabled"
           :label="$t('settings.notification_enable')"
+          :disabled="!isNotificationsSupported"
           color="secondary"
           @change="actionBtnsDisabled = false"
-        />
+        >
+          <template v-if="isNotificationsDenied" #append>
+            <v-icon
+              color="red"
+            >
+              mdi-alert
+            </v-icon>
+          </template>
+        </v-checkbox>
       </v-col>
     </v-row>
     <v-row>
@@ -109,6 +118,8 @@ export default {
   },
   computed: {
     ...mapGetters('settings', [
+      'isNotificationsSupported',
+      'isNotificationsDenied',
       'isNotificationsEnabled',
       'isSoundEnabled',
     ]),

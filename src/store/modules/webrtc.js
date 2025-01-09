@@ -193,6 +193,7 @@ async function handleIncomingCall({ commit, dispatch, event }, isCallActive) {
     const number = event.caller
     const initials = ''
     const name = event.caller_display_name
+    dispatch('notifications/displayNotification', { call_id: event.call_id, number, name }, { root: true })
     commit('setCallInfo', { number, initials, name })
     if (event.jsep) {
       commit('setIncomingCallJsep', event.jsep)
@@ -211,6 +212,7 @@ async function handleIncomingCall({ commit, dispatch, event }, isCallActive) {
 
 async function handleAcceptedCall({ commit, dispatch, event }) {
   console.log('Event handling in a [handleAcceptedCall] function')
+  dispatch('notifications/closeNotification', { call_id: event.call_id }, { root: true })
   commit('setCallId', event.call_id)
   try {
     if (event.jsep) {
@@ -242,6 +244,7 @@ async function handleAcceptedCall({ commit, dispatch, event }) {
 
 function handleHangupCall({ commit, dispatch, event }) {
   console.log('Event handling in a [handleHangupCall] function')
+  dispatch('notifications/closeNotification', { call_id: event.call_id }, { root: true })
   if (event.event === 'hangup') {
     commit('setCallState', {
       call_state: callStates.NONE,

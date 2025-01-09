@@ -171,7 +171,7 @@
   "settings.languages.spanish": "Испанский",
   "settings.languages.russian": "Русский",
   "settings.languages.ukrainian": "Украинский",
-  "settings.notification_enable": "Уведомлять меня о новых функциях",
+  "settings.notification_enable": "Включить уведомления браузера для входящих вызовов",
   "settings.notifications": "Уведомления",
   "settings.snackbar.applied": "Настройки применены",
   "settings.sound_enable": "Воспроизводить мелодии при входящих и исходящих звонках",

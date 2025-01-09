@@ -1,12 +1,18 @@
 /* eslint-disable no-shadow */
 const state = () => ({
-  notificationsEnabled: true,
+  notificationsEnabled: false,
   soundEnabled: true,
   registerEnabled: true,
   mode: null,
 })
 
 const getters = {
+  isNotificationsSupported() {
+    return 'Notification' in window
+  },
+  isNotificationsDenied() {
+    return 'Notification' in window && Notification.permission === 'denied'
+  },
   isNotificationsEnabled(state) {
     return state.notificationsEnabled
   },
@@ -40,6 +46,11 @@ const mutations = {
 const actions = {
   setNotificationsEnabled(context, flag) {
     context.commit('setNotificationsEnabled', flag)
+    if (flag && Notification.permission !== 'denied') {
+      Notification.requestPermission().then((permission) => {
+        console.log('Notification requestPermission result:', permission)
+      })
+    }
   },
   setSoundEnabled(context, flag) {
     context.commit('setSoundEnabled', flag)

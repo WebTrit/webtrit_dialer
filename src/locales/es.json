@@ -171,7 +171,7 @@
   "settings.languages.spanish": "Español",
   "settings.languages.russian": "Russian",
   "settings.languages.ukrainian": "Ukrainian",
-  "settings.notification_enable": "Notificarme sobre nuevas funciones",
+  "settings.notification_enable": "Activar notificaciones del navegador para llamadas entrantes",
   "settings.notifications": "Notificaciones",
   "settings.snackbar.applied": "Configuración aplicada",
   "settings.sound_enable": "Reproducir tonos de llamada en llamadas entrantes y salientes",

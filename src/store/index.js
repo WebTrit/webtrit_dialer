@@ -11,6 +11,7 @@ import system from './modules/system'
 import account from './modules/account'
 import callHistory from './modules/call-history'
 import contacts from './modules/contacts'
+import notifications from './modules/notifications'
 import ringtones from './modules/ringtones'
 import settings from './modules/settings'
 import snackbar from './modules/snackbar'
@@ -201,6 +202,7 @@ export default new Vuex.Store({
     account,
     callHistory,
     contacts,
+    notifications,
     ringtones,
     settings,
     snackbar,
