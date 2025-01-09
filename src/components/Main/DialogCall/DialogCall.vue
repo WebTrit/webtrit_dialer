@@ -88,7 +88,7 @@ export default {
       if (contact.initials) {
         this.contactInfo.initials = contact.initials
       } else {
-        this.contactInfo.initials = this.contactInfo.name && pickOutInitials(this.contactInfo.name) || 'JD'
+        this.contactInfo.initials = this.contactInfo.name && pickOutInitials(this.contactInfo.name) || '??'
       }
       this.contactInfo.email = contact.email || ''
     },
