@@ -3,7 +3,7 @@
     v-if="contact"
     :contact="contact"
   />
-  <v-col v-else-if="error">
+  <v-col v-else>
     <p class="text-red-500">
       {{ $t('errors.contact_not_found') }}
     </p>
@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 import { contacts } from '@/mixins'
 
 import ContactDetails from '@/components/Shared/ContactDetails.vue'
@@ -22,30 +21,18 @@ export default {
   },
   mixins: [contacts],
   data: () => ({
-    contact: null,
-    error: null,
+    number: null,
   }),
-  methods: {
-    ...mapActions('snackbar', {
-      snackbarShow: 'show',
-    }),
-    async fetchContactDetails() {
-      this.error = false
-      this.$emit('loading', true)
-      const { number } = this.$route.params
-      this.contact = this.$_contacts_getOneContact(number)
-      if (!this.contact) {
-        this.error = true
-        await this.snackbarShow({ message: this.$t('errors.contact_not_found') })
-      }
-      this.$emit('loading', false)
+  computed: {
+    contact() {
+      return this.$_contacts_getOneContact(this.number)
     },
   },
   watch: {
     $route: {
       immediate: true,
       handler() {
-        this.fetchContactDetails()
+        this.number = this.$route.params.number
       },
     },
   },
