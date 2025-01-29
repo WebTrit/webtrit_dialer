@@ -66,6 +66,7 @@ Env variables descriptions:
 * `VUE_APP_WEBTRIT_CORE_URL` - WebTrit Core URL
 * `VUE_APP_WEBTRIT_NAVIGATION_DRAWER_MINIMIZING` - can the main navigation menu be minimized, default: `true`
 * `VUE_APP_UPDATE_INFO_INTERVAL` - retrieve user information interval in milliseconds, default: `60000`
+* `VUE_APP_UPDATE_CONTACTS_INTERVAL` - optional interval for retrieving contacts in milliseconds, default: `0` (where `0` is a special value that disables periodic updates)
 
 Env variable of the set color palette. Specified through HEX color. Some colors have a default value.
 * `VUE_APP_COLOR_PRIMARY` - default: `#F5841F`

@@ -1,12 +1,14 @@
 /* eslint-disable no-shadow */
 import axios from 'axios'
 import { extendContactWithCalculatedProperties } from '@/store/helpers'
+import { envConfig } from '@/env-config'
 
 const state = () => ({
   items: undefined,
   favorites: JSON.parse(window.localStorage.getItem('favorites')) || {},
   loading: false,
   fetchError: false,
+  updateInterval: null,
 })
 
 const getters = {
@@ -46,6 +48,15 @@ const mutations = {
     state.favorites = { ...state.favorites, [login]: nums }
     window.localStorage.setItem('favorites', JSON.stringify(state.favorites))
   },
+  setUpdateInterval(state, ref) {
+    state.updateInterval = ref
+  },
+  clearUpdateInterval(state) {
+    if (state.updateInterval) {
+      clearInterval(state.updateInterval)
+      state.updateInterval = null
+    }
+  },
 }
 
 const actions = {
@@ -54,6 +65,13 @@ const actions = {
       params,
     })
     context.commit('setItems', r.items)
+    //
+    if (envConfig.updateContactsInterval > 0 && context.state.updateInterval == null) {
+      const interval = setInterval(async () => {
+        await context.dispatch('fetchItems')
+      }, envConfig.updateContactsInterval)
+      context.commit('setUpdateInterval', interval)
+    }
   },
 }
 

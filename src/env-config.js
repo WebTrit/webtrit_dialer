@@ -5,6 +5,8 @@ const envConfig = {
 
   updateAccountInfoInterval: parseInt(process.env.VUE_APP_UPDATE_INFO_INTERVAL, 10) > 0
     ? parseInt(process.env.VUE_APP_UPDATE_INFO_INTERVAL, 10) : 60000,
+  updateContactsInterval: parseInt(process.env.VUE_APP_UPDATE_CONTACTS_INTERVAL, 10) > 0
+    ? parseInt(process.env.VUE_APP_UPDATE_CONTACTS_INTERVAL, 10) : 0,
 
   webtritAppName: process.env.VUE_APP_WEBTRIT_APP_NAME,
   webtritAppSubname: process.env.VUE_APP_WEBTRIT_APP_SUBNAME,
