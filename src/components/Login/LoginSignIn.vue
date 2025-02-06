@@ -93,7 +93,7 @@ export default {
     passwordRules() {
       return [
         (v) => {
-          const pattern = new RegExp('^[\\d\\w\\(\\)\\[\\]\\{\\}\\$\\^\\*\\+\\?\\!\\.\\|<>`~,;:@#%&=\\-"]{0,32}$')
+          const pattern = new RegExp('^[\\d\\w\\(\\)\\[\\]\\{\\}\\$\\^\\*\\+\\?\\!\\.\\|<>`~,;:@#%&=\\-"\\/]{0,32}$')
           return pattern.test(v) || this.$i18n.t('login.password_contain', { from: 0, to: 32 })
         },
       ]
