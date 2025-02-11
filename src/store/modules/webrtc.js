@@ -242,23 +242,25 @@ async function handleAcceptedCall({ commit, dispatch, event }) {
   }
 }
 
-function handleHangupCall({ commit, dispatch, event }) {
+function handleHangupCall({ commit, dispatch, event }, callId) {
   console.log('Event handling in a [handleHangupCall] function')
-  dispatch('notifications/closeNotification', { call_id: event.call_id }, { root: true })
-  if (event.event === 'hangup') {
-    commit('setCallState', {
-      call_state: callStates.NONE,
-      call_id: event.call_id,
-    })
-    dispatch('account/initGetAccountInfo', null, { root: true })
-    handleCleanEvent({ commit }, event.call_id)
-    blockPlayRingtone = false
-  }
-  if (event.reason) {
-    if (event.code) {
-      snackbarShow(dispatch, `${event.code} - ${event.reason}`)
-    } else {
-      snackbarShow(dispatch, `${event.reason}`)
+  if (callId === event.call_id) {
+    dispatch('notifications/closeNotification', { call_id: event.call_id }, { root: true })
+    if (event.event === 'hangup') {
+      commit('setCallState', {
+        call_state: callStates.NONE,
+        call_id: event.call_id,
+      })
+      dispatch('account/initGetAccountInfo', null, { root: true })
+      handleCleanEvent({ commit }, event.call_id)
+      blockPlayRingtone = false
+    }
+    if (event.reason) {
+      if (event.code) {
+        snackbarShow(dispatch, `${event.code} - ${event.reason}`)
+      } else {
+        snackbarShow(dispatch, `${event.reason}`)
+      }
     }
   }
 }
@@ -524,7 +526,7 @@ const actions = {
               await handleAcceptedCall({ commit, dispatch, event })
               break
             case eventType.HangupCall:
-              handleHangupCall({ commit, dispatch, event })
+              handleHangupCall({ commit, dispatch, event }, getters.getCallId)
               break
             case eventType.Session:
               handleState({ commit, dispatch, event })
