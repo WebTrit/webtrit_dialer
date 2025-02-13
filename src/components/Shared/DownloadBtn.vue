@@ -39,6 +39,7 @@ const State = Object.freeze({
 const MimeTypeToExtension = Object.freeze({
   'audio/mpeg': 'mp3',
   'audio/wav': 'wav',
+  'audio/vnd.dts': 'dts',
   'application/zip': 'zip',
 })
 
