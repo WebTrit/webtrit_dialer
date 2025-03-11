@@ -171,6 +171,8 @@
   "settings.languages.spanish": "Іспанська",
   "settings.notification_enable": "Увімкнути сповіщення браузера для вхідних дзвінків",
   "settings.notifications": "Сповіщення",
+  "settings.calls": "Дзвінки",
+  "settings.calls.numbers_normalization_enable": "Автоматично форматувати номери телефонів відповідно до RFC 3261 перед набором",
   "settings.snackbar.applied": "Налаштування застосовано",
   "settings.sound_enable": "Відтворювати мелодії під час вхідних і вихідних дзвінків",
   "settings.system": "Система",

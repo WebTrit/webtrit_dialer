@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   props: {
     number: {
@@ -29,13 +31,22 @@ export default {
     },
   },
   computed: {
+    ...mapGetters('settings', [
+      'isNumbersNormalizationEnabled',
+    ]),
     phoneNumber: {
       get() {
         return this.number
       },
       set(number) {
-        this.$emit('update-phone-number', number)
+        const normalizedNumber = this.isNumbersNormalizationEnabled ? this.normalizePhoneNumber(number) : number
+        this.$emit('update-phone-number', normalizedNumber)
       },
+    },
+  },
+  methods: {
+    normalizePhoneNumber(number) {
+      return number.replace(/(?!^\+)[^a-zA-Z0-9]/g, '').trim()
     },
   },
 }

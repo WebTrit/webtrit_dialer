@@ -173,6 +173,8 @@
   "settings.languages.ukrainian": "Ukrainian",
   "settings.notification_enable": "Activar notificaciones del navegador para llamadas entrantes",
   "settings.notifications": "Notificaciones",
+  "settings.calls": "Llamadas",
+  "settings.calls.numbers_normalization_enable": "Formatear automáticamente los números de teléfono según RFC 3261 antes de marcar",
   "settings.snackbar.applied": "Configuración aplicada",
   "settings.sound_enable": "Reproducir tonos de llamada en llamadas entrantes y salientes",
   "settings.system": "Sistema",

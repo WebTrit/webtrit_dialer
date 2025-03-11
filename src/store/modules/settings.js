@@ -2,6 +2,7 @@
 const state = () => ({
   notificationsEnabled: false,
   soundEnabled: true,
+  numbersNormalizationEnabled: false,
   registerEnabled: true,
   mode: null,
 })
@@ -19,6 +20,9 @@ const getters = {
   isSoundEnabled(state) {
     return state.soundEnabled
   },
+  isNumbersNormalizationEnabled(state) {
+    return state.numbersNormalizationEnabled
+  },
   isRegisterEnabled(state) {
     return state.registerEnabled
   },
@@ -33,6 +37,9 @@ const mutations = {
   },
   setSoundEnabled(state, flag) {
     state.soundEnabled = flag
+  },
+  setNumbersNormalizationEnabled(state, flag) {
+    state.numbersNormalizationEnabled = flag
   },
   setRegisterEnabled(state, flag) {
     state.registerEnabled = flag
@@ -54,6 +61,9 @@ const actions = {
   },
   setSoundEnabled(context, flag) {
     context.commit('setSoundEnabled', flag)
+  },
+  setNumbersNormalizationEnabled(context, flag) {
+    context.commit('setNumbersNormalizationEnabled', flag)
   },
   setRegisterEnabled(context, flag) {
     context.commit('setRegisterEnabled', flag)
