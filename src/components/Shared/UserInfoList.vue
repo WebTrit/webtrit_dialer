@@ -43,7 +43,7 @@
         </tr>
         <tr
           class="user-info__row"
-          v-if="balance"
+          v-if="balance && balance.sum !== '-'"
         >
           <td class="user-info__row-title pt-4">
             {{ $t('user.balance') }}:
