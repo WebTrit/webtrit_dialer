@@ -60,6 +60,12 @@ import Keypad from '@/components/Shared/Keypad.vue'
 import DialogCallActionBtns from '@/components/Main/DialogCall/ActionBtns.vue'
 import DialogCallInfo from '@/components/Main/DialogCall/CallInfo.vue'
 import { pickOutInitials } from '@/store/helpers'
+import { PhoneTonePlayer } from 'play-dtmf'
+
+const DTMF_DURATION = 0.2
+
+const audioContext = new AudioContext()
+const phoneTonePlayer = new PhoneTonePlayer(audioContext)
 
 export default {
   name: 'DialogCall',
@@ -80,6 +86,9 @@ export default {
   methods: {
     keypadClick(key) {
       this.$store.dispatch('webrtc/sendDtmf', key)
+
+      const tone = phoneTonePlayer.playDtmf(key)
+      tone.stop(DTMF_DURATION)
     },
     updateContactInfo(contact) {
       this.contactInfo.number = contact.number || null
