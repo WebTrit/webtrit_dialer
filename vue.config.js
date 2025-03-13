@@ -12,6 +12,7 @@ module.exports = {
 
   transpileDependencies: [
     'vuetify',
+    'play-dtmf',
   ],
 
   pluginOptions: {
