@@ -43,7 +43,7 @@
         </tr>
         <tr
           class="user-info__row"
-          v-if="balance && balance.sum !== '-'"
+          v-if="balance && balance.sum !== balanceHidden"
         >
           <td class="user-info__row-title pt-4">
             {{ $t('user.balance') }}:
@@ -82,6 +82,7 @@ export default {
   data() {
     return {
       activatorWidthLimit: 90,
+      balanceHidden: '-',
     }
   },
   computed: {
