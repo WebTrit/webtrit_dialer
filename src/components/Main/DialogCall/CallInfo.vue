@@ -37,13 +37,11 @@ export default {
   props: {
     initials: {
       type: String,
-      default: '',
-      required: true,
+      default: null,
     },
     email: {
       type: String,
-      default: '',
-      required: true,
+      default: null,
     },
     name: {
       type: String,

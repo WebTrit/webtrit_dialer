@@ -7,10 +7,9 @@
       {{ initials || '' }}
     </span>
     <v-gravatar
-      v-if="email"
-      :email="email"
+      :email="email || ''"
       :size="size"
-      :default-img="this.initials? 'blank' : 'mp'"
+      :default-img="initials ? 'blank' : 'mp'"
       class="absolute"
     />
   </v-avatar>
