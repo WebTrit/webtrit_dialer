@@ -175,6 +175,8 @@
   "settings.notifications": "Notifications",
   "settings.snackbar.applied": "Settings applied",
   "settings.sound_enable": "Play ringtones on incoming and outgoing calls",
+  "settings.calls": "Calls",
+  "settings.calls.numbers_normalization_enable": "Automatically format phone numbers according to RFC 3261 before dialing",
   "settings.system": "System",
   "settings.systemInfo.adapter": "Hosted PBX adapter",
   "settings.systemInfo.core": "WebTrit Core",

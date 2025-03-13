@@ -44,6 +44,22 @@
       </v-col>
     </v-row>
     <v-row>
+      <v-col class="settings__title">
+        {{ $t('settings.calls') }}:
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col class="settings__checkbox">
+        <v-checkbox
+          class="mt-0"
+          v-model="numbersNormalizationEnabled"
+          :label="$t('settings.calls.numbers_normalization_enable')"
+          color="secondary"
+          @change="actionBtnsDisabled = false"
+        />
+      </v-col>
+    </v-row>
+    <v-row>
       <v-col class="settings__title pt-5">
         {{ $t('settings.language') }}:
       </v-col>
@@ -105,6 +121,7 @@ export default {
     return {
       notificationsEnabled: undefined,
       soundEnabled: undefined,
+      numbersNormalizationEnabled: undefined,
       actionBtnsDisabled: true,
       languages: [
         { lang: `${this.$t('settings.languages.english')}`, locale: 'en' },
@@ -122,6 +139,7 @@ export default {
       'isNotificationsDenied',
       'isNotificationsEnabled',
       'isSoundEnabled',
+      'isNumbersNormalizationEnabled',
     ]),
     currentLocale() {
       return this.$i18n.locale
@@ -134,6 +152,7 @@ export default {
     ...mapActions('settings', [
       'setNotificationsEnabled',
       'setSoundEnabled',
+      'setNumbersNormalizationEnabled',
     ]),
     ...mapActions('snackbar', {
       snackbarShow: 'show',
@@ -141,6 +160,7 @@ export default {
     apply() {
       this.setNotificationsEnabled(this.notificationsEnabled)
       this.setSoundEnabled(this.soundEnabled)
+      this.setNumbersNormalizationEnabled(this.numbersNormalizationEnabled)
       this.$root.$i18n.locale = this.selectedLang.locale
       this.$vuetify.lang.current = this.selectedLang.locale
       this.applyLang()
@@ -150,6 +170,7 @@ export default {
     cancel() {
       this.notificationsEnabled = this.isNotificationsEnabled
       this.soundEnabled = this.isSoundEnabled
+      this.numbersNormalizationEnabled = this.isNumbersNormalizationEnabled
       this.applyLang()
       this.actionBtnsDisabled = true
     },
@@ -185,6 +206,12 @@ export default {
     isSoundEnabled: {
       handler(val) {
         this.soundEnabled = val
+      },
+      immediate: true,
+    },
+    isNumbersNormalizationEnabled: {
+      handler(val) {
+        this.numbersNormalizationEnabled = val
       },
       immediate: true,
     },
