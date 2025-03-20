@@ -103,12 +103,12 @@
         />
         <PlayBtn
           v-if="item.recording_id"
-          :call-id="item.recording_id"
+          :call-id="String(item.recording_id)"
           @update-progress="updatePlayProgress($event)"
         />
         <DownloadBtn
           v-if="item.recording_id"
-          :call-id="item.recording_id"
+          :call-id="String(item.recording_id)"
           :filename="$_calls_getFilename(item)"
         />
         <AudioCallBtn

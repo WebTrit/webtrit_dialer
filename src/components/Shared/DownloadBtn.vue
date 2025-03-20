@@ -39,7 +39,7 @@ const State = Object.freeze({
 const MimeTypeToExtension = Object.freeze({
   'audio/mpeg': 'mp3',
   'audio/wav': 'wav',
-  'audio/vnd.dts': 'dts',
+  'audio/vnd.dts': 'wav',
   'application/zip': 'zip',
 })
 
@@ -49,7 +49,7 @@ export default {
   props: {
     disabled: Boolean,
     callId: {
-      type: Number,
+      type: String,
       required: true,
     },
     filename: {

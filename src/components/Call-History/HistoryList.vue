@@ -86,12 +86,12 @@
               justify="end"
             >
               <PlayBtn
-                :call-id="scopedSlots.contact.recording_id"
+                :call-id="String(scopedSlots.contact.recording_id)"
                 :size="28"
               />
               <DownloadBtn
                 class="ml-2"
-                :call-id="scopedSlots.contact.recording_id"
+                :call-id="String(scopedSlots.contact.recording_id)"
                 :filename="$_calls_getFilename(scopedSlots.contact)"
                 :small="true"
               />

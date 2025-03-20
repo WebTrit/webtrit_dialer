@@ -2,14 +2,15 @@ import i18n from '@/plugins/i18n'
 import { getRegistrationStatusColor } from '@/store/modules/webrtc'
 
 function replaceEmptyObjectsWithNull(obj) {
-  Object.keys(obj).forEach((key) => {
+  return Object.keys(obj).reduce((acc, key) => {
     if (typeof obj[key] === 'object' && obj[key] !== null) {
-      replaceEmptyObjectsWithNull(obj[key])
-      if (Object.keys(obj[key]).length === 0) {
-        obj[key] = null
-      }
+      const newValue = replaceEmptyObjectsWithNull(obj[key])
+      acc[key] = Object.keys(newValue).length === 0 ? null : newValue
+    } else {
+      acc[key] = obj[key]
     }
-  })
+    return acc
+  }, {})
 }
 
 export function pickOutInitials(name) {

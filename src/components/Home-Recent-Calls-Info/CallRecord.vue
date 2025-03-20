@@ -23,7 +23,7 @@
           <v-col class="max-w-max">
             <PlayBtn
               v-if="call.recording_id"
-              :call-id="call.recording_id"
+              :call-id="String(call.recording_id)"
               @update-progress="updatePlayProgress($event)"
               :always-upd-parent-progress="true"
             />
@@ -31,7 +31,7 @@
           <v-col class="max-w-max pl-0 flex items-center">
             <DownloadBtn
               v-if="call.recording_id"
-              :call-id="call.recording_id"
+              :call-id="String(call.recording_id)"
               :filename="$_calls_getFilename(call)"
             />
           </v-col>
