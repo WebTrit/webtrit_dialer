@@ -21,7 +21,6 @@ export function pickOutInitials(name) {
 
 export function extendContactWithCalculatedProperties(rawContact) {
   const contact = replaceEmptyObjectsWithNull(rawContact)
-  replaceEmptyObjectsWithNull(contact)
   contact.number = contact.numbers?.main || i18n.t('user.unknown')
   contact.number_ext = contact.numbers?.ext
   contact.name = (`${contact.first_name || ''} ${contact.last_name || ''}`).trim()
