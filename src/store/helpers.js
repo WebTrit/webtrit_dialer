@@ -2,22 +2,25 @@ import i18n from '@/plugins/i18n'
 import { getRegistrationStatusColor } from '@/store/modules/webrtc'
 
 function replaceEmptyObjectsWithNull(obj) {
-  return Object.keys(obj).reduce((acc, key) => {
-    if (typeof obj[key] === 'object' && obj[key] !== null) {
-      const newValue = replaceEmptyObjectsWithNull(obj[key])
-      acc[key] = Object.keys(newValue).length === 0 ? null : newValue
+  return Object.entries(obj).reduce((acc, [key, value]) => {
+    if (typeof value === 'object' && value !== null) {
+      const newValue = replaceEmptyObjectsWithNull(value)
+      acc[key] = (typeof newValue === 'object' && newValue !== null && Object.keys(newValue).length === 0)
+        ? null
+        : newValue
     } else {
-      acc[key] = obj[key]
+      acc[key] = value
     }
     return acc
-  }, {})
+  }, Array.isArray(obj) ? [] : {})
 }
 
 export function pickOutInitials(name) {
   return name.split(' ', 3).map((n) => (n.length >= 1 ? n[0].toUpperCase() : '?')).join('')
 }
 
-export function extendContactWithCalculatedProperties(contact) {
+export function extendContactWithCalculatedProperties(rawContact) {
+  const contact = replaceEmptyObjectsWithNull(rawContact)
   replaceEmptyObjectsWithNull(contact)
   contact.number = contact.numbers?.main || i18n.t('user.unknown')
   contact.number_ext = contact.numbers?.ext
