@@ -91,7 +91,9 @@ export const errors = {
             error_message += `${this.$t(`errors.parameters_validate_issue.${item.path}.${item.reason}`)}\n`
           })
         } else {
-          error_message = this.$t(`errors.${error.code}`)
+          error_message = err.status === 404 || err.status === 422
+            ? this.$t('errors.user_not_found')
+            : this.$t(`errors.${error.code}`)
         }
       }
       return error_message
