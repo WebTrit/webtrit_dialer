@@ -64,8 +64,7 @@ const getters = {
   missedItems(state, getters) {
     let missed = []
     if (getters.items) {
-      missed = getters.items.filter((item) => (item.direction === 'incoming' && item.status === 'missed')
-          || (item.direction === 'incoming' && item.status === 'declined'))
+      missed = getters.items.filter((item) => item.direction === 'incoming' && item.status in ['missed', 'declined'])
     }
     return missed.length > 0 ? missed.slice(0, 10) : []
   },
