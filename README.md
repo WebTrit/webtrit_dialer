@@ -1,14 +1,31 @@
 # WebTrit Dialer
 
-WebTrit Dialer is a reference implementation of the client Web app of the [WebTrit system](https://github.com/WebTrit/webtrit_docs). It implements basic call functionality with contacts and history viewing functionality.
+**WebTrit Dialer** is a reference implementation of a client web application for the [WebTrit system](https://github.com/WebTrit/webtrit_docs).  
+It provides basic call functionality along with contacts and call history viewing.
 
-WebTrit Dialer is implemented based on the [WebTrit Signaling TypeScript client](https://github.com/WebTrit/webtrit_signaling_ts) and [Vue.js](https://vuejs.org) with [Vuetify](https://vuetifyjs.com).
+The application is built using:
+- [WebTrit Signaling TypeScript client](https://github.com/WebTrit/webtrit_signaling_ts)
+- [Vue.js](https://vuejs.org)
+- [Vuetify](https://vuetifyjs.com)
 
-## Project setup for developing
+## Project Setup for Development
 
-The project uses [Git LFS extension](https://git-lfs.github.com), which is why to operate with the repository Git LFS extension must be installed in a developer environment.
+Ensure your development environment meets the following requirements:
 
-##### Creat local dotenv config with desired env variables' values
+- **Git LFS**  
+  This project uses the [Git Large File Storage (LFS)](https://git-lfs.github.com) extension.  
+  Make sure it is installed and initialized in your Git environment.
+
+- **Node.js**  
+  Version: **14.x** - **16.x**  
+  [Download Node.js](https://nodejs.org/en/download)
+
+- **Python**  
+  Version: **3.9** - **3.11**  
+  [Download Python](https://www.python.org/downloads/)
+
+---
+##### Create local dotenv config with desired env variables' values
 ```
 cp .env.example .env.local
 ```
@@ -16,12 +33,6 @@ cp .env.example .env.local
 ##### Install dependencies
 ```
 npm install
-cd ./local_modules/peer-connection
-npm install
-npm run build
-npm link
-cd ../../
-npm link peer-connection
 ```
 
 ##### Compiles and hot-reloads for development
@@ -82,8 +93,8 @@ Env variable of the set color palette. Specified through HEX color. Some colors 
 ### Configuration via query parameters
 
 * Add to query parameter `mode` to activate additional functionality.
-Currently, it supports the following values:
-   * `mst` - activate configuration related to _Microsoft Teams_ (such as prevent navigation drawer minimization), ex.: `dailer.webtrit.com?mode=mst`;
+  Currently, it supports the following values:
+  * `mst` - activate configuration related to _Microsoft Teams_ (such as prevent navigation drawer minimization), ex.: `dailer.webtrit.com?mode=mst`;
 * Add to query parameter `tenant` with value of `tenant_id` to choose another **Adaptee** to dialer communicate, ex.: `dailer.webtrit.com?tenant=special_adapter`;
 
 
