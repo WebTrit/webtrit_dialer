@@ -1,5 +1,5 @@
 # WebTrit Dialer
-TEST email
+
 **WebTrit Dialer** is a reference implementation of a client web application for the [WebTrit system](https://github.com/WebTrit/webtrit_docs).  
 It provides basic call functionality along with contacts and call history viewing.
 
