@@ -49,7 +49,7 @@ export default {
   props: {
     disabled: Boolean,
     callId: {
-      type: Number,
+      type: String,
       required: true,
     },
     filename: {
