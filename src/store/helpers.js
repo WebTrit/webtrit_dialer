@@ -2,22 +2,25 @@ import i18n from '@/plugins/i18n'
 import { getRegistrationStatusColor } from '@/store/modules/webrtc'
 
 function replaceEmptyObjectsWithNull(obj) {
-  Object.keys(obj).forEach((key) => {
-    if (typeof obj[key] === 'object' && obj[key] !== null) {
-      replaceEmptyObjectsWithNull(obj[key])
-      if (Object.keys(obj[key]).length === 0) {
-        obj[key] = null
-      }
+  return Object.entries(obj).reduce((acc, [key, value]) => {
+    if (typeof value === 'object' && value !== null) {
+      const newValue = replaceEmptyObjectsWithNull(value)
+      acc[key] = (typeof newValue === 'object' && newValue !== null && Object.keys(newValue).length === 0)
+        ? null
+        : newValue
+    } else {
+      acc[key] = value
     }
-  })
+    return acc
+  }, Array.isArray(obj) ? [] : {})
 }
 
 export function pickOutInitials(name) {
   return name.split(' ', 3).map((n) => (n.length >= 1 ? n[0].toUpperCase() : '?')).join('')
 }
 
-export function extendContactWithCalculatedProperties(contact) {
-  replaceEmptyObjectsWithNull(contact)
+export function extendContactWithCalculatedProperties(rawContact) {
+  const contact = replaceEmptyObjectsWithNull(rawContact)
   contact.number = contact.numbers?.main || i18n.t('user.unknown')
   contact.number_ext = contact.numbers?.ext
   contact.name = (`${contact.first_name || ''} ${contact.last_name || ''}`).trim()
