@@ -96,32 +96,36 @@
       </template>
 
       <template #[`item.actions`]="{ item }">
-        <v-progress-linear
-          v-if="item.recording_id && !$_breakpoints_mobile"
-          :value="playProgress[item.recording_id] || 0"
-          class="mr-4"
-        />
-        <PlayBtn
-          v-if="item.recording_id"
-          :call-id="String(item.recording_id)"
-          @update-progress="updatePlayProgress($event)"
-        />
-        <DownloadBtn
-          v-if="item.recording_id"
-          :call-id="String(item.recording_id)"
-          :filename="$_calls_getFilename(item)"
-        />
-        <AudioCallBtn
-          class="ml-auto"
-          btn-color="transparent"
-          icon-color="accent"
-          :contact="item.contactInfo"
-        />
-        <VideoCallBtn
-          btn-color="transparent"
-          icon-color="accent"
-          :contact="item.contactInfo"
-        />
+        <div class="flex items-center justify-end">
+          <template v-if="isPlayButton">
+            <v-progress-linear
+              v-if="item.recording_id && !$_breakpoints_mobile"
+              :value="playProgress[item.recording_id] || 0"
+              class="mr-4"
+            />
+            <PlayBtn
+              v-if="item.recording_id"
+              :call-id="String(item.recording_id)"
+              @update-progress="updatePlayProgress($event)"
+            />
+          </template>
+          <DownloadBtn
+            class="ml-auto"
+            v-if="item.recording_id"
+            :call-id="String(item.recording_id)"
+            :filename="$_calls_getFilename(item)"
+          />
+          <AudioCallBtn
+            btn-color="transparent"
+            icon-color="accent"
+            :contact="item.contactInfo"
+          />
+          <VideoCallBtn
+            btn-color="transparent"
+            icon-color="accent"
+            :contact="item.contactInfo"
+          />
+        </div>
       </template>
     </v-data-table>
     <HistoryList
@@ -139,7 +143,9 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 
-import { breakpoints, calls, errors } from '@/mixins'
+import {
+  breakpoints, calls, errors, isPlayButton,
+} from '@/mixins'
 import DownloadBtn from '@/components/Shared/DownloadBtn.vue'
 import PlayBtn from '@/components/Shared/PlayBtn.vue'
 import AudioCallBtn from '@/components/Shared/AudioCallBtn.vue'
@@ -158,7 +164,7 @@ export default {
     HistoryList,
     EmptyContent,
   },
-  mixins: [breakpoints, calls, errors],
+  mixins: [breakpoints, calls, errors, isPlayButton],
   data() {
     const itemsPerPageOptions = [25, 50, 100]
     return {
