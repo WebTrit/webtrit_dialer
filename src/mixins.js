@@ -100,3 +100,11 @@ export const errors = {
     },
   },
 }
+
+export const isPlayButton = {
+  computed: {
+    isPlayButton() {
+      return !this.$envConfig.webtritPlayButtonShowing
+    },
+  },
+}

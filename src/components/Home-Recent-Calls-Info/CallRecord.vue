@@ -14,20 +14,23 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col class="flex items-center">
-            <v-progress-linear
-              v-if="call.recording_id"
-              :value="playProgress"
-            />
-          </v-col>
-          <v-col class="max-w-max">
-            <PlayBtn
-              v-if="call.recording_id"
-              :call-id="String(call.recording_id)"
-              @update-progress="updatePlayProgress($event)"
-              :always-upd-parent-progress="true"
-            />
-          </v-col>
+          <template v-if="isPlayButton">
+            <v-col class="flex items-center">
+              <v-progress-linear
+                v-if="call.recording_id"
+                :value="playProgress"
+              />
+            </v-col>
+            <v-col class="max-w-max">
+              <PlayBtn
+                v-if="call.recording_id"
+                :call-id="String(call.recording_id)"
+                @update-progress="updatePlayProgress($event)"
+                :always-upd-parent-progress="true"
+              />
+            </v-col>
+          </template>
+          <v-spacer v-else />
           <v-col class="max-w-max pl-0 flex items-center">
             <DownloadBtn
               v-if="call.recording_id"
@@ -42,7 +45,7 @@
 </template>
 
 <script>
-import { calls } from '@/mixins'
+import { calls, isPlayButton } from '@/mixins'
 import DownloadBtn from '@/components/Shared/DownloadBtn.vue'
 import PlayBtn from '@/components/Shared/PlayBtn.vue'
 
@@ -51,7 +54,7 @@ export default {
     DownloadBtn,
     PlayBtn,
   },
-  mixins: [calls],
+  mixins: [calls, isPlayButton],
   props: {
     call: {
       type: Object,

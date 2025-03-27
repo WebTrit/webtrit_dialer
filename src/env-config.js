@@ -22,6 +22,11 @@ const envConfig = {
       && ['false', 'disable'].includes(process.env.VUE_APP_WEBTRIT_NAVIGATION_DRAWER_MINIMIZING.toLowerCase())
   ),
 
+  webtritRecordingDisplayPlayButton: !!(
+    process.env.VUE_APP_RECORDING_DISABLE_PLAY_BUTTON
+      && ['false', 'disable'].includes(process.env.VUE_APP_RECORDING_DISABLE_PLAY_BUTTON.toLowerCase())
+  ),
+
   get webtritCoreApiUrl() {
     return new URL(this.webtritCoreUrl)
   },
