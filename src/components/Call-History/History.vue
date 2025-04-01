@@ -97,7 +97,7 @@
 
       <template #[`item.actions`]="{ item }">
         <div class="flex items-center justify-end">
-          <template v-if="isPlayButton">
+          <template v-if="!isRecordingPlayButtonDisable">
             <v-progress-linear
               v-if="item.recording_id && !$_breakpoints_mobile"
               :value="playProgress[item.recording_id] || 0"
@@ -144,7 +144,7 @@
 import { mapGetters, mapActions } from 'vuex'
 
 import {
-  breakpoints, calls, errors, isPlayButton,
+  breakpoints, calls, errors, isRecordingPlayButtonDisable,
 } from '@/mixins'
 import DownloadBtn from '@/components/Shared/DownloadBtn.vue'
 import PlayBtn from '@/components/Shared/PlayBtn.vue'
@@ -164,7 +164,7 @@ export default {
     HistoryList,
     EmptyContent,
   },
-  mixins: [breakpoints, calls, errors, isPlayButton],
+  mixins: [breakpoints, calls, errors, isRecordingPlayButtonDisable],
   data() {
     const itemsPerPageOptions = [25, 50, 100]
     return {

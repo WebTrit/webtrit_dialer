@@ -14,7 +14,7 @@
           </v-col>
         </v-row>
         <v-row>
-          <template v-if="isPlayButton">
+          <template v-if="!isRecordingPlayButtonDisable">
             <v-col class="flex items-center">
               <v-progress-linear
                 v-if="call.recording_id"
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { calls, isPlayButton } from '@/mixins'
+import { calls, isRecordingPlayButtonDisable } from '@/mixins'
 import DownloadBtn from '@/components/Shared/DownloadBtn.vue'
 import PlayBtn from '@/components/Shared/PlayBtn.vue'
 
@@ -54,7 +54,7 @@ export default {
     DownloadBtn,
     PlayBtn,
   },
-  mixins: [calls, isPlayButton],
+  mixins: [calls, isRecordingPlayButtonDisable],
   props: {
     call: {
       type: Object,
