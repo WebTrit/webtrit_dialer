@@ -22,8 +22,8 @@ const envConfig = {
       && ['false', 'disable'].includes(process.env.VUE_APP_WEBTRIT_NAVIGATION_DRAWER_MINIMIZING.toLowerCase())
   ),
 
-  webtritRecordingPlayButtonDisable: process.env.VUE_APP_WEBTRIT_RECORDING_PLAY_BUTTON_DISABLE
-      && process.env.VUE_APP_WEBTRIT_RECORDING_PLAY_BUTTON_DISABLE.toLowerCase() === 'true',
+  webtritRecordingPlayButtonDisable:
+      process.env.VUE_APP_WEBTRIT_RECORDING_PLAY_BUTTON_DISABLE?.toLowerCase() === 'true',
 
   get webtritCoreApiUrl() {
     return new URL(this.webtritCoreUrl)
