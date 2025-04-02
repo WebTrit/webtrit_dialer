@@ -76,6 +76,7 @@ Env variables descriptions:
 * `VUE_APP_WEBTRIT_COMPANY_LOGO_IMG_SRC` - branding company image source path related to the directory with overwritten and added files (optional)
 * `VUE_APP_WEBTRIT_CORE_URL` - WebTrit Core URL
 * `VUE_APP_WEBTRIT_NAVIGATION_DRAWER_MINIMIZING` - can the main navigation menu be minimized, default: `true`
+* `VUE_APP_WEBTRIT_RECORDING_PLAY_BUTTON_DISABLE` - don't show play button for records, default: `false`
 * `VUE_APP_UPDATE_INFO_INTERVAL` - optional interval for retrieving user information in milliseconds, default: `60000`
 * `VUE_APP_UPDATE_CONTACTS_INTERVAL` - optional interval for retrieving contacts in milliseconds, default: `0` (where `0` is a special value that disables periodic updates)
 

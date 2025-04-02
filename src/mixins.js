@@ -100,3 +100,11 @@ export const errors = {
     },
   },
 }
+
+export const isRecordingPlayButtonDisable = {
+  computed: {
+    isRecordingPlayButtonDisable() {
+      return this.$envConfig.webtritRecordingPlayButtonDisable
+    },
+  },
+}

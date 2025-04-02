@@ -86,6 +86,7 @@
               justify="end"
             >
               <PlayBtn
+                v-if="!isRecordingPlayButtonDisable"
                 :call-id="String(scopedSlots.contact.recording_id)"
                 :size="28"
               />
@@ -126,7 +127,7 @@
 </template>
 
 <script>
-import { calls } from '@/mixins'
+import { calls, isRecordingPlayButtonDisable } from '@/mixins'
 import PanelRowItem from '@/components/Layout/PanelRowItem.vue'
 import AudioCallBtn from '@/components/Shared/AudioCallBtn.vue'
 import VideoCallBtn from '@/components/Shared/VideoCallBtn.vue'
@@ -143,7 +144,7 @@ export default {
     PlayBtn,
     EmptyContent,
   },
-  mixins: [calls],
+  mixins: [calls, isRecordingPlayButtonDisable],
   props: {
     items: {
       type: Array,
