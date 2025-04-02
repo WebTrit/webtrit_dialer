@@ -672,16 +672,26 @@ const actions = {
       }
       const sdp = peerConnection.getLocalDescription()
       if (peerConnection.noError()) {
-        await webtritSignalingClient.execute('accept', {
-          line: 0,
-          call_id,
-          jsep: sdp,
-        })
-        commit('setCallState', {
-          call_state: callStates.ACCEPTED,
-          call_id,
-        })
-        commit('setLocalCallMediaType', !!video)
+        const codecsCompatability = peerConnection.getCodecsCompatibility()
+        if (codecsCompatability.audio.compatible) {
+          await webtritSignalingClient.execute('accept', {
+            line: 0,
+            call_id,
+            jsep: sdp,
+          })
+          commit('setCallState', {
+            call_state: callStates.ACCEPTED,
+            call_id,
+          })
+          commit('setLocalCallMediaType', !!video)
+        } else {
+          // TODO: Notify the user with a snackbar about incompatible codecs
+          console.warn('Call declined automatically due to incompatible audio codecs')
+          await webtritSignalingClient.execute('decline', {
+            line: 0,
+            call_id: getters.getCallId,
+          })
+        }
       }
     } catch (e) {
       console.error(e)
