@@ -4,6 +4,8 @@
  * @notExported
  */
 
+import * as sdpTransform from 'sdp-transform'
+
 const DTMF_DURATION = 500
 const DTMF_TONE_GAP = 50
 
@@ -214,6 +216,60 @@ export default class PeerConnection {
           sender.track.enabled = state
         }
       })
+  }
+
+  /**
+   * Checks if local and remote SDPs have compatible media codecs
+   * @returns {Object} Compatibility status for audio and video codecs
+   */
+  getCodecsCompatibility() {
+    raiseIfPeerConnectionNull(this._peerConnection)
+
+    const compatibility = {
+      audio: {
+        compatible: false,
+        sharedCodecs: [],
+      },
+      video: {
+        compatible: false,
+        sharedCodecs: [],
+      },
+    }
+
+    if (!this._peerConnection.localDescription || !this._peerConnection.remoteDescription) {
+      console.warn('Both local and remote RTC descriptions must be set to check codecs compatibility')
+      return compatibility
+    }
+
+    const localSDP = sdpTransform.parse(this._peerConnection.localDescription.sdp)
+    const remoteSDP = sdpTransform.parse(this._peerConnection.remoteDescription.sdp)
+
+    const mediaTypes = ['audio', 'video']
+    mediaTypes.forEach((mediaType) => {
+      const localMediaSections = localSDP.media.filter((m) => m.type === mediaType)
+      const remoteMediaSections = remoteSDP.media.filter((m) => m.type === mediaType)
+
+      if (localMediaSections.length > 0 && remoteMediaSections.length > 0) {
+        const localSection = localMediaSections[0]
+        const remoteSection = remoteMediaSections[0]
+
+        const localCodecs = localSection.rtp
+          .map((rtp) => rtp.codec.toLowerCase())
+          .filter((codec) => !(mediaType === 'audio' && codec === 'telephone-event'))
+
+        const remoteCodecs = remoteSection.rtp
+          .map((rtp) => rtp.codec.toLowerCase())
+          .filter((codec) => !(mediaType === 'audio' && codec === 'telephone-event'))
+
+        const sharedCodecs = localCodecs.filter((codec) => remoteCodecs.includes(codec))
+
+        compatibility[mediaType].sharedCodecs = sharedCodecs
+        compatibility[mediaType].compatible = sharedCodecs.length > 0
+      }
+    })
+
+    console.log('[PC] Codecs compatibility:', compatibility)
+    return compatibility
   }
 
   noError() {
