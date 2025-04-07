@@ -685,12 +685,11 @@ const actions = {
           })
           commit('setLocalCallMediaType', !!video)
         } else {
-          // TODO: Notify the user with a snackbar about incompatible codecs
-          console.warn('Call declined automatically due to incompatible audio codecs')
           await webtritSignalingClient.execute('decline', {
             line: 0,
             call_id: getters.getCallId,
           })
+          snackbarShow(dispatch, i18n.t('errors.call_declined_due_to_incompatible_codecs'))
         }
       }
     } catch (e) {

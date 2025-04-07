@@ -94,6 +94,7 @@
   "errors.unsupported_audio_type": "Tipo de audio no admitido",
   "errors.user_not_found": "No se pudo encontrar al usuario. Verifique los datos ingresados",
   "errors.webrtc_controller_error": "Lamentablemente, debido a un error de comunicación, no se pueden realizar llamadas.\nContacta a tu administrador",
+  "errors.call_declined_due_to_incompatible_codecs": "La llamada fue rechazada automáticamente debido a códecs de audio incompatibles",
   "label.date_from": "Fecha desde",
   "label.date_to": "Fecha hasta",
   "label.email": "Introduzca su correo electrónico",
