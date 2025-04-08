@@ -94,6 +94,7 @@
   "errors.unsupported_audio_type": "Непідтримуваний тип звуку",
   "errors.user_not_found": "Не вдалося знайти користувача. Перевірте введені дані",
   "errors.webrtc_controller_error": "На жаль, через помилку зв'язку дзвінки не здійснюються.\nЗв'яжіться з адміністратором",
+  "errors.call_declined_due_to_incompatible_codecs": "Дзвінок був автоматично відхилений через несумісні аудіокодеки",
   "label.date_from": "Дата з",
   "label.date_to": "Дата до",
   "label.email": "Введіть адресу електронної пошти",

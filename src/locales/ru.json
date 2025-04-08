@@ -94,6 +94,7 @@
   "errors.unsupported_audio_type": "Неподдерживаемый тип аудио",
   "errors.user_not_found": "Пользователь не найден. Проверьте введенные данные",
   "errors.webrtc_controller_error": "К сожалению, из-за ошибки связи звонки совершить невозможно.\nОбратитесь к вашему администратору",
+  "errors.call_declined_due_to_incompatible_codecs": "Звонок был автоматически отклонен из-за несовместимых аудиокодеков",
   "label.date_from": "Дата с",
   "label.date_to": "Дата по",
   "label.email": "Введите вашу электронную почту",

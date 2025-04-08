@@ -672,16 +672,25 @@ const actions = {
       }
       const sdp = peerConnection.getLocalDescription()
       if (peerConnection.noError()) {
-        await webtritSignalingClient.execute('accept', {
-          line: 0,
-          call_id,
-          jsep: sdp,
-        })
-        commit('setCallState', {
-          call_state: callStates.ACCEPTED,
-          call_id,
-        })
-        commit('setLocalCallMediaType', !!video)
+        const codecsCompatability = peerConnection.getCodecsCompatibility()
+        if (codecsCompatability.audio.compatible) {
+          await webtritSignalingClient.execute('accept', {
+            line: 0,
+            call_id,
+            jsep: sdp,
+          })
+          commit('setCallState', {
+            call_state: callStates.ACCEPTED,
+            call_id,
+          })
+          commit('setLocalCallMediaType', !!video)
+        } else {
+          await webtritSignalingClient.execute('decline', {
+            line: 0,
+            call_id: getters.getCallId,
+          })
+          snackbarShow(dispatch, i18n.t('errors.call_declined_due_to_incompatible_codecs'))
+        }
       }
     } catch (e) {
       console.error(e)
