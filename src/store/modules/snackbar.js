@@ -28,32 +28,32 @@ const mutations = {
 }
 
 const actions = {
-  async show({ state, commit, dispatch }, { message }) {
+  async show({ state, commit }, { message }) {
     commit('enqueue', message)
     if (!state.processing) {
-      dispatch('processQueue')
+      const processNextMessage = async () => {
+        if (state.queue.length === 0) {
+          commit('setProcessing', false)
+          return
+        }
+
+        const message = state.queue[0]
+        commit('show', message)
+
+        await new Promise((resolve) => setTimeout(resolve, state.timeout))
+
+        commit('hide')
+        commit('dequeue')
+
+        await new Promise((resolve) => setTimeout(resolve, 200))
+
+        await processNextMessage()
+      }
+
+      commit('setProcessing', true)
+
+      await processNextMessage()
     }
-  },
-
-  async processQueue({ state, commit, dispatch }) {
-    if (state.queue.length === 0) {
-      commit('setProcessing', false)
-      return
-    }
-
-    commit('setProcessing', true)
-
-    const message = state.queue[0]
-    commit('show', message)
-
-    await new Promise((resolve) => setTimeout(resolve, state.timeout))
-
-    commit('hide')
-    commit('dequeue')
-
-    await new Promise((resolve) => setTimeout(resolve, 200))
-
-    dispatch('processQueue')
   },
 
   hide({ commit }) {
