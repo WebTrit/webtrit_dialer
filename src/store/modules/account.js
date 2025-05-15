@@ -53,6 +53,10 @@ const getters = {
       type,
     }
   },
+  isBalance() {
+    const BALANCE_HIDDEN = '-'
+    return this.balance.sum !== BALANCE_HIDDEN
+  },
 }
 
 const mutations = {
