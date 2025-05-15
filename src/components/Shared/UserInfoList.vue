@@ -43,7 +43,7 @@
         </tr>
         <tr
           class="user-info__row"
-          v-if="balance && balance.sum !== balanceHidden"
+          v-if="isBalance"
         >
           <td class="user-info__row-title pt-4">
             {{ $t('user.balance') }}:
@@ -82,11 +82,10 @@ export default {
   data() {
     return {
       activatorWidthLimit: 90,
-      balanceHidden: '-',
     }
   },
   computed: {
-    ...mapGetters('account', ['balance']),
+    ...mapGetters('account', ['balance', 'isBalance']),
     ...mapGetters('webrtc', ['registrationStatus']),
   },
 }
