@@ -55,7 +55,7 @@ const getters = {
   },
   isBalance() {
     const BALANCE_HIDDEN = '-'
-    return this.balance.sum !== BALANCE_HIDDEN
+    return getters.balance?.sum === BALANCE_HIDDEN
   },
 }
 
