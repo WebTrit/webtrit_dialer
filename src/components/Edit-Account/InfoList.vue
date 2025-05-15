@@ -12,7 +12,7 @@
     </v-row>
     <v-row
       class="user-account__info-row"
-      v-if="balance"
+      v-if="balance?.sum !== '-'"
     >
       <v-col class="user-account__info">
         <span class="user-account__info-title">{{ $t('user.balance') }}:</span>

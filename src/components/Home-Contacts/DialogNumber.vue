@@ -20,7 +20,7 @@
         </v-col>
       </v-row>
       <v-container class="dialog-number__content">
-        <v-row v-if="$vuetify.breakpoint.xs && balance">
+        <v-row v-if="$vuetify.breakpoint.xs && balance?.sum !== '-'">
           <v-col class="dialog-number__balance">
             <span> {{ $t('modal.balance') }}: </span>
             <span class="secondary--text font-bold pl-3"> {{ balance.sum }} </span>
@@ -49,7 +49,7 @@
         <v-row class="dialog-number__keypad">
           <Keypad @keypad-click="keypadClick($event)" />
         </v-row>
-        <v-row v-if="!$vuetify.breakpoint.xs && balance">
+        <v-row v-if="!$vuetify.breakpoint.xs && balance?.sum !== '-'">
           <v-col class="dialog-number__balance my-9">
             <span> {{ $t('modal.balance') }}: </span>
             <span class="secondary--text font-bold pl-3"> {{ balance.sum }} </span>
