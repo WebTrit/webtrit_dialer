@@ -8,6 +8,7 @@ import * as sdpTransform from 'sdp-transform'
 
 const DTMF_DURATION = 500
 const DTMF_TONE_GAP = 50
+const EXCLUDED_PAYLOAD_CODECS = ['101']
 
 function raiseIfPeerConnectionNull(pc) {
   if (pc == null) {
@@ -253,15 +254,12 @@ export default class PeerConnection {
         const localSection = localMediaSections[0]
         const remoteSection = remoteMediaSections[0]
 
-        const localCodecs = localSection.rtp
-          .map((rtp) => rtp.codec.toLowerCase())
-          .filter((codec) => !(mediaType === 'audio' && codec === 'telephone-event'))
+        const localPayloads = (localSection.payloads || '').split(' ').filter((v) => v)
+        const remotePayloads = (remoteSection.payloads || '').split(' ').filter((v) => v)
 
-        const remoteCodecs = remoteSection.rtp
-          .map((rtp) => rtp.codec.toLowerCase())
-          .filter((codec) => !(mediaType === 'audio' && codec === 'telephone-event'))
-
-        const sharedCodecs = localCodecs.filter((codec) => remoteCodecs.includes(codec))
+        const sharedCodecs = localPayloads
+          .filter((pt) => remotePayloads.includes(pt))
+          .filter((pt) => !EXCLUDED_PAYLOAD_CODECS.includes(pt))
 
         compatibility[mediaType].sharedCodecs = sharedCodecs
         compatibility[mediaType].compatible = sharedCodecs.length > 0
