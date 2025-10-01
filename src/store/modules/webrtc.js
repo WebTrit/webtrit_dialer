@@ -27,6 +27,7 @@ const WS_CLOSE_CODE_CONTROLLER_EXIT = 4402
 const WS_CLOSE_CODE_MISSED_CREDENTIALS = 4412
 const WS_CLOSE_CODE_WEBRTC_CONNECTION_ERROR = 4420
 const WS_CLOSE_CODE_ATTACH_ERROR = 4431
+const WS_CLOSE_CODE_KEEPALIVE_TIMEOUT = 4502
 const WS_CLOSE_CODE_UNKNOWN_ERROR = 4600
 
 /**
@@ -581,6 +582,21 @@ const actions = {
           commit('setSignalingDisconnected')
           webtritSignalingClient.disconnect()
           handleCleanEvent({ commit }, getters.getCallId)
+
+          if (code === WS_CLOSE_CODE_KEEPALIVE_TIMEOUT) {
+            setTimeout(() => {
+              try {
+                dispatch('connect')
+                console.log('Reconnected successfully after keepalive timeout')
+              } catch (error) {
+                console.error('Failed to reconnect after keepalive timeout:', error)
+                commit('setSessionError', i18n.t('errors.webrtc_controller_error'))
+              }
+            }, 1000)
+
+            return
+          }
+
           if (![WS_CLOSE_CODE_UNREGISTER, WS_CLOSE_CODE_SESSION_MISSED].includes(code)) {
             let error_message
             switch (code) {
