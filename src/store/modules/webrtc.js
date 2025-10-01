@@ -592,7 +592,7 @@ const actions = {
                 console.error('Failed to reconnect after keepalive timeout:', error)
                 commit('setSessionError', i18n.t('errors.webrtc_controller_error'))
               }
-            }, 1000)
+            }, 3000)
 
             return
           }
