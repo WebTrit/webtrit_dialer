@@ -107,7 +107,29 @@ export default {
       this.$refs.localStream.srcObject = stream
     },
     remoteStream(stream) {
-      this.$refs.remoteStream.srcObject = stream
+      const media = this.$refs.remoteStream
+      if (!media || !stream) return
+
+      const currentSrc = media.srcObject
+      if (currentSrc && currentSrc.getTracks().length > 0) {
+        const mergedStream = new MediaStream()
+        const newAudio = stream.getAudioTracks()
+        const newVideo = stream.getVideoTracks()
+
+        const audio = newAudio.length > 0 ? newAudio : currentSrc.getAudioTracks()
+        const video = newVideo.length > 0 ? newVideo : currentSrc.getVideoTracks()
+
+        audio.forEach((t) => mergedStream.addTrack(t))
+        video.forEach((t) => mergedStream.addTrack(t))
+
+        media.srcObject = mergedStream
+      } else {
+        media.srcObject = stream
+      }
+
+      if (audioContext.state === 'suspended') {
+        audioContext.resume()
+      }
     },
     isCallAccepted(value) {
       if (!value) {
