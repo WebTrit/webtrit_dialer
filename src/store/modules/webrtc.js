@@ -29,6 +29,7 @@ const WS_CLOSE_CODE_WEBRTC_CONNECTION_ERROR = 4420
 const WS_CLOSE_CODE_ATTACH_ERROR = 4431
 const WS_CLOSE_CODE_KEEPALIVE_TIMEOUT = 4502
 const WS_CLOSE_CODE_UNKNOWN_ERROR = 4600
+const WS_CLOSE_CODE_TRANSACTION_TIMEOUT = 4602
 
 /**
  * This function takes the user registration status on a SIP server as input and
@@ -559,6 +560,11 @@ const actions = {
           console.log('Error handling in callback:', error)
           let error_message
           switch (error.code) {
+            case WS_CLOSE_CODE_KEEPALIVE_TIMEOUT:
+            case WS_CLOSE_CODE_TRANSACTION_TIMEOUT:
+              console.warn('[WS] Keepalive timeout detected')
+              snackbarShow(dispatch, i18n.t('errors.keepalive_timeout'))
+              return
             case WS_CLOSE_CODE_UNKNOWN_ERROR:
               error_message = i18n.t('errors.unknown_error')
               break
@@ -583,11 +589,11 @@ const actions = {
           webtritSignalingClient.disconnect()
           handleCleanEvent({ commit }, getters.getCallId)
 
-          if (code === WS_CLOSE_CODE_KEEPALIVE_TIMEOUT) {
+          if (code === WS_CLOSE_CODE_KEEPALIVE_TIMEOUT || code === WS_CLOSE_CODE_TRANSACTION_TIMEOUT) {
             setTimeout(() => {
               try {
                 dispatch('connect')
-                console.log('Reconnected successfully after keepalive timeout')
+                console.log('Reconnected successfully after timeout')
               } catch (error) {
                 console.error('Failed to reconnect after keepalive timeout:', error)
                 commit('setSessionError', i18n.t('errors.webrtc_controller_error'))

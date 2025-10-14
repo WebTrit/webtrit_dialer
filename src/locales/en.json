@@ -95,6 +95,7 @@
   "errors.user_not_found": "The user could not be located. Check entered data",
   "errors.webrtc_controller_error": "Unfortunately, due to a communication error, calls cannot be made.\nContact your administrator",
   "errors.call_declined_due_to_incompatible_codecs": "Call was automatically declined due to incompatible audio codecs",
+  "errors.keepalive_timeout": "Connection check timeout. The connection may be unstable",
   "label.date_from": "Date from",
   "label.date_to": "Date to",
   "label.email": "Enter your email",
