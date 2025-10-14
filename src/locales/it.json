@@ -95,6 +95,7 @@
   "errors.user_not_found": "L'utente non può essere individuato. Controlla i dati inseriti",
   "errors.webrtc_controller_error": "Purtroppo, a causa di un errore di comunicazione, le chiamate non possono essere effettuate.\nContatta il tuo amministratore",
   "errors.call_declined_due_to_incompatible_codecs": "La chiamata è stata rifiutata automaticamente a causa di codec audio incompatibili",
+  "errors.keepalive_timeout": "Timeout del controllo della connessione. La connessione potrebbe essere instabile",
   "label.date_from": "Dalla data",
   "label.date_to": "Fino alla data",
   "label.email": "Inserisci il tuo indirizzo email",
