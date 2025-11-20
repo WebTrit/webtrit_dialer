@@ -3,7 +3,7 @@
     class="calls"
     :class="[$_breakpoints_mobile? 'calls--mobile' : '']"
     :items="historyItems || []"
-    :loading="loading"
+    :loading="loading || !contactsReady"
     :items-per-page="10"
     hide-default-footer
     group-by="date"
@@ -109,7 +109,16 @@ export default {
       callHistoryItems: 'items',
       missedItems: 'missedItems',
     }),
+    ...mapGetters('contacts', {
+      contactsItems: 'items',
+    }),
+    contactsReady() {
+      return this.contactsItems !== undefined
+    },
     historyItems() {
+      if (!this.contactsReady) {
+        return []
+      }
       return this.filter === 'all' ? this.callHistoryItems.slice(0, 10) : this.missedItems
     },
   },

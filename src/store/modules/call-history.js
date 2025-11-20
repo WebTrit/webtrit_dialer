@@ -18,48 +18,51 @@ const state = () => ({
 // getters
 const getters = {
   items(state, getters, rootState, rootGetters) {
-    if (rootGetters['contacts/items']?.length > 0 && state?.items?.length > 0) {
-      const initialItems = state.items.filter((item) => !(['Manual charge', 'Manual credit'].includes(item.callee)))
-      const itemsWithContactInfo = []
-      initialItems.forEach((item, index) => {
-        const date = new Date(item.connect_time)
-        date.setHours(0, 0, 0, 0)
-        item.date = date.toISOString()
-        item.index = index + 1
-        const info = rootGetters['account/info']
-        const [interlocutor, changed_direction] = getInterlocutor(item, info)
-        item.changed_direction = changed_direction
-        if (!interlocutor || interlocutor.number === null) {
-          const name = interlocutor.display_name || i18n.t('call.unknown')
+    if (!state?.items?.length) {
+      return []
+    }
+
+    const initialItems = state.items.filter((item) => !(['Manual charge', 'Manual credit'].includes(item.callee)))
+    const itemsWithContactInfo = []
+    const hasContacts = rootGetters['contacts/items']?.length > 0
+
+    initialItems.forEach((item, index) => {
+      const date = new Date(item.connect_time)
+      date.setHours(0, 0, 0, 0)
+      item.date = date.toISOString()
+      item.index = index + 1
+      const info = rootGetters['account/info']
+      const [interlocutor, changed_direction] = getInterlocutor(item, info)
+      item.changed_direction = changed_direction
+
+      if (!interlocutor || interlocutor.number === null) {
+        const name = interlocutor.display_name || i18n.t('call.unknown')
+        item.contactInfo = {
+          number: '',
+          number_ext: '',
+          name,
+          initials: pickOutInitials(name),
+          registration_color: 'gray',
+        }
+      } else {
+        const contact = hasContacts ? getContact(interlocutor, rootGetters) : null
+        if (contact) {
+          item.contactInfo = extendContactWithCalculatedProperties(contact)
+        } else {
+          const name = interlocutor.display_name || interlocutor.number
+          const { number } = interlocutor
           item.contactInfo = {
-            number: '',
+            number,
             number_ext: '',
             name,
             initials: pickOutInitials(name),
             registration_color: 'gray',
           }
-        } else {
-          const contact = getContact(interlocutor, rootGetters)
-          if (contact) {
-            item.contactInfo = extendContactWithCalculatedProperties(contact)
-          } else {
-            const name = interlocutor.display_name || interlocutor.number
-            const { number } = interlocutor
-            item.contactInfo = {
-              number,
-              number_ext: '',
-              name,
-              initials: pickOutInitials(name),
-              registration_color: 'gray',
-            }
-          }
         }
-        itemsWithContactInfo.push(item)
-      })
-      return itemsWithContactInfo
-    } else {
-      return []
-    }
+      }
+      itemsWithContactInfo.push(item)
+    })
+    return itemsWithContactInfo
   },
   missedItems(state, getters) {
     let missed = []
