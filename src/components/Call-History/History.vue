@@ -10,8 +10,8 @@
       v-if="!$vuetify.breakpoint.xs"
       class="call-history"
       fixed-header
-      :items="callHistoryItems || []"
-      :loading="loading"
+      :items="contactsReady ? callHistoryItems : []"
+      :loading="loading || !contactsReady"
       :headers="headers"
       :footer-props="dataTableFooterProps"
       :options.sync="dataTableOptions"
@@ -130,11 +130,11 @@
     </v-data-table>
     <HistoryList
       v-else
-      :items="callHistoryItems || []"
+      :items="contactsReady ? callHistoryItems : []"
       :sort="sort"
       :page-length="pageLength"
       :current-page="dataTableOptions.page"
-      :loading="loading"
+      :loading="loading || !contactsReady"
       @update-page="updatePage($event)"
     />
   </div>
@@ -190,7 +190,13 @@ export default {
       callHistoryItems: 'items',
       callHistoryPagination: 'pagination',
     }),
+    ...mapGetters('contacts', {
+      contactsItems: 'items',
+    }),
     ...mapGetters('webrtc', ['isCallActive']),
+    contactsReady() {
+      return this.contactsItems !== undefined
+    },
     headers() {
       return [
         {
