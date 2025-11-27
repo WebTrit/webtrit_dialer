@@ -53,7 +53,7 @@ const getters = {
       type,
     }
   },
-  isBalance() {
+  isBalance(state, getters) {
     const BALANCE_HIDDEN = '-'
     return getters.balance.sum && getters.balance.sum !== BALANCE_HIDDEN
   },
