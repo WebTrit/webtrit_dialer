@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
 const state = () => ({
-  notificationsEnabled: false,
+  notificationsEnabled: true,
   soundEnabled: true,
   numbersNormalizationEnabled: false,
   registerEnabled: true,
