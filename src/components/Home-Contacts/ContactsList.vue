@@ -31,7 +31,7 @@
         </v-row>
         <v-row class="container__inner-row">
           <v-col class="container__item-sub-name contacts__list-ext">
-            {{ $t('user.ext') }}: <span> {{ scopedSlots.contact.number_ext }} </span>
+            {{ $t('user.ext') }}: <span> {{ scopedSlots.contact.number_ext || '-' }} </span>
           </v-col>
           <v-col class="container__item-sub-name">
             <span> {{ scopedSlots.contact.number }} </span>
