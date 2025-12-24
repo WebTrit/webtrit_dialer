@@ -10,6 +10,48 @@ const DTMF_DURATION = 500
 const DTMF_TONE_GAP = 50
 const EXCLUDED_PAYLOAD_CODECS = ['101']
 
+const UNSUPPORTED_CODEC_PATTERNS = [
+  /^g729/i,
+  /^g726/i,
+  /^g723/i,
+]
+
+/**
+ * Sanitize SDP by removing unsupported codecs that cause browser errors
+ * @param {string} sdp - Original SDP string
+ * @returns {string} - Sanitized SDP string
+ */
+function sanitizeSdp(sdp) {
+  const parsed = sdpTransform.parse(sdp)
+
+  parsed.media.forEach((media) => {
+    if (media.type !== 'audio' || !media.rtp) return
+
+    const unsupportedPayloads = media.rtp
+      .filter((rtp) => UNSUPPORTED_CODEC_PATTERNS.some((pattern) => pattern.test(rtp.codec)))
+      .map((rtp) => rtp.payload)
+
+    if (unsupportedPayloads.length === 0) return
+
+    console.log('[PC] Removing unsupported codecs with payloads:', unsupportedPayloads)
+
+    media.rtp = media.rtp.filter((rtp) => !unsupportedPayloads.includes(rtp.payload))
+
+    if (media.fmtp) {
+      media.fmtp = media.fmtp.filter((fmtp) => !unsupportedPayloads.includes(fmtp.payload))
+    }
+
+    if (media.payloads) {
+      const payloadList = String(media.payloads).split(' ').filter((p) => p)
+      media.payloads = payloadList
+        .filter((p) => !unsupportedPayloads.includes(parseInt(p, 10)))
+        .join(' ')
+    }
+  })
+
+  return sdpTransform.write(parsed)
+}
+
 function raiseIfPeerConnectionNull(pc) {
   if (pc == null) {
     throw new Error('PeerConnection was not created')
@@ -163,6 +205,7 @@ export default class PeerConnection {
 
   /**
    * Sets remote RTCSessionDescription on current PeerConnection
+   * Sanitizes SDP to remove unsupported codecs before setting
    * @internal
    *
    * @param jsep - remote RTCSessionDescription
@@ -170,7 +213,11 @@ export default class PeerConnection {
    */
   async setRemoteDescription(jsep) {
     raiseIfPeerConnectionNull(this._peerConnection)
-    const remoteDescription = new RTCSessionDescription(jsep)
+    const sanitizedSdp = sanitizeSdp(jsep.sdp)
+    const remoteDescription = new RTCSessionDescription({
+      type: jsep.type,
+      sdp: sanitizedSdp,
+    })
     await this._peerConnection.setRemoteDescription(remoteDescription)
   }
 
@@ -254,8 +301,8 @@ export default class PeerConnection {
         const localSection = localMediaSections[0]
         const remoteSection = remoteMediaSections[0]
 
-        const localPayloads = (localSection.payloads || '').split(' ').filter((v) => v)
-        const remotePayloads = (remoteSection.payloads || '').split(' ').filter((v) => v)
+        const localPayloads = String(localSection.payloads || '').split(' ').filter((v) => v)
+        const remotePayloads = String(remoteSection.payloads || '').split(' ').filter((v) => v)
 
         const sharedCodecs = localPayloads
           .filter((pt) => remotePayloads.includes(pt))
