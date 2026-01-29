@@ -346,6 +346,9 @@ async function handleChangeCall({ event }, callId) {
 // eslint-disable-next-line no-unused-vars
 function handleNotifyEvent({ dispatch, event }) {
   console.log('Event handling in a [handleNotifyEvent] function')
+  if (!event.content) {
+    return
+  }
   const [, code] = event.content.split(' ')
   const message_key = `call.messages.${code}`
   const error_key = `call.errors.${getErrorCode(code)}`
