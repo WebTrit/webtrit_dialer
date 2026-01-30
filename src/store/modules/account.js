@@ -126,6 +126,7 @@ const actions = {
       commit('callHistory/setItems', null, { root: true })
       commit('contacts/setItems', null, { root: true })
       commit('contacts/clearUpdateInterval', null, { root: true })
+      commit('contacts/clearLookupCache', null, { root: true })
       commit('updateInfo', null)
       commit('clearLogoutState')
     }

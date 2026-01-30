@@ -2,10 +2,10 @@
   <v-data-iterator
     class="contacts"
     :items="items || []"
-    :search="search"
     :loading="loading"
-    :items-per-page="10"
+    :items-per-page="itemsPerPage"
     :page.sync="page"
+    :server-items-length="serverItemsLength"
   >
     <template #header>
       <ContactsAppBar
@@ -35,7 +35,7 @@
           class="contacts__refresh-btn"
           color="error"
           outlined
-          @click="$_contacts_getContacts()"
+          @click="fetchContactsPage()"
         >
           <v-icon left>
             $refresh
@@ -60,7 +60,15 @@
     <template
       #default="{ items }"
     >
-      <ContactsList :items="items" />
+      <div class="contacts__list-wrapper">
+        <v-progress-linear
+          v-if="loading"
+          indeterminate
+          color="primary"
+          class="contacts__search-loading"
+        />
+        <ContactsList :items="items" />
+      </div>
     </template>
   </v-data-iterator>
 </template>
@@ -68,6 +76,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import { contacts, breakpoints } from '@/mixins'
+import { DEFAULT_HOMEPAGE_CONTACTS_PER_PAGE } from '@/store/modules/contacts'
 import ContactsAppBar from '@/components/Home-Contacts/ContactsAppBar.vue'
 import ContactsList from '@/components/Home-Contacts/ContactsList.vue'
 import EmptyContent from '@/components/Shared/EmptyContent.vue'
@@ -86,6 +95,7 @@ export default {
     search: '',
     filter: 'all',
     page: 1,
+    itemsPerPage: DEFAULT_HOMEPAGE_CONTACTS_PER_PAGE,
   }),
   computed: {
     ...mapState('contacts', {
@@ -98,32 +108,53 @@ export default {
     ...mapGetters('contacts', {
       contactsItems: 'items',
       favoriteItems: 'favoriteItems',
+      contactsPagination: 'pagination',
     }),
     filteredContactsItems() {
-      return this.contactsItems && this.accountInfo && this.contactsItems.filter(
+      if (!this.contactsItems) return []
+      if (!this.accountInfo) return this.contactsItems
+      return this.contactsItems.filter(
         (contact) => contact.number !== this.accountInfo.number,
       )
     },
-    sortedContactsItems() {
-      const items = this.filteredContactsItems && this.filteredContactsItems.slice() || []
-      return items.sort((a, b) => {
-        a = a.name && a.name.toLowerCase()
-        b = b.name && b.name.toLowerCase()
-        if (a < b) { return -1 }
-        if (a > b) { return 1 }
-        return 0
-      })
-    },
     items() {
-      return this.filter === 'all' ? this.sortedContactsItems : this.favoriteItems
+      return this.filter === 'all' ? this.filteredContactsItems : this.favoriteItems
     },
+    serverItemsLength() {
+      return this.filter === 'all' ? (this.contactsPagination.itemsTotal || 0) : this.favoriteItems.length
+    },
+  },
+  watch: {
+    page(newVal, oldVal) {
+      if (newVal !== oldVal && this.filter === 'all') {
+        this.fetchContactsPage()
+      }
+    },
+  },
+  mounted() {
+    if (this.filter === 'all') {
+      this.fetchContactsPage()
+    }
   },
   methods: {
     updateSearch(val) {
       this.search = val
+      this.page = 1
+      this.fetchContactsPage()
     },
     filterContacts(filter) {
       this.filter = filter
+      if (filter === 'all') {
+        this.page = 1
+        this.fetchContactsPage()
+      }
+    },
+    fetchContactsPage() {
+      this.$_contacts_getContacts({
+        page: this.page,
+        items_per_page: this.itemsPerPage,
+        search: this.search || undefined,
+      })
     },
   },
 }
@@ -181,5 +212,17 @@ $contacts-list--mobile-height: calc(100vh - 274px);
 
 .contacts__loading--mobile {
   min-height: $contacts-list--mobile-height;
+}
+
+.contacts__list-wrapper {
+  position: relative;
+}
+
+.contacts__search-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
 }
 </style>

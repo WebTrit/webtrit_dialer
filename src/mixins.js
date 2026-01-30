@@ -30,6 +30,9 @@ export const contacts = {
     contacts() {
       return this.$store.getters['contacts/items']
     },
+    contactsLookup() {
+      return this.$store.getters['contacts/lookupContact']
+    },
   },
   methods: {
     ...mapMutations('contacts', ['updateLoading', 'updateFetchError']),
@@ -40,17 +43,23 @@ export const contacts = {
       fetchContactsItems: 'fetchItems',
     }),
     $_contacts_getOneContact(number) {
+      if (this.contactsLookup) {
+        const cachedContact = this.contactsLookup(number)
+        if (cachedContact) {
+          return cachedContact
+        }
+      }
       const contact = this.contacts.filter((item) => item.number === number || item.number_ext === number)
       if (contact.length > 0) {
         return contact[0]
       }
       return null
     },
-    async $_contacts_getContacts() {
+    async $_contacts_getContacts(params = {}) {
       this.updateLoading(true)
       this.updateFetchError(false)
       try {
-        await this.fetchContactsItems({})
+        await this.fetchContactsItems(params)
       } catch (e) {
         this.updateFetchError(true)
         if (e) console.error('On "$_contacts_getContacts" contacts', e)

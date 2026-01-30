@@ -193,7 +193,6 @@ export default {
           })
           await this.$store.dispatch('account/storeAccessCredentials', data)
           await this.$router.push({ name: 'Home' })
-          await this.$_contacts_getContacts()
           this.$store.dispatch(
             'settings/setNotificationsEnabled',
             this.$store.getters['settings/isNotificationsEnabled'],

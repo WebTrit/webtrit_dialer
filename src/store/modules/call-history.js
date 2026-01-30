@@ -24,7 +24,7 @@ const getters = {
 
     const initialItems = state.items.filter((item) => !(['Manual charge', 'Manual credit'].includes(item.callee)))
     const itemsWithContactInfo = []
-    const hasContacts = rootGetters['contacts/items']?.length > 0
+    const hasContacts = rootGetters['contacts/items']?.length > 0 || rootGetters['contacts/lookupContact']
 
     initialItems.forEach((item, index) => {
       const date = new Date(item.connect_time)
@@ -91,12 +91,45 @@ const mutations = {
   },
 }
 
+function extractPhoneNumberFromInterlocutor(interlocutorStr) {
+  const parsed = /^(?<number>\S+)?(\s+\((?<display_name>\S+)\))?/.exec(interlocutorStr)
+  return parsed?.groups?.number || null
+}
+
 // actions
 const actions = {
   async fetchItems(context, params) {
     const r = await axios.get('/user/history', {
       params,
     })
+
+    // Fetch contacts first so names are available when history is displayed
+    const phoneNumbers = new Set()
+    const info = context.rootGetters['account/info']
+    r.items.forEach((item) => {
+      let number = null
+      if (item.direction === 'incoming' || item.direction === 'forwarded') {
+        number = extractPhoneNumberFromInterlocutor(item.caller)
+      } else if (item.direction === 'outgoing') {
+        number = extractPhoneNumberFromInterlocutor(item.callee)
+      } else {
+        const callerNum = extractPhoneNumberFromInterlocutor(item.caller)
+        const calleeNum = extractPhoneNumberFromInterlocutor(item.callee)
+        if (callerNum && [info?.number, info?.number_ext].includes(callerNum)) {
+          number = calleeNum
+        } else if (calleeNum && [info?.number, info?.number_ext].includes(calleeNum)) {
+          number = callerNum
+        }
+      }
+      if (number) {
+        phoneNumbers.add(number)
+      }
+    })
+
+    if (phoneNumbers.size > 0) {
+      await context.dispatch('contacts/fetchContactsByNumbers', Array.from(phoneNumbers), { root: true })
+    }
+
     context.commit('setItems', r.items)
     context.commit('setPagination', r.pagination)
   },

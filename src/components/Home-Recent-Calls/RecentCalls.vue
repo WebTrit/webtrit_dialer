@@ -111,9 +111,10 @@ export default {
     }),
     ...mapGetters('contacts', {
       contactsItems: 'items',
+      contactsInitialized: 'initialized',
     }),
     contactsReady() {
-      return this.contactsItems !== undefined
+      return this.contactsInitialized
     },
     historyItems() {
       if (!this.contactsReady) {

@@ -11,12 +11,12 @@
       class="contacts"
       v-if="$_breakpoints_desktop"
       fixed-header
-      :search="search"
       :items="items || []"
       :loading="loading"
       :headers="headers"
       :footer-props="dataTableFooterProps"
       :options.sync="dataTableOptions"
+      :server-items-length="contactsPagination.itemsTotal || 0"
     >
       <template #no-data>
         <v-btn
@@ -134,10 +134,10 @@
     <ContactsList
       v-else
       :items="items || []"
-      :search="search"
       :sort="sort"
       :current-page="dataTableOptions.page"
       :items-per-page="dataTableOptions.itemsPerPage"
+      :items-total="contactsPagination.itemsTotal || 0"
       :loading="loading"
       @update-page="updatePage($event)"
     />
@@ -145,9 +145,10 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
 
 import { breakpoints, contacts } from '@/mixins'
+import { DEFAULT_CONTACTS_PAGE_PER_PAGE } from '@/store/modules/contacts'
 import ContactsAppBar from '@/components/Contacts/ContactsAppBar.vue'
 import AudioCallBtn from '@/components/Shared/AudioCallBtn.vue'
 import VideoCallBtn from '@/components/Shared/VideoCallBtn.vue'
@@ -168,7 +169,7 @@ export default {
   },
   mixins: [breakpoints, contacts],
   data() {
-    const itemsPerPageOptions = [25, 50, 100]
+    const itemsPerPageOptions = [DEFAULT_CONTACTS_PAGE_PER_PAGE, 50, 100]
     return {
       search: '',
       sort: '',
@@ -180,7 +181,7 @@ export default {
       },
       dataTableOptions: {
         page: 1,
-        itemsPerPage: itemsPerPageOptions[0],
+        itemsPerPage: DEFAULT_CONTACTS_PAGE_PER_PAGE,
       },
       activatorWidthLimit: 140,
     }
@@ -196,9 +197,12 @@ export default {
     ...mapGetters('contacts', {
       contactsItems: 'items',
       favoriteItems: 'favoriteItems',
+      contactsPagination: 'pagination',
     }),
     filteredContactsItems() {
-      return this.contactsItems && this.accountInfo && this.contactsItems.filter(
+      if (!this.contactsItems) return []
+      if (!this.accountInfo) return this.contactsItems
+      return this.contactsItems.filter(
         (contact) => contact.number !== this.accountInfo.number,
       )
     },
@@ -247,12 +251,29 @@ export default {
       ]
     },
   },
+  watch: {
+    dataTableOptions: {
+      handler(newVal, oldVal) {
+        if (!oldVal) return
+        if (newVal.page !== oldVal.page || newVal.itemsPerPage !== oldVal.itemsPerPage) {
+          this.fetchContactsPage()
+        }
+      },
+      deep: true,
+    },
+  },
+  mounted() {
+    this.fetchContactsPage()
+  },
   methods: {
     ...mapActions('snackbar', {
       snackbarShow: 'show',
     }),
+    ...mapMutations('contacts', ['setSearch']),
     updateSearch(val) {
       this.search = val
+      this.dataTableOptions.page = 1
+      this.fetchContactsPage()
     },
     updatePage(val) {
       this.tmpDataTableOptions = { ...this.dataTableOptions, page: val }
@@ -263,6 +284,17 @@ export default {
     },
     filterContacts(filter) {
       this.filter = filter
+      if (filter === 'all') {
+        this.fetchContactsPage()
+      }
+    },
+    fetchContactsPage() {
+      if (this.filter !== 'all') return
+      this.$_contacts_getContacts({
+        page: this.dataTableOptions.page,
+        items_per_page: this.dataTableOptions.itemsPerPage,
+        search: this.search || undefined,
+      })
     },
   },
 }

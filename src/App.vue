@@ -127,9 +127,7 @@ export default {
     await this.$store.dispatch('system/getInfo')
       .then(
         async () => {
-          if (this.isLogin) {
-            await this.$_contacts_getContacts()
-          }
+          // Contacts are fetched by Home screen component on mount
         },
         async (error) => {
           await this.$store.dispatch('webrtc/setSessionError', this.$t(`errors.code.${error.code}`))

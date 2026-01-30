@@ -3,6 +3,10 @@ process.env.VUE_APP_WEBTRIT_APP_VERSION = require('./package.json').version
 module.exports = {
   publicPath: process.env.VUE_APP_PUBLIC_PATH || '/',
 
+  devServer: {
+    overlay: false,
+  },
+
   pages: {
     index: {
       entry: 'src/main.js',

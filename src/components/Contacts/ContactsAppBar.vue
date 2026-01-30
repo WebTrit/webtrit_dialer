@@ -34,7 +34,22 @@
         hide-details
         prepend-inner-icon="$search"
         :placeholder="$t('placeholder.name_or_number')"
+        @keyup.enter="emitSearch"
+        @click:clear="clearSearch"
       />
+      <v-btn
+        class="elevation-0 ml-2"
+        fab
+        dark
+        width="46"
+        height="46"
+        color="secondary"
+        @click="emitSearch"
+      >
+        <v-icon dark>
+          $search
+        </v-icon>
+      </v-btn>
       <v-select
         v-if="!$_breakpoints_desktop"
         v-model="select"
@@ -75,10 +90,16 @@ export default {
       return this.headers.filter((item) => item.sortable !== false)
     },
   },
-  watch: {
-    search(val) {
-      this.$emit('search-update', val && val.trim())
+  methods: {
+    emitSearch() {
+      this.$emit('search-update', this.search && this.search.trim())
     },
+    clearSearch() {
+      this.search = ''
+      this.$emit('search-update', '')
+    },
+  },
+  watch: {
     select(val) {
       this.$emit('sort-update', val)
     },

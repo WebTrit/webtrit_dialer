@@ -134,10 +134,6 @@ export default {
       type: Array,
       required: true,
     },
-    search: {
-      type: String,
-      default: '',
-    },
     currentPage: {
       type: Number,
       required: true,
@@ -154,37 +150,20 @@ export default {
       type: Number,
       required: true,
     },
+    itemsTotal: {
+      type: Number,
+      required: true,
+    },
   },
   data: () => ({
     linkName: 'ContactDetails',
   }),
   computed: {
-    trimmedSearch() {
-      return this.search && this.search.trim() || ''
-    },
-    filteredItems() {
-      if (!this.trimmedSearch || this.trimmedSearch.length === 0) {
+    sortedItems() {
+      if (!this.sort || this.sort.length === 0) {
         return this.items
       } else {
-        const search = new RegExp(this.trimmedSearch.toLowerCase())
-        return this.items.reduce((memo, item) => {
-          Object.values(item).map((val) => {
-            if (val && search.test(val.toString().toLowerCase()) === true) {
-              memo.push(item)
-            }
-            return false
-          })
-          return [...new Set(memo)]
-        }, [])
-      }
-    },
-    sortedItems() {
-      const start = this.page * this.itemsPerPage - this.itemsPerPage
-      const end = this.page * this.itemsPerPage
-      if (!this.sort || this.sort.length === 0) {
-        return this.filteredItems.slice(start, end)
-      } else {
-        const items = this.filteredItems.slice()
+        const items = this.items.slice()
         items.sort((a, b) => {
           a = a[this.sort] && a[this.sort].toLowerCase()
           b = b[this.sort] && b[this.sort].toLowerCase()
@@ -192,7 +171,7 @@ export default {
           if (a > b) { return 1 }
           return 0
         })
-        return items.slice(start, end)
+        return items
       }
     },
     page: {
@@ -204,16 +183,11 @@ export default {
       },
     },
     pageLength() {
-      if (this.filteredItems && this.filteredItems.length) {
-        return Math.ceil(this.filteredItems.length / this.itemsPerPage)
+      if (this.itemsTotal > 0) {
+        return Math.ceil(this.itemsTotal / this.itemsPerPage)
       } else {
         return 1
       }
-    },
-  },
-  watch: {
-    search() {
-      this.$emit('update-page', 1)
     },
   },
 }

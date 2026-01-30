@@ -62,12 +62,19 @@ export function getInterlocutor(item, info) {
 }
 
 export function getContact(data, rootGetters) {
-  const contacts = rootGetters['contacts/items']
-  const contact = contacts.filter((item) => item.number === data.number || item.number_ext === data.number)
-  if (contact.length > 0) {
-    return contact[0]
+  const lookupContact = rootGetters['contacts/lookupContact']
+  if (lookupContact) {
+    const cachedContact = lookupContact(data.number)
+    if (cachedContact) {
+      return cachedContact
+    }
   }
-  return null
+
+  const contacts = rootGetters['contacts/items'] || []
+  const found = contacts.find(
+    (item) => item.number === data.number || item.number_ext === data.number,
+  )
+  return found || null
 }
 
 export function getReverseLocalHost() {

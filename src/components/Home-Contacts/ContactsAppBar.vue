@@ -32,11 +32,26 @@
         hide-details
         prepend-inner-icon="$search"
         :placeholder="$t('placeholder.name_or_number')"
+        @keyup.enter="emitSearch"
+        @click:clear="clearSearch"
       />
       <v-btn
-        class="elevation-0"
+        class="elevation-0 ml-4"
+        fab
+        dark
+        width="46"
+        height="46"
+        color="accent"
+        @click="emitSearch"
+      >
+        <v-icon dark>
+          $search
+        </v-icon>
+      </v-btn>
+      <v-btn
+        class="elevation-0 ml-4"
         :class="[$_breakpoints_mobile?
-          'contacts__keypad--mobile': 'contacts__keypad']"
+          'contacts__keypad--mobile': '']"
         fab
         dark
         width="46"
@@ -74,10 +89,12 @@ export default {
         this.$router.push({ name: 'Home' })
       }
     },
-  },
-  watch: {
-    search(val) {
-      this.$emit('search-update', val && val.trim())
+    emitSearch() {
+      this.$emit('search-update', this.search && this.search.trim())
+    },
+    clearSearch() {
+      this.search = ''
+      this.$emit('search-update', '')
     },
   },
 }
