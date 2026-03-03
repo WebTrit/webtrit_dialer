@@ -6,8 +6,8 @@ server {
         return 404;
     }
 
-    # Widget: allow iframe embedding and CORS for widget resources
-    location ~* ${VUE_APP_PUBLIC_PATH}/(widget\.js|widget\.config\.json|widget)$ {
+    # Widget route: allow iframe embedding from any origin
+    location ~* ${VUE_APP_PUBLIC_PATH}/widget {
         root /usr/share/nginx/;
 
         add_header X-Frame-Options "" always;
@@ -18,20 +18,7 @@ server {
         add_header Access-Control-Allow-Methods "GET, OPTIONS" always;
         add_header Access-Control-Allow-Headers "Content-Type" always;
 
-        try_files /html_overwrite/$1 /html_overwrite/$1/index.html /html/$1 /html/$1/index.html ${VUE_APP_PUBLIC_PATH}/index.html;
-    }
-
-    # Static assets served inside iframe: allow CORS, permissive frame-ancestors
-    location ~* ${VUE_APP_PUBLIC_PATH}/.*\.(js|css|woff2?|ttf|eot|svg|png|jpg|jpeg|gif|ico|mp3|wav|json)$ {
-        root /usr/share/nginx/;
-
-        add_header X-Frame-Options "" always;
-        add_header X-Content-Type-Options "nosniff" always;
-        add_header Access-Control-Allow-Origin "*" always;
-        add_header Access-Control-Allow-Methods "GET, OPTIONS" always;
-        add_header Access-Control-Allow-Headers "Content-Type" always;
-
-        try_files /html_overwrite/$uri /html/$uri =404;
+        try_files /html/$uri /html/$uri/ /html/index.html =404;
     }
 
     # Main app
