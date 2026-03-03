@@ -209,6 +209,7 @@ async function handleIncomingCall({ commit, dispatch, event }, isCallActive) {
     if (!blockPlayRingtone) {
       dispatch('ringtones/playIncoming', null, { root: true })
     }
+    dispatch('widget/expandWidget', null, { root: true })
   }
 }
 

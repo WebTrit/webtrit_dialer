@@ -46,7 +46,7 @@
         </v-col>
       </v-row>
       <v-row :class="{ 'login-sign-in-form__content--mobile' : $vuetify.breakpoint.xs }">
-        <v-col>
+        <v-col v-if="!$store.getters['settings/isWidgetMode']">
           <br>
         </v-col>
         <v-col class="login-sign-in-form__btn-container">
@@ -118,7 +118,8 @@ export default {
             identifier,
           })
           await this.$store.dispatch('account/storeAccessCredentials', data)
-          await this.$router.push({ name: 'Home' })
+          const dest = this.$store.getters['settings/isWidgetMode'] ? 'Contacts' : 'Home'
+          await this.$router.push({ name: dest })
           await this.$_contacts_getContacts()
           this.$store.dispatch(
             'settings/setNotificationsEnabled',

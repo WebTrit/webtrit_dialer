@@ -192,7 +192,8 @@ export default {
             code: this.otp,
           })
           await this.$store.dispatch('account/storeAccessCredentials', data)
-          await this.$router.push({ name: 'Home' })
+          const dest = this.$store.getters['settings/isWidgetMode'] ? 'Contacts' : 'Home'
+          await this.$router.push({ name: dest })
           await this.$_contacts_getContacts()
           this.$store.dispatch(
             'settings/setNotificationsEnabled',

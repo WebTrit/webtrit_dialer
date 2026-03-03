@@ -45,12 +45,16 @@ export default {
 
 <style scoped lang="scss">
 .container__row--mobile {
-  flex: 1 0 auto !important;
+  flex: 0 0 auto !important;
 
   @apply py-0 pl-0 pr-0 cursor-pointer mx-0 mt-0 rounded-lg mb-0;
 
   &::before {
     @apply bg-transparent;
+  }
+
+  &:hover {
+    @apply bg-light-blue;
   }
 }
 

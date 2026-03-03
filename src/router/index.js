@@ -27,6 +27,11 @@ const routes = [
     redirect: () => ({ name: 'Login' }),
   },
   {
+    path: '/widget',
+    name: 'Widget',
+    redirect: () => ({ name: 'Contacts', query: { mode: 'widget' } }),
+  },
+  {
     path: '/login',
     name: 'Login',
     component: Login,
@@ -83,11 +88,19 @@ const routes = [
   },
 ]
 
+const isWidgetMode = window.parent !== window
+
 const router = new VueRouter({
-  mode: 'history',
+  mode: isWidgetMode ? 'abstract' : 'history',
   base: process.env.BASE_URL,
   routes,
 })
+
+if (isWidgetMode) {
+  store.commit('settings/setMode', 'widget')
+  const isLogin = store.getters['account/isLogin']
+  router.replace({ name: isLogin ? 'Contacts' : 'Login' })
+}
 
 // must be before is login redirect
 router.beforeEach((to, from, next) => {
@@ -108,7 +121,8 @@ router.beforeEach((to, from, next) => {
     store.commit('set401error', false)
   } else if (to.name === 'Login') {
     if (isLogin) {
-      next({ name: 'Home' })
+      const defaultRoute = store.getters['settings/isWidgetMode'] ? 'Contacts' : 'Home'
+      next({ name: defaultRoute })
     } else {
       next()
     }

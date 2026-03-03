@@ -17,6 +17,7 @@ import settings from './modules/settings'
 import snackbar from './modules/snackbar'
 import webrtc from './modules/webrtc'
 import callDuration from './modules/call-duration'
+import widget from './modules/widget'
 
 Vue.use(Vuex)
 
@@ -208,6 +209,7 @@ export default new Vuex.Store({
     snackbar,
     webrtc,
     callDuration,
+    widget,
   },
   plugins: [
     storePersist.plugin,

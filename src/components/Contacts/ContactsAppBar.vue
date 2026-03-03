@@ -15,6 +15,7 @@
         {{ $t('menu.all') }}
       </v-tab>
       <v-tab
+        v-if="!isWidgetMode"
         class="panel__tab"
         :ripple="false"
         @click.native="$emit('filter-favorites')"
@@ -52,6 +53,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import PanelAppBar from '@/components/Layout/PanelAppBar.vue'
 import { breakpoints } from '@/mixins'
 
@@ -71,6 +73,7 @@ export default {
     search: '',
   }),
   computed: {
+    ...mapGetters('settings', ['isWidgetMode']),
     options() {
       return this.headers.filter((item) => item.sortable !== false)
     },

@@ -7,12 +7,13 @@
         'login__row' : 'login__row--mobile']"
     >
       <LoginForm v-bind="$props" />
-      <LoginSlides />
+      <LoginSlides v-if="!isWidgetMode" />
     </v-row>
   </v-container>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { breakpoints } from '@/mixins'
 import LoginForm from '@/components/Login/LoginForm.vue'
 import LoginSlides from '@/components/Login/LoginSlides.vue'
@@ -23,6 +24,9 @@ export default {
     LoginSlides,
   },
   mixins: [breakpoints],
+  computed: {
+    ...mapGetters('settings', ['isWidgetMode']),
+  },
   props: {
     tenant: {
       type: String,
