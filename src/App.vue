@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app :class="{ 'widget-mode': isWidgetMode }">
     <AppBar
       v-if="$_breakpoints_mobile"
       @toggle-side-navigation="toggleSideNavigation()"
@@ -14,10 +14,34 @@
       @close-user-navigation="closeUserNavigation()"
     />
     <DialogNumber />
+    <v-btn
+      v-if="isWidgetMode"
+      icon
+      small
+      class="widget-minimize-btn"
+      @click="minimizeWidget"
+    >
+      <v-icon small>
+        mdi-window-minimize
+      </v-icon>
+    </v-btn>
 
     <v-main>
       <router-view />
     </v-main>
+
+    <v-btn
+      v-if="isWidgetMode && isLogin && $route.name !== 'Settings' && $route.name !== 'EditUser'"
+      fab
+      color="accent"
+      dark
+      class="widget-dialpad-btn"
+      @click="openDialpad"
+    >
+      <v-icon>
+        mdi-dialpad
+      </v-icon>
+    </v-btn>
 
     <v-snackbar
       v-model="snackbarShowing"
@@ -25,7 +49,7 @@
     >
       {{ snackbarMessage }}
 
-      <template v-slot:action="{ attrs }">
+      <template #action="{ attrs }">
         <v-btn
           color="white"
           text
@@ -106,6 +130,7 @@ export default {
     ]),
     ...mapState('webrtc', ['sessionError']),
     ...mapGetters('webrtc', ['isSignalingConnected', 'isRegistered']),
+    ...mapGetters('settings', ['isWidgetMode']),
     snackbarShowing: {
       get() {
         return this.snackbarVisible
@@ -124,6 +149,10 @@ export default {
   },
 
   async mounted() {
+    this.$store.dispatch('widget/setupWidgetCommunication')
+    if (this.isWidgetMode) {
+      document.documentElement.classList.add('widget-mode-html')
+    }
     await this.$store.dispatch('system/getInfo')
       .then(
         async () => {
@@ -147,6 +176,12 @@ export default {
     }),
     documentReload() {
       document.location.reload()
+    },
+    minimizeWidget() {
+      this.$store.dispatch('widget/minimizeWidget')
+    },
+    openDialpad() {
+      this.$store.commit('toggleDialogNumberVisibility', true)
     },
     toggleSideNavigation() {
       this.sideNavigationVisible = !this.sideNavigationVisible
@@ -252,8 +287,13 @@ export default {
 </script>
 
 <style lang="scss">
-  html {
+  html:not(.widget-mode-html) {
     @apply overflow-y-scroll;
+  }
+
+  html.widget-mode-html {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
   }
 
   .v-overlay {
@@ -279,6 +319,35 @@ export default {
 
   .v-dialog {
     @apply rounded-xl bg-white;
+  }
+
+  .widget-minimize-btn {
+    position: fixed !important;
+    top: -6px;
+    right: -4px;
+    z-index: 100;
+    background: white !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  .v-navigation-drawer {
+    z-index: 101 !important;
+  }
+
+  .widget-dialpad-btn {
+    position: fixed !important;
+    bottom: 54px;
+    left: 10px;
+    z-index: 5;
+  }
+
+  .widget-mode .v-main {
+    height: 100vh;
+  }
+
+  .widget-mode .main-container {
+    overflow: visible !important;
+    height: 100% !important;
   }
 
   @media screen and (max-width: 600px) {

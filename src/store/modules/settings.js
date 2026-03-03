@@ -29,6 +29,9 @@ const getters = {
   isMstMode(state) {
     return state.mode === 'mst'
   },
+  isWidgetMode(state) {
+    return state.mode === 'widget' || window.parent !== window
+  },
 }
 
 const mutations = {

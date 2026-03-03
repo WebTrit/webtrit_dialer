@@ -18,7 +18,7 @@
             {{ contact.name }}
           </p>
         </v-col>
-        <v-col>
+        <v-col v-if="!isWidgetMode">
           <FavoriteIcon
             v-if="contact && contact.number"
             :contact-number="contact.number"
@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import AvatarBadge from '@/components/Shared/AvatarBadge.vue'
 import AudioCallBtn from '@/components/Shared/AudioCallBtn.vue'
 import VideoCallBtn from '@/components/Shared/VideoCallBtn.vue'
@@ -53,6 +54,9 @@ export default {
     VideoCallBtn,
     ContactDetailsList,
     FavoriteIcon,
+  },
+  computed: {
+    ...mapGetters('settings', ['isWidgetMode']),
   },
   props: {
     contact: {

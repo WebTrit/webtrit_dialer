@@ -1,0 +1,9 @@
+{
+  "position": "bottom-right",
+  "expandedWidth": "380px",
+  "expandedHeight": "600px",
+  "collapsedSize": "60px",
+  "hideOnPaths": [],
+  "enableClickToDial": true,
+  "relaxedPhoneValidation": false
+}

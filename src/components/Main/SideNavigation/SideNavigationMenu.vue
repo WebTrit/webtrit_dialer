@@ -39,13 +39,14 @@ export default {
       'isSupportedCallHistory',
       'isSupportedContacts',
     ]),
+    ...mapGetters('settings', ['isWidgetMode']),
     navigationItems() {
       const items = [
         {
           title: `${this.$t('menu.home')}`,
           to: { name: 'Home' },
           icon: '$home',
-          show: true,
+          show: !this.isWidgetMode,
         },
         {
           title: `${this.$t('menu.call_history')}`,
