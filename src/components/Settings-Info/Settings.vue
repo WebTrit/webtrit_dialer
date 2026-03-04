@@ -127,7 +127,6 @@ export default {
         { lang: `${this.$t('settings.languages.english')}`, locale: 'en' },
         { lang: `${this.$t('settings.languages.italian')}`, locale: 'it' },
         { lang: `${this.$t('settings.languages.spanish')}`, locale: 'es' },
-        { lang: `${this.$t('settings.languages.russian')}`, locale: 'ru' },
         { lang: `${this.$t('settings.languages.ukrainian')}`, locale: 'ua' },
       ],
       selectedLang: {},
@@ -184,9 +183,6 @@ export default {
           break
         case 'es':
           this.selectedLang = { lang: this.$t('settings.languages.spanish'), locale: 'es' }
-          break
-        case 'ru':
-          this.selectedLang = { lang: this.$t('settings.languages.russian'), locale: 'ru' }
           break
         case 'ua':
           this.selectedLang = { lang: this.$t('settings.languages.ukrainian'), locale: 'ua' }

@@ -11,6 +11,12 @@
     iconClick: null,
     popstate: null,
     urlChange: null,
+    dragMouseDown: null,
+    dragMouseMove: null,
+    dragMouseUp: null,
+    dragTouchStart: null,
+    dragTouchMove: null,
+    dragTouchEnd: null,
   }
 
   let widgetConfig = null
@@ -71,6 +77,15 @@
       window.removeEventListener('popstate', eventListeners.popstate)
       eventListeners.popstate = null
     }
+
+    if (eventListeners.dragMouseMove) {
+      document.removeEventListener('mousemove', eventListeners.dragMouseMove)
+      eventListeners.dragMouseMove = null
+    }
+    if (eventListeners.dragMouseUp) {
+      document.removeEventListener('mouseup', eventListeners.dragMouseUp)
+      eventListeners.dragMouseUp = null
+    }
   }
 
   window.webtritWidgetCleanup = cleanup
@@ -108,6 +123,7 @@
     margin: '20px',
     hideOnPaths: [],
     enableClickToDial: true,
+    draggable: true,
   }
 
   async function loadConfig() {
@@ -225,6 +241,70 @@
         display: none !important;
       }
 
+      .${WIDGET_CLASS} .widget-drag-handle {
+        display: none !important;
+      }
+
+      .${WIDGET_CLASS}.expanded .widget-drag-handle {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        height: 24px !important;
+        cursor: grab !important;
+        background: #f5f5f5 !important;
+        border-bottom: 1px solid #e0e0e0 !important;
+        position: relative !important;
+        z-index: 10 !important;
+        flex-shrink: 0 !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
+      }
+
+      .${WIDGET_CLASS}.expanded .widget-drag-handle:active {
+        cursor: grabbing !important;
+      }
+
+      .${WIDGET_CLASS}.expanded .widget-drag-handle::after {
+        content: '' !important;
+        width: 32px !important;
+        height: 4px !important;
+        background: #bdbdbd !important;
+        border-radius: 2px !important;
+      }
+
+      .${WIDGET_CLASS} .widget-minimize-btn {
+        position: absolute !important;
+        right: 4px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        width: 20px !important;
+        height: 20px !important;
+        border: none !important;
+        background: transparent !important;
+        cursor: pointer !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 50% !important;
+        padding: 0 !important;
+      }
+
+      .${WIDGET_CLASS} .widget-minimize-btn:hover {
+        background: #e0e0e0 !important;
+      }
+
+      .${WIDGET_CLASS}.expanded iframe {
+        top: 24px !important;
+        height: calc(100% - 24px) !important;
+      }
+
+      .${WIDGET_CLASS}.dragging {
+        transition: none !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
+      }
+
       .webtrit-context-menu {
         position: fixed;
         background: white;
@@ -275,6 +355,26 @@
     `
     widget.appendChild(icon)
 
+    const dragHandle = document.createElement('div')
+    dragHandle.className = 'widget-drag-handle'
+
+    const minimizeBtn = document.createElement('button')
+    minimizeBtn.className = 'widget-minimize-btn'
+    minimizeBtn.innerHTML = `
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="#757575">
+        <path d="M19 13H5v-2h14v2z"/>
+      </svg>
+    `
+    minimizeBtn.addEventListener('click', (e) => {
+      e.stopPropagation()
+      resetWidgetPosition(widget)
+      widget.classList.remove('expanded')
+      widget.classList.add('collapsed')
+    })
+    dragHandle.appendChild(minimizeBtn)
+
+    widget.appendChild(dragHandle)
+
     const iframe = document.createElement('iframe')
     iframe.id = WIDGET_IFRAME_ID
     iframe.src = `${WIDGET_HOST}/widget`
@@ -285,12 +385,21 @@
     return widget
   }
 
+  function resetWidgetPosition(widget) {
+    widget.style.removeProperty('top')
+    widget.style.removeProperty('left')
+    widget.style.removeProperty('bottom')
+    widget.style.removeProperty('right')
+    widget.style.removeProperty('transition')
+  }
+
   function toggleWidget(widget) {
     const isCollapsed = widget.classList.contains('collapsed')
     if (isCollapsed) {
       widget.classList.remove('collapsed')
       widget.classList.add('expanded')
     } else {
+      resetWidgetPosition(widget)
       widget.classList.remove('expanded')
       widget.classList.add('collapsed')
     }
@@ -314,6 +423,7 @@
           break
         }
         case 'MINIMIZE_WIDGET':
+          resetWidgetPosition(widget)
           widget.classList.remove('expanded')
           widget.classList.add('collapsed')
           break
@@ -472,6 +582,128 @@
     contextMenu.addEventListener('click', eventListeners.contextMenuClick)
   }
 
+  function setupDragAndDrop(widget, config) {
+    if (config.draggable === false) return
+
+    const handle = widget.querySelector('.widget-drag-handle')
+    if (!handle) return
+
+    let isDragging = false
+    let startX = 0
+    let startY = 0
+    let initialLeft = 0
+    let initialTop = 0
+    const DRAG_THRESHOLD = 5
+    let hasMoved = false
+
+    function getWidgetPosition() {
+      const rect = widget.getBoundingClientRect()
+      return { left: rect.left, top: rect.top }
+    }
+
+    function constrainPosition(left, top) {
+      const rect = widget.getBoundingClientRect()
+      const maxLeft = window.innerWidth - rect.width
+      const maxTop = window.innerHeight - rect.height
+      return {
+        left: Math.max(0, Math.min(left, maxLeft)),
+        top: Math.max(0, Math.min(top, maxTop)),
+      }
+    }
+
+    function switchToAbsolutePosition() {
+      const pos = getWidgetPosition()
+      widget.style.setProperty('top', pos.top + 'px', 'important')
+      widget.style.setProperty('left', pos.left + 'px', 'important')
+      widget.style.removeProperty('bottom')
+      widget.style.removeProperty('right')
+    }
+
+    function onDragStart(clientX, clientY) {
+      if (!widget.classList.contains('expanded')) return
+
+      isDragging = true
+      hasMoved = false
+      switchToAbsolutePosition()
+
+      const pos = getWidgetPosition()
+      startX = clientX
+      startY = clientY
+      initialLeft = pos.left
+      initialTop = pos.top
+    }
+
+    function onDragMove(clientX, clientY) {
+      if (!isDragging) return
+
+      const dx = clientX - startX
+      const dy = clientY - startY
+
+      if (!hasMoved && Math.abs(dx) < DRAG_THRESHOLD && Math.abs(dy) < DRAG_THRESHOLD) {
+        return
+      }
+
+      if (!hasMoved) {
+        hasMoved = true
+        widget.classList.add('dragging')
+      }
+
+      const newLeft = initialLeft + dx
+      const newTop = initialTop + dy
+      const constrained = constrainPosition(newLeft, newTop)
+
+      widget.style.setProperty('left', constrained.left + 'px', 'important')
+      widget.style.setProperty('top', constrained.top + 'px', 'important')
+    }
+
+    function onDragEnd() {
+      if (!isDragging) return
+      isDragging = false
+      widget.classList.remove('dragging')
+    }
+
+    // Mouse events
+    eventListeners.dragMouseDown = (e) => {
+      e.preventDefault()
+      onDragStart(e.clientX, e.clientY)
+    }
+    handle.addEventListener('mousedown', eventListeners.dragMouseDown)
+
+    eventListeners.dragMouseMove = (e) => {
+      if (isDragging && e.buttons === 0) {
+        onDragEnd()
+        return
+      }
+      onDragMove(e.clientX, e.clientY)
+    }
+    document.addEventListener('mousemove', eventListeners.dragMouseMove)
+
+    eventListeners.dragMouseUp = () => {
+      onDragEnd()
+    }
+    document.addEventListener('mouseup', eventListeners.dragMouseUp)
+
+    // Touch events
+    eventListeners.dragTouchStart = (e) => {
+      const touch = e.touches[0]
+      onDragStart(touch.clientX, touch.clientY)
+    }
+    handle.addEventListener('touchstart', eventListeners.dragTouchStart, { passive: true })
+
+    eventListeners.dragTouchMove = (e) => {
+      if (!isDragging) return
+      e.preventDefault()
+      const touch = e.touches[0]
+      onDragMove(touch.clientX, touch.clientY)
+    }
+    handle.addEventListener('touchmove', eventListeners.dragTouchMove, { passive: false })
+
+    eventListeners.dragTouchEnd = () => {
+      onDragEnd()
+    }
+    handle.addEventListener('touchend', eventListeners.dragTouchEnd)
+  }
+
   function setupUrlChangeDetection() {
     const originalPushState = history.pushState
     const originalReplaceState = history.replaceState
@@ -512,6 +744,7 @@
 
     setupMessageHandling(widget, config)
     setupClickToDial(widget, config)
+    setupDragAndDrop(widget, config)
     setupUrlChangeDetection()
 
     document.body.appendChild(widget)
