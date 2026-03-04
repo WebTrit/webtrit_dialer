@@ -117,6 +117,11 @@ export default {
     $_breakpoints_mobile() {
       this.miniVariant = false
     },
+    $route() {
+      if (this.$_breakpoints_mobile) {
+        this.$emit('close-sidebar')
+      }
+    },
   },
 }
 </script>

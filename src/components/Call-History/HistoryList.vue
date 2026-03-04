@@ -5,6 +5,7 @@
       v-if="items && items.length"
     >
       <PanelRowItem
+        ref="panelRowItem"
         class="history-list"
         :items="items"
         :link-name="linkName"
@@ -220,6 +221,9 @@ export default {
     closeCallInfo() {
       this.callInfoVisible = false
       this.selectedCall = null
+      if (this.$refs.panelRowItem) {
+        this.$refs.panelRowItem.selectedItem = null
+      }
     },
   },
   watch: {
@@ -246,7 +250,7 @@ export default {
   right: 0;
   top: 0;
   bottom: 0;
-  background: #f4f9fc;
+  background: inherit;
   align-items: center !important;
   padding: 0 8px !important;
   flex-wrap: nowrap !important;
@@ -266,10 +270,6 @@ export default {
 
 ::v-deep .container__row--mobile {
   position: relative;
-
-  &.bg-light-blue {
-    background-color: transparent !important;
-  }
 
   &:hover {
     .history__action-btns {

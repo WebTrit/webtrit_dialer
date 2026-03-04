@@ -14,17 +14,6 @@
       @close-user-navigation="closeUserNavigation()"
     />
     <DialogNumber />
-    <v-btn
-      v-if="isWidgetMode"
-      icon
-      small
-      class="widget-minimize-btn"
-      @click="minimizeWidget"
-    >
-      <v-icon small>
-        mdi-window-minimize
-      </v-icon>
-    </v-btn>
 
     <v-main>
       <router-view />
@@ -177,9 +166,6 @@ export default {
     documentReload() {
       document.location.reload()
     },
-    minimizeWidget() {
-      this.$store.dispatch('widget/minimizeWidget')
-    },
     openDialpad() {
       this.$store.commit('toggleDialogNumberVisibility', true)
     },
@@ -321,15 +307,6 @@ export default {
     @apply rounded-xl bg-white;
   }
 
-  .widget-minimize-btn {
-    position: fixed !important;
-    top: -6px;
-    right: -4px;
-    z-index: 100;
-    background: white !important;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) !important;
-  }
-
   .v-navigation-drawer {
     z-index: 101 !important;
   }
@@ -348,6 +325,14 @@ export default {
   .widget-mode .main-container {
     overflow: visible !important;
     height: 100% !important;
+  }
+
+  .widget-mode .login-form {
+    max-width: 100% !important;
+  }
+
+  .widget-mode .v-main__wrap {
+    background-color: white !important;
   }
 
   @media screen and (max-width: 600px) {
