@@ -90,6 +90,10 @@ const routes = [
 
 const isWidgetMode = window.parent !== window
 
+if (!isWidgetMode && store.state.settings.mode === 'widget') {
+  store.commit('settings/setMode', null)
+}
+
 const router = new VueRouter({
   mode: isWidgetMode ? 'abstract' : 'history',
   base: process.env.BASE_URL,
