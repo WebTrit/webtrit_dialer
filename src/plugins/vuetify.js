@@ -19,6 +19,7 @@ const paletteDefault = {
 
 const palette = Object.fromEntries(Object.entries({
   primary: process.env.VUE_APP_COLOR_PRIMARY,
+  primaryText: process.env.VUE_APP_COLOR_PRIMARY_TEXT,
   secondary: process.env.VUE_APP_COLOR_SECONDARY,
   accent: process.env.VUE_APP_COLOR_ACCENT,
   surface: process.env.VUE_APP_COLOR_SURFACE,
