@@ -76,6 +76,7 @@ export default {
   ::v-deep .login-slides__text {
     top: 7vh;
     left: 3vw;
+    color: var(--v-primaryText-base, inherit);
 
     @apply absolute;
 
@@ -94,6 +95,7 @@ export default {
 .login-slides__number {
   right: 5vw;
   top: 7vh;
+  color: var(--v-primaryText-base, inherit);
 
   @apply font-bold text-8xl absolute;
 }
