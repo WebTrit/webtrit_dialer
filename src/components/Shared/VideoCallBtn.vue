@@ -8,6 +8,7 @@
     :width="size"
     :height="size"
     @click.native.stop.prevent="callContact()"
+    @mouseup.native="$event.target.closest('button').blur()"
   >
     <v-icon
       :color="iconColor"

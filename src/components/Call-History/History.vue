@@ -65,7 +65,6 @@
       <template #[`item.number`]="{ item }">
         <span
           class="call-history__connect-time"
-          :class="[!$vuetify.breakpoint.xs? 'ml-5': 'ml-0']"
         >
           {{ item.contactInfo.number || item.contactInfo.number_ext }}
         </span>
@@ -74,7 +73,6 @@
       <template #[`item.connect_time`]="{ item }">
         <span
           class="call-history__connect-time"
-          :class="[!$vuetify.breakpoint.xs? 'ml-5': 'ml-0']"
         >
           {{ item.connect_time | convertToCalendar }}
         </span>

@@ -9,6 +9,7 @@
     type="text"
     :maxlength="phoneNumberMaxLength"
     :counter="phoneNumberMaxLength"
+    clearable
   />
 </template>
 
