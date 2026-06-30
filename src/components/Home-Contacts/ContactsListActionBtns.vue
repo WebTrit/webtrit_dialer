@@ -1,5 +1,5 @@
 <template>
-  <v-col>
+  <v-col class="flex items-center">
     <v-col class="flex-grow-0">
       <FavoriteIcon
         v-if="!$route.params.number"

@@ -43,6 +43,7 @@
         height="46"
         color="accent"
         @click="openKeypad()"
+        @mouseup="$event.target.closest('button').blur()"
       >
         <v-icon dark>
           $call-keypad
